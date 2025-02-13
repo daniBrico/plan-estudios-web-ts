@@ -1,0 +1,391 @@
+{
+  "id": 1,
+  "nombre": "Licenciatura en Informática",
+  "duracion": 5,
+  "tituloIntermedio": "Analista en Informática",
+  "duracionTituloIntermedio": 3,
+  "listaMateriasAnio": [
+    {
+      "anio": "Primer Año",
+      "materias": [
+        {
+          "nombre": "Tecnología Aplicada",
+          "codigo": "07071",
+          "dictado": "1°C",
+          "correlativas": [],
+          "estado": "Aprobada"
+        },
+        {
+          "nombre": "Algebra y Geometría Analítica",
+          "codigo": "01017",
+          "dictado": "1°C",
+          "correlativas": [],
+          "estado": "Aprobada"
+        },
+        {
+          "nombre": "Algoritmo y Estructuras de Datos",
+          "codigo": "07030",
+          "dictado": "1°C",
+          "correlativas": [],
+          "estado": "Aprobada"
+        },
+        {
+          "nombre": "Teoría de Sistemas y Organizaciones",
+          "codigo": "07032",
+          "dictado": "2°C",
+          "correlativas": [],
+          "estado": "Aprobada"
+        },
+        {
+          "nombre": "Problemática Regional",
+          "codigo": "02004",
+          "dictado": "2°C",
+          "correlativas": [],
+          "estado": null
+        },
+        {
+          "nombre": "Arquitectura de Computadores I",
+          "codigo": "07031",
+          "dictado": "2°C",
+          "correlativas": ["07071"],
+          "estado": "Aprobada"
+        },
+        {
+          "nombre": "Programación con Objetos I",
+          "codigo": "07033",
+          "dictado": "2°C",
+          "correlativas": ["07030"],
+          "estado": "Aprobada"
+        },
+        {
+          "nombre": "Análisis y Producción del Discurso",
+          "codigo": "02001",
+          "dictado": "1°C",
+          "correlativas": [],
+          "estado": "Cursando"
+        },
+        {
+          "nombre": "Matemáticas Discretas",
+          "codigo": "01018",
+          "dictado": "1°C",
+          "correlativas": [],
+          "estado": "Aprobada"
+        }
+      ]
+    },
+    {
+      "anio": "Segundo Año",
+      "materias": [
+        {
+          "nombre": "Análisis Matemático I",
+          "codigo": "01019",
+          "dictado": "1°C",
+          "correlativas": ["01017"],
+          "estado": "Aprobada"
+        },
+        {
+          "nombre": "Programación con Objetos II",
+          "codigo": "07034",
+          "dictado": "1°C",
+          "correlativas": ["07033"],
+          "estado": "Aprobada"
+        },
+        {
+          "nombre": "Electiva",
+          "codigo": "00004",
+          "dictado": "1°C",
+          "correlativas": [],
+          "estado": null
+        },
+        {
+          "nombre": "Arquitectura de Computadores II",
+          "codigo": "07036",
+          "dictado": "1°C",
+          "correlativas": ["07031"],
+          "estado": "Aprobada"
+        },
+        {
+          "nombre": "Lenguajes Formales",
+          "codigo": "07035",
+          "dictado": "1°C",
+          "correlativas": ["01018"],
+          "estado": "Equivalencia"
+        },
+        {
+          "nombre": "Universidad, Ciencia y Sociedad",
+          "codigo": "02036",
+          "dictado": "2°C",
+          "correlativas": [],
+          "estado": "Aprobada"
+        },
+        {
+          "nombre": "Ingeniería de Software I",
+          "codigo": "07041",
+          "dictado": "2°C",
+          "correlativas": ["07030", "07032"],
+          "estado": "Aprobada"
+        },
+        {
+          "nombre": "Probabilidad y Estadística",
+          "codigo": "01020",
+          "dictado": "2°C",
+          "correlativas": ["01019"],
+          "estado": "Recursar"
+        },
+        {
+          "nombre": "Sistemas Operativos I",
+          "codigo": "07039",
+          "dictado": "2°C",
+          "correlativas": ["07031"],
+          "estado": "Regular"
+        },
+        {
+          "nombre": "Base de Datos I",
+          "codigo": "07014",
+          "dictado": "2°C",
+          "correlativas": ["07030", "01018"],
+          "estado": "Aprobada"
+        },
+        {
+          "nombre": "Comunicación y Redes I",
+          "codigo": "07040",
+          "dictado": "2°C",
+          "correlativas": ["07031"],
+          "estado": "Aprobada"
+        }
+      ]
+    },
+    {
+      "anio": "Tecer Año",
+      "materias": [
+        {
+          "nombre": "Análisis Matemático II",
+          "codigo": "01021",
+          "dictado": "1°C",
+          "correlativas": ["01019", "01020"],
+          "estado": null
+        },
+        {
+          "nombre": "Base de Datos II",
+          "codigo": "07017",
+          "dictado": "1°C",
+          "correlativas": ["07039", "07014"],
+          "estado": "Cursando"
+        },
+        {
+          "nombre": "Comunicación y Redes II",
+          "codigo": "07045",
+          "dictado": "1°C",
+          "correlativas": ["07040"],
+          "estado": "Cursando"
+        },
+        {
+          "nombre": "Ingeniería de Software II",
+          "codigo": "07043",
+          "dictado": "1°C",
+          "correlativas": ["07041"],
+          "estado": "Aprobada"
+        },
+        {
+          "nombre": "Interfaces de Usuarios y Tecnologías Web",
+          "codigo": "07044",
+          "dictado": "1°C",
+          "correlativas": ["07034"],
+          "estado": "Cursando"
+        },
+        {
+          "nombre": "Programación con Objetos III",
+          "codigo": "07048",
+          "dictado": "2°C",
+          "correlativas": ["07039", "07034", "07017"],
+          "estado": "Aprobada"
+        },
+        {
+          "nombre": "Matemática Aplicada",
+          "codigo": "01022",
+          "dictado": "2°C",
+          "correlativas": ["01021"],
+          "estado": null
+        },
+        {
+          "nombre": "Explotación de Datos",
+          "codigo": "07046",
+          "dictado": "2°C",
+          "correlativas": ["07017"],
+          "estado": null
+        },
+        {
+          "nombre": "Taller de Redes",
+          "codigo": "07047",
+          "dictado": "2°C",
+          "correlativas": ["07045"],
+          "estado": null
+        },
+        {
+          "nombre": "Sistemas Operativos II",
+          "codigo": "07050",
+          "dictado": "2°C",
+          "correlativas": ["07039", "07036", "07045"],
+          "estado": null
+        }
+      ]
+    },
+    {
+      "anio": "Cuarto Año",
+      "materias": [
+        {
+          "nombre": "Dirección y Evaluación de Proyectos Informáticos",
+          "codigo": "07023",
+          "dictado": "1°C",
+          "correlativas": ["07043"],
+          "estado": "Regular"
+        },
+        {
+          "nombre": "Arquitectura de Software",
+          "codigo": "07051",
+          "dictado": "1°C",
+          "correlativas": ["07043", "07036"],
+          "estado": null
+        },
+        {
+          "nombre": "Modelos, Simulación y Teoría de la Decisión",
+          "codigo": "01023",
+          "dictado": "1°C",
+          "correlativas": ["01021"],
+          "estado": null
+        },
+        {
+          "nombre": "Metodología de la Investigación",
+          "codigo": "02037",
+          "dictado": "1°C",
+          "correlativas": ["07043", "01022"],
+          "estado": null
+        },
+        {
+          "nombre": "Paradigmas de Programación",
+          "codigo": "07052",
+          "dictado": "1°C",
+          "correlativas": ["07048", "07035"],
+          "estado": null
+        },
+        {
+          "nombre": "Lenguajes de Programación",
+          "codigo": "07054",
+          "dictado": "1°C",
+          "correlativas": ["07048", "07035"],
+          "estado": null
+        },
+        {
+          "nombre": "Infraestructura de Sistemas",
+          "codigo": "07057",
+          "dictado": "2°C",
+          "correlativas": ["07036", "07047"],
+          "estado": null
+        },
+        {
+          "nombre": "Desarrollo de Compiladores",
+          "codigo": "07058",
+          "dictado": "2°C",
+          "correlativas": ["07054"],
+          "estado": null
+        },
+        {
+          "nombre": "Inteligencia Artificial",
+          "codigo": "07059",
+          "dictado": "2°C",
+          "correlativas": ["07048"],
+          "estado": null
+        },
+        {
+          "nombre": "Práctica Profesional",
+          "codigo": "07060",
+          "dictado": "2°C",
+          "correlativas": ["07046", "07051", "07044", "07023"],
+          "estado": null
+        }
+      ]
+    },
+    {
+      "anio": "Quinto Año",
+      "materias": [
+        {
+          "nombre": "Optativa I",
+          "codigo": "00009",
+          "dictado": "1°C",
+          "correlativas": [],
+          "estado": null
+        },
+        {
+          "nombre": "Aspectos Legales y Sociales de la Informática",
+          "codigo": "02038",
+          "dictado": "1°C",
+          "correlativas": [],
+          "estado": null
+        },
+        {
+          "nombre": "Ingeniería de Software III",
+          "codigo": "07062",
+          "dictado": "1°C",
+          "correlativas": ["07043"],
+          "estado": null
+        },
+        {
+          "nombre": "Sistemas de Tiempo Real y Misión Crítica",
+          "codigo": "07064",
+          "dictado": "1°C",
+          "correlativas": ["07050"],
+          "estado": null
+        },
+        {
+          "nombre": "Economía I",
+          "codigo": "09021",
+          "dictado": "1°C",
+          "correlativas": [],
+          "estado": null
+        },
+        {
+          "nombre": "Optativa II",
+          "codigo": "00010",
+          "dictado": "2°C",
+          "correlativas": [],
+          "estado": null
+        },
+        {
+          "nombre": "Seguridad y Auditoría",
+          "codigo": "07065",
+          "dictado": "2°C",
+          "correlativas": ["07050", "07017", "07047"],
+          "estado": null
+        },
+        {
+          "nombre": "Teoría de la Computación",
+          "codigo": "07067",
+          "dictado": "2°C",
+          "correlativas": ["07048", "07052", "07058"],
+          "estado": null
+        },
+        {
+          "nombre": "Administración y Gestión de las Organizaciones",
+          "codigo": "08022",
+          "dictado": "2°C",
+          "correlativas": [],
+          "estado": null
+        },
+        {
+          "nombre": "Economía II",
+          "codigo": "09022",
+          "dictado": "2°C",
+          "correlativas": ["09021"],
+          "estado": null
+        },
+        {
+          "nombre": "Trabajo Final",
+          "codigo": "07068",
+          "dictado": "Anual",
+          "correlativas": ["07060", "07059"],
+          "estado": null
+        }
+      ]
+    }
+  ]
+}
