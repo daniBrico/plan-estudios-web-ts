@@ -12,12 +12,19 @@ export interface ListOfSubjectsForYear {
   subjects: Subjects[]
 }
 
+enum State {
+  Aprobada = 'Aprobada',
+  Cursando = 'Cursando',
+  Recursar = 'Recursar',
+  Regular = 'Regular'
+}
+
 export interface Subjects {
   name: string
   code: string
   dictado: string
   correlatives: string[]
-  state: string | null
+  state: State | null
 }
 
 export interface CareerResponseFromApi {
@@ -33,7 +40,7 @@ export interface CareerResponseFromApi {
       codigo: string
       dictado: string
       correlativas: string[]
-      estado: string | null
+      estado: State | null
     }>
   }>
 }
