@@ -10,16 +10,16 @@ export const Header: React.FC<Props> = ({ careerInfoHeader, isLoading }) => {
     careerInfoHeader
 
   return (
-    <header className="bg-fourth-color px-4 py-2 shadow-shadowSelect">
+    <header className="bg-fourth-color shadow-shadow-select px-4 py-2">
       <div className="mx-auto flex max-w-4xl flex-col gap-4 sm:flex-row sm:items-center lg:gap-8">
         <div
           className={`order-1 flex flex-col justify-center lg:flex-row lg:items-center lg:gap-4 ${
-            isLoading ? 'hidden invisible' : ''
+            isLoading ? 'invisible hidden' : ''
           }`}
         >
           <div>
             <h1
-              className="mt-1 text-pretty text-2xl font-extrabold tracking-wide text-white lg:mt-0"
+              className="mt-1 text-2xl font-extrabold tracking-wide text-pretty text-white lg:mt-0"
               id="titleCareer"
             >
               {careerName}

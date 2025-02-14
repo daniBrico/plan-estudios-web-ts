@@ -9,10 +9,10 @@ export interface Career {
 
 export interface ListOfSubjectsForYear {
   year: string
-  subjects: Subjecst[]
+  subjects: Subjects[]
 }
 
-export interface Subjecst {
+export interface Subjects {
   name: string
   code: string
   dictado: string

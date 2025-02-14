@@ -1,6 +1,7 @@
 import { type JSX } from 'react'
 import { getCareer } from './services/getCareer'
 import { Header } from './components/Header'
+import { CareerDetails } from './components/CareerDetails'
 
 function App(): JSX.Element {
   const career = getCareer()
@@ -11,13 +12,17 @@ function App(): JSX.Element {
     careerName,
     careerDuration,
     subCareerName,
-    subCareerDuration,
+    subCareerDuration
   }
 
   return (
     <>
       <Header careerInfoHeader={careerInforHeader} isLoading={false} />
-      <h1>Hola mundo</h1>
+      <main>
+        {career.listOfSubjectsForYear ? (
+          <CareerDetails listOfSubjectsForYear={career.listOfSubjectsForYear} />
+        ) : null}
+      </main>
     </>
   )
 }
