@@ -27,6 +27,7 @@ export default tseslint.config(
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/no-unused-expressions': 'error'
+      // '@typescript-eslint/no-explicit-any': 'off'
       // '@typescript-eslint/strict-boolean-expressions': 'error'
     }
   }

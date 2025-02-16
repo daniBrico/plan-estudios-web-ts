@@ -1,13 +1,13 @@
-import { type CareerInfoHeader } from '../types/types'
+import { type CareerHeaderInfo } from '../types/types'
 
 interface Props {
-  careerInfoHeader: CareerInfoHeader
+  careerHeaderInfo: CareerHeaderInfo
   isLoading: boolean
 }
 
-export const Header: React.FC<Props> = ({ careerInfoHeader, isLoading }) => {
-  const { careerName, careerDuration, subCareerName, subCareerDuration } =
-    careerInfoHeader
+export const Header: React.FC<Props> = ({ careerHeaderInfo, isLoading }) => {
+  const { name, duration, intermediateDegree, intermediateDegreeDuration } =
+    careerHeaderInfo
 
   return (
     <header className="bg-fourth-color shadow-shadow-select px-4 py-2">
@@ -22,10 +22,10 @@ export const Header: React.FC<Props> = ({ careerInfoHeader, isLoading }) => {
               className="mt-1 text-2xl font-extrabold tracking-wide text-pretty text-white lg:mt-0"
               id="titleCareer"
             >
-              {careerName}
+              {name}
             </h1>
-            <p className="text-sm text-white" id="careerDuration">
-              {`DURACIÓN: ${careerDuration} AÑOS`}
+            <p className="text-sm text-white" id="duration">
+              {`DURACIÓN: ${duration} AÑOS`}
             </p>
           </div>
           <div>
@@ -33,10 +33,13 @@ export const Header: React.FC<Props> = ({ careerInfoHeader, isLoading }) => {
               className="mt-0.5 text-xl font-extrabold tracking-wide text-white lg:mt-0 lg:text-2xl"
               id="subCareer"
             >
-              {subCareerName}
+              {intermediateDegree}
             </h2>
-            <p className="lg:text-md text-sm text-white" id="subCareerDuration">
-              {`DURACIÓN: ${subCareerDuration} AÑOS`}
+            <p
+              className="lg:text-md text-sm text-white"
+              id="intermediateDegreeDuration"
+            >
+              {`DURACIÓN: ${intermediateDegreeDuration} AÑOS`}
             </p>
           </div>
         </div>

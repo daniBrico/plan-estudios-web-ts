@@ -1,10 +1,10 @@
 import React from 'react'
-import { type ListOfSubjectsForYear, type Subjects } from '../types/types'
+import { type SubjectsByYear, type Subject } from '../types/types'
 import { TableRows } from './TableRow'
 
 interface ListOfTablesProps {
   tableTitle: string
-  subjects: Subjects[]
+  subjects: Subject[]
 }
 
 const ListOfTables: React.FC<ListOfTablesProps> = ({
@@ -45,11 +45,11 @@ const ListOfTables: React.FC<ListOfTablesProps> = ({
 }
 
 interface CareerDetailsProps {
-  listOfSubjectsForYear: ListOfSubjectsForYear[]
+  subjectsByYear: SubjectsByYear[]
 }
 
 export const CareerDetails: React.FC<CareerDetailsProps> = ({
-  listOfSubjectsForYear
+  subjectsByYear
 }) => {
   return (
     <>
@@ -57,7 +57,7 @@ export const CareerDetails: React.FC<CareerDetailsProps> = ({
         Plan de Estudios
       </h2>
       <article className="m-auto max-w-4xl px-4 lg:flex lg:flex-col lg:items-center lg:px-0">
-        {listOfSubjectsForYear.map((subjectForYear) => (
+        {subjectsByYear.map((subjectForYear) => (
           <ListOfTables
             key={subjectForYear.year}
             tableTitle={subjectForYear.year}
