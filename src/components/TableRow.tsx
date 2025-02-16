@@ -1,15 +1,25 @@
-import { type Subjects } from '../types/types'
+import { type Subject } from '../types/types'
 import { DropdownButton } from './DropdownButton'
 import React, { useCallback, useState } from 'react'
 
-interface ListOfRowsProps extends Omit<Subjects, 'state'> {
+interface ListOfRowsProps extends Omit<Subject, 'state'> {
   index: number
+}
+
+const chunkArray = (array: string[], size: number): string[][] => {
+  const result = []
+
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, i + size))
+  }
+
+  return result
 }
 
 const ListOfRows: React.FC<ListOfRowsProps> = ({
   code,
   name,
-  dictado,
+  offering,
   correlatives,
   index
 }) => {
@@ -38,12 +48,19 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
           {name}
         </td>
         <td className="text-right text-sm md:p-2 md:text-center md:text-base">
-          {dictado}
+          {offering}
         </td>
-        <td className="flex items-end justify-center text-center text-sm font-light md:table-cell md:p-2 md:text-base md:font-normal">
-          {correlatives.length !== 0 ? correlatives.join(' - ') : ''}
+        <td className="flex items-end justify-center text-center text-sm font-light md:table-cell md:py-2 md:text-base md:font-normal">
+          {chunkArray(correlatives, 2).map((group, index) => (
+            <React.Fragment key={index}>
+              {group.join(' - ')}
+              {index < chunkArray(correlatives, 2).length - 1 && <br />}
+            </React.Fragment>
+          ))}
         </td>
-        <td className={`flex items-end justify-end md:p-1`}>
+        <td
+          className={`flex items-end justify-end md:table-cell md:px-1 md:py-2`}
+        >
           <DropdownButton
             isOpen={isDropdownOpen}
             toggleDropdown={toggleDropdown}
@@ -55,7 +72,7 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
 }
 
 interface TableRowsProps {
-  subjects: Subjects[]
+  subjects: Subject[]
 }
 
 export const TableRows: React.FC<TableRowsProps> = ({ subjects }) => {
@@ -64,7 +81,7 @@ export const TableRows: React.FC<TableRowsProps> = ({ subjects }) => {
       key={subject.code}
       code={subject.code}
       name={subject.name}
-      dictado={subject.dictado}
+      offering={subject.offering}
       correlatives={subject.correlatives}
       index={index}
     />
