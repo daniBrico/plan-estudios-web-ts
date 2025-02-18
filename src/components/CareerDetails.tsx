@@ -53,10 +53,10 @@ export const CareerDetails: React.FC<CareerDetailsProps> = ({
 }) => {
   return (
     <>
-      <h2 className="text-first-color mx-auto mt-2 text-center text-2xl font-semibold md:text-3xl">
-        Plan de Estudios
-      </h2>
       <article className="m-auto max-w-4xl px-4 lg:flex lg:flex-col lg:items-center lg:px-0">
+        <h2 className="text-first-color mx-auto mt-2 text-center text-2xl font-semibold md:text-3xl">
+          Plan de Estudios
+        </h2>
         {subjectsByYear.map((subjectForYear) => (
           <ListOfTables
             key={subjectForYear.year}

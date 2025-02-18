@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react'
 import { getCareer } from '../api/careerApi'
-import { type Career } from '../types/types'
+import { type Career, type useGetCareerType } from '../types/types'
 
-const useGetCareer = (
-  id: string
-): { career: Career | null; loading: boolean; error: Error | null } => {
+const useGetCareer = (id: string | null): useGetCareerType => {
   const [career, setCareer] = useState<Career | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<Error | null>(null)
+  const [careerLoading, setLoading] = useState(true)
+  const [careerError, setError] = useState<Error | null>(null)
 
   useEffect(() => {
-    const getUser = async (): Promise<void> => {
+    const setCareerFromApi = async (): Promise<void> => {
       try {
         const careerData = await getCareer(id)
 
@@ -22,10 +20,10 @@ const useGetCareer = (
       }
     }
 
-    getUser()
+    setCareerFromApi()
   }, [id])
 
-  return { career, loading, error }
+  return { career, careerLoading, careerError }
 }
 
 export default useGetCareer

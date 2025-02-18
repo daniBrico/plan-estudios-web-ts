@@ -1,13 +1,15 @@
 import { type State } from './enums'
 
 export interface Career {
-  _id: number
+  _id: string
   name: string
   duration: number
   intermediateDegree: string
   intermediateDegreeDuration: number
   subjectsByYear: SubjectsByYear[]
 }
+
+export type CareerNames = Pick<Career, '_id' | 'name'>
 
 export interface SubjectsByYear {
   year: string
@@ -23,3 +25,9 @@ export interface Subject {
 }
 
 export type CareerHeaderInfo = Omit<Career, '_id' | 'subjectsByYear'>
+
+type useGetCareerType = {
+  career: Career | null
+  careerLoading: boolean
+  careerError: Error | null
+}
