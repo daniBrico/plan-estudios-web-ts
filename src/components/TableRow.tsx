@@ -38,7 +38,7 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
         className={`bg-third-color grid grid-cols-2 rounded-md p-1 md:table-row md:rounded-none ${backgroundColor} ${isDropdownOpen ? 'hover:bg-none' : 'md:hover:bg-hover-color'}`}
       >
         <td
-          className={`text-sm transition md:p-2 md:text-center md:text-base ${isDropdownOpen ? 'text-first-color underline' : ''} `}
+          className={`text-sm transition md:p-2 md:text-center md:text-base ${isDropdownOpen ? 'text-first-color underline' : ''} ${correlatives.length > 0 ? 'text-first-color' : ''}`}
         >
           {code}
         </td>
@@ -62,9 +62,10 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
           className={`flex items-end justify-end md:table-cell md:px-1 md:py-2`}
         >
           <DropdownButton
-            isOpen={isDropdownOpen}
+            isDropdownOpen={isDropdownOpen}
             toggleDropdown={toggleDropdown}
             subjectCode={code}
+            hasCorrelatives={correlatives.length > 0}
           />
         </td>
       </tr>
