@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState, type JSX } from 'react'
 import Select from 'react-select'
 import useGetCareerNames from './hooks/useGetCareerNames'
-// import { CareerHeader } from './components/CareerHeader'
 import { getCareer } from './api/careerApi'
 import { type Career } from './types/types'
 import { CareerDetails } from './components/CareerDetails'
 import { Header } from './components/Header'
+import { SubjectProvider } from './context/SubjectContext'
 
 function App(): JSX.Element {
   const { careerNames: careerNamesApi, careerNamesError } = useGetCareerNames()
@@ -76,7 +76,9 @@ function App(): JSX.Element {
           />
         </div>
         {career && career.subjectsByYear ? (
-          <CareerDetails subjectsByYear={career.subjectsByYear} />
+          <SubjectProvider>
+            <CareerDetails subjectsByYear={career.subjectsByYear} />
+          </SubjectProvider>
         ) : null}
         {error && <div className="text-center text-red-500">{error}</div>}
       </main>

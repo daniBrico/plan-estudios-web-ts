@@ -31,3 +31,8 @@ type useGetCareerType = {
   careerLoading: boolean
   careerError: Error | null
 }
+
+export interface SubjectState {
+  code: string
+  state: string
+}

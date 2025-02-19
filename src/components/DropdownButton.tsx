@@ -1,20 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useSubject } from '../hooks/useSubjectContext'
 
 interface DropdownButtonProps {
   isOpen: boolean
+  subjectCode: string
   toggleDropdown: () => void
 }
 
 export const DropdownButton: React.FC<DropdownButtonProps> = ({
   isOpen,
-  toggleDropdown
+  toggleDropdown,
+  subjectCode
 }) => {
+  const { updateSubjectState } = useSubject()
   const [optionSelected, setOptionSelected] = useState('')
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const setOption = (option: string): void => {
     setOptionSelected(option)
     toggleDropdown()
+    updateSubjectState(subjectCode, option)
   }
 
   useEffect(() => {
