@@ -8,21 +8,14 @@ export const SubjectProvider: React.FC<{ children: React.ReactNode }> = ({
   const [subjectState, setSubjectState] = useState<SubjectState[]>([])
 
   const updateSubjectState = (code: string, state: string): void => {
-    if (!subjectState && state === '') return
-
     setSubjectState((prev) => {
-      const initialState = state === '' ? [] : [{ code, state }]
+      if (state === '') return prev.filter((subject) => subject.code !== code) // Delete if state is empty
 
-      // Filters and updates in a single pass
-      return prev.reduce<SubjectState[]>((acc, currentSubject) => {
-        if (currentSubject.code === code) {
-          if (state !== '') acc.push({ ...currentSubject, state }) // Updates if the state is not empty
-        } else {
-          acc.push(currentSubject) // Keeps other subjects
-        }
-
-        return acc
-      }, initialState) // Adds a new subject if it does not exist and the state is not empty
+      return prev.some((subject) => subject.code === code)
+        ? prev.map((subject) =>
+            subject.code === code ? { ...subject, state } : subject
+          ) // Update if it exists
+        : [...prev, { code, state }] // Add if it doesn't exist
     })
   }
 
