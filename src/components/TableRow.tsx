@@ -16,8 +16,9 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
   index
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const [isPassed, setIsPassed] = useState(false)
-  const { subjectStateChange, hasAllCorrelativesPassed } = useSubjectContext()
+  const [subjectState, setSubjectState] = useState('Habilitada')
+  const [isDisabled, setIsDisabled] = useState(false)
+  const { hasAllCorrelativesPassed, thisSubjectIsPassed } = useSubjectContext()
 
   const toggleDropdown = useCallback((): void => {
     setIsDropdownOpen((prev) => !prev)
@@ -27,20 +28,43 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
     index % 2 === 0 ? 'md:bg-third-color' : 'md:bg-second-color'
 
   useEffect(() => {
-    if (correlatives.length === 0) return
+    const isThisSubjectPassed = thisSubjectIsPassed(code)
 
-    // if (isPassed) return
+    if (correlatives.length === 0) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      isThisSubjectPassed
+        ? setSubjectState('Aprobada')
+        : setSubjectState('Habilitada')
 
-    const thisSubjectIsPassed = hasAllCorrelativesPassed(correlatives)
+      return
+    }
 
-    setIsPassed(thisSubjectIsPassed)
-  }, [subjectStateChange, correlatives, hasAllCorrelativesPassed])
+    const thisSubjectHasCorrPassed = hasAllCorrelativesPassed(correlatives)
+
+    if (thisSubjectHasCorrPassed) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      isThisSubjectPassed
+        ? setSubjectState('Aprobada')
+        : setSubjectState('Habilitada')
+
+      setIsDisabled(false)
+    } else {
+      setIsDisabled(true)
+    }
+
+    if (!thisSubjectHasCorrPassed) setSubjectState('')
+  }, [correlatives, hasAllCorrelativesPassed, code, thisSubjectIsPassed])
 
   useEffect(() => {
-    if (correlatives.length > 0) return
+    if (correlatives.length > 0) setIsDisabled(true)
+  }, [correlatives.length])
 
-    setIsPassed(true)
-  }, [correlatives])
+  const stateClasses: Record<string, string> = {
+    Habilitada: 'text-blue-500',
+    Aprobada: 'text-green-500',
+    Regular: 'text-yellow-500',
+    '': 'text-first-color'
+  }
 
   return (
     <>
@@ -48,7 +72,7 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
         className={`bg-third-color grid grid-cols-2 rounded-md p-1 md:table-row md:rounded-none ${backgroundColor} ${isDropdownOpen ? 'hover:bg-none' : 'md:hover:bg-hover-color'}`}
       >
         <td
-          className={`text-sm transition md:p-2 md:text-center md:text-base ${isDropdownOpen ? 'text-first-color underline' : ''} ${isPassed ? 'text-green-500' : 'text-first-color'}`}
+          className={`text-sm transition md:p-2 md:text-center md:text-base ${isDropdownOpen ? 'text-first-color underline' : ''} ${stateClasses[subjectState]}`}
         >
           {code}
         </td>
@@ -70,7 +94,7 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
             isDropdownOpen={isDropdownOpen}
             toggleDropdown={toggleDropdown}
             subjectCode={code}
-            hasCorrelatives={correlatives.length > 0}
+            isDisabled={isDisabled}
           />
         </td>
       </tr>

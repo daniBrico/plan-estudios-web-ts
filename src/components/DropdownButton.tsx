@@ -3,21 +3,20 @@ import { useSubjectContext } from '../hooks/useSubjectContext'
 
 interface DropdownButtonProps {
   isDropdownOpen: boolean
-  hasCorrelatives: boolean
   subjectCode: string
   toggleDropdown: () => void
+  isDisabled: boolean
 }
 
 export const DropdownButton: React.FC<DropdownButtonProps> = ({
   isDropdownOpen,
   toggleDropdown,
   subjectCode,
-  hasCorrelatives
+  isDisabled
 }) => {
   const { updateSubjectState } = useSubjectContext()
   const [optionSelected, setOptionSelected] = useState('')
   const dropdownRef = useRef<HTMLDivElement>(null)
-  const [isDisabled, setIsDisabled] = useState(false)
 
   const setOption = (option: string): void => {
     setOptionSelected(option)
@@ -41,9 +40,10 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
       document.removeEventListener('mousedown', handleOutsideClick)
   }, [isDropdownOpen, toggleDropdown, isDisabled])
 
-  useEffect(() => {
-    setIsDisabled(hasCorrelatives)
-  }, [hasCorrelatives])
+  // useEffect(() => {
+  //   console.log('Ingresa al useEffect del DropdownButton')
+  //   changeStateIsDisabled(hasCorrelatives)
+  // }, [hasCorrelatives, changeStateIsDisabled])
 
   const options = [
     { label: 'Aprobada', value: 'Aprobada' },

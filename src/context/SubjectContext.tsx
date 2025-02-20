@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { SubjectContext } from '../hooks/useSubjectContext'
 import { type SubjectState } from '../types/types'
+// import { type State } from '../types/enums'
+
+// interface AllSubjectState {
+//   subjectsCode: Subject['code'][]
+//   state: State
+// }
 
 export const SubjectProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
+  // const [allSubjectsState, setAllSubjectsState] = useState<AllSubjectState[]>(
+  //   []
+  // )
+  // // implementación anterior
   const [subjectState, setSubjectState] = useState<SubjectState[]>([])
   const [subjectStateChange, setSubjectStateChange] = useState(false)
 
@@ -12,6 +22,14 @@ export const SubjectProvider: React.FC<{ children: React.ReactNode }> = ({
     const subjectFound = subjectState.find((subject) => subject.code === code)
 
     return subjectFound?.state || ''
+  }
+
+  const thisSubjectIsPassed = (code: string): boolean => {
+    const subjectFound = subjectState.find((subject) => subject.code === code)
+
+    if (!subjectFound) return false
+
+    return subjectFound.state === 'Aprobada' ? true : false
   }
 
   const updateSubjectState = (code: string, state: string): void => {
@@ -28,10 +46,15 @@ export const SubjectProvider: React.FC<{ children: React.ReactNode }> = ({
     })
   }
 
-  const hasAllCorrelativesPassed = (correlatives: string[]): boolean =>
-    correlatives.every((correlative) =>
-      subjectState.some((subject) => subject.code === correlative)
+  const hasAllCorrelativesPassed = (correlatives: string[]): boolean => {
+    return correlatives.every((correlative) =>
+      subjectState.some(
+        (subject) =>
+          subject.code === correlative &&
+          (subject.state === 'Aprobada' || subject.state === 'Regular')
+      )
     )
+  }
 
   useEffect(() => {
     if (!subjectState) return
@@ -45,7 +68,8 @@ export const SubjectProvider: React.FC<{ children: React.ReactNode }> = ({
         updateSubjectState,
         subjectStateChange,
         getSubjectState,
-        hasAllCorrelativesPassed
+        hasAllCorrelativesPassed,
+        thisSubjectIsPassed
       }}
     >
       {children}

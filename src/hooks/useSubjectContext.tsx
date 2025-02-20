@@ -7,6 +7,7 @@ interface SubjectContextType {
   subjectStateChange: boolean
   getSubjectState: (code: string) => string
   hasAllCorrelativesPassed: (correlatives: Correlatives) => boolean
+  thisSubjectIsPassed: (code: string) => boolean
 }
 
 // const defaultValues: SubjectContextType = {
