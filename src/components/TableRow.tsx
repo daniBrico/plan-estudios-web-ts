@@ -1,19 +1,10 @@
 import { type Subject } from '../types/types'
+import { ListOfCorrelatives } from './Correlative'
 import { DropdownButton } from './DropdownButton'
 import React, { useCallback, useState } from 'react'
 
 interface ListOfRowsProps extends Omit<Subject, 'state'> {
   index: number
-}
-
-const chunkArray = (array: string[], size: number): string[][] => {
-  const result = []
-
-  for (let i = 0; i < array.length; i += size) {
-    result.push(array.slice(i, i + size))
-  }
-
-  return result
 }
 
 const ListOfRows: React.FC<ListOfRowsProps> = ({
@@ -51,12 +42,7 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
           {offering}
         </td>
         <td className="flex items-end justify-center text-center text-sm font-light md:table-cell md:py-2 md:text-base md:font-normal">
-          {chunkArray(correlatives, 2).map((group, index) => (
-            <React.Fragment key={index}>
-              {group.join(' - ')}
-              {index < chunkArray(correlatives, 2).length - 1 && <br />}
-            </React.Fragment>
-          ))}
+          <ListOfCorrelatives correlatives={correlatives} />
         </td>
         <td
           className={`flex items-end justify-end md:table-cell md:px-1 md:py-2`}

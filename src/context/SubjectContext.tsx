@@ -6,8 +6,17 @@ export const SubjectProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
   const [subjectState, setSubjectState] = useState<SubjectState[]>([])
+  const [subjectStateChange, setSubjectStateChange] = useState(false)
+
+  const getSubjectState = (code: string): string => {
+    const subjectFound = subjectState.find((subject) => subject.code === code)
+
+    return subjectFound?.state || ''
+  }
 
   const updateSubjectState = (code: string, state: string): void => {
+    setSubjectStateChange((prev) => !prev)
+
     setSubjectState((prev) => {
       if (state === '') return prev.filter((subject) => subject.code !== code) // Delete if state is empty
 
@@ -25,7 +34,14 @@ export const SubjectProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [subjectState])
 
   return (
-    <SubjectContext.Provider value={{ subjectState, updateSubjectState }}>
+    <SubjectContext.Provider
+      value={{
+        subjectState,
+        updateSubjectState,
+        subjectStateChange,
+        getSubjectState
+      }}
+    >
       {children}
     </SubjectContext.Provider>
   )

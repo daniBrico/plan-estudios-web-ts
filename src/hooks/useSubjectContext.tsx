@@ -4,14 +4,20 @@ import { type SubjectState } from '../types/types'
 interface SubjectContextType {
   subjectState: SubjectState[]
   updateSubjectState: (code: string, state: string) => void
+  subjectStateChange: boolean
+  getSubjectState: (code: string) => string
 }
 
-const defaultValues: SubjectContextType = {
-  subjectState: [],
-  updateSubjectState: () => {}
-}
+// const defaultValues: SubjectContextType = {
+//   subjectState: [],
+//   updateSubjectState: () => {},
+//   subjectStateChange: false,
+//   getSubjectState: () => ''
+// }
 
-export const SubjectContext = createContext<SubjectContextType>(defaultValues)
+export const SubjectContext = createContext<SubjectContextType | undefined>(
+  undefined
+)
 
 export const useSubject = (): SubjectContextType => {
   const context = useContext(SubjectContext)
