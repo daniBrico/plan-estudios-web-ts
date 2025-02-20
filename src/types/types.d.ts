@@ -36,3 +36,5 @@ export interface SubjectState {
   code: string
   state: string
 }
+
+export type Correlatives = Subject['correlatives']

@@ -1,5 +1,5 @@
 import React, { type JSX, useEffect, useRef, useState } from 'react'
-import { useSubject } from '../hooks/useSubjectContext'
+import { useSubjectContext } from '../hooks/useSubjectContext'
 
 interface DropdownButtonProps {
   isDropdownOpen: boolean
@@ -14,7 +14,7 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
   subjectCode,
   hasCorrelatives
 }) => {
-  const { updateSubjectState } = useSubject()
+  const { updateSubjectState } = useSubjectContext()
   const [optionSelected, setOptionSelected] = useState('')
   const dropdownRef = useRef<HTMLDivElement>(null)
   const [isDisabled, setIsDisabled] = useState(false)

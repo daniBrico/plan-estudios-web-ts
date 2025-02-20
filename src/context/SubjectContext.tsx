@@ -28,6 +28,11 @@ export const SubjectProvider: React.FC<{ children: React.ReactNode }> = ({
     })
   }
 
+  const hasAllCorrelativesPassed = (correlatives: string[]): boolean =>
+    correlatives.every((correlative) =>
+      subjectState.some((subject) => subject.code === correlative)
+    )
+
   useEffect(() => {
     if (!subjectState) return
     console.log('🚀 ~ useEffect ~ subjectState: ', subjectState)
@@ -39,7 +44,8 @@ export const SubjectProvider: React.FC<{ children: React.ReactNode }> = ({
         subjectState,
         updateSubjectState,
         subjectStateChange,
-        getSubjectState
+        getSubjectState,
+        hasAllCorrelativesPassed
       }}
     >
       {children}

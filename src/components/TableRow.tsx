@@ -1,7 +1,8 @@
+import { useSubjectContext } from '../hooks/useSubjectContext'
 import { type Subject } from '../types/types'
 import { ListOfCorrelatives } from './Correlative'
 import { DropdownButton } from './DropdownButton'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 interface ListOfRowsProps extends Omit<Subject, 'state'> {
   index: number
@@ -15,6 +16,8 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
   index
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [isPassed, setIsPassed] = useState(false)
+  const { subjectStateChange, hasAllCorrelativesPassed } = useSubjectContext()
 
   const toggleDropdown = useCallback((): void => {
     setIsDropdownOpen((prev) => !prev)
@@ -23,13 +26,29 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
   const backgroundColor =
     index % 2 === 0 ? 'md:bg-third-color' : 'md:bg-second-color'
 
+  useEffect(() => {
+    if (correlatives.length === 0) return
+
+    // if (isPassed) return
+
+    const thisSubjectIsPassed = hasAllCorrelativesPassed(correlatives)
+
+    setIsPassed(thisSubjectIsPassed)
+  }, [subjectStateChange, correlatives, hasAllCorrelativesPassed])
+
+  useEffect(() => {
+    if (correlatives.length > 0) return
+
+    setIsPassed(true)
+  }, [correlatives])
+
   return (
     <>
       <tr
         className={`bg-third-color grid grid-cols-2 rounded-md p-1 md:table-row md:rounded-none ${backgroundColor} ${isDropdownOpen ? 'hover:bg-none' : 'md:hover:bg-hover-color'}`}
       >
         <td
-          className={`text-sm transition md:p-2 md:text-center md:text-base ${isDropdownOpen ? 'text-first-color underline' : ''} ${correlatives.length > 0 ? 'text-first-color' : ''}`}
+          className={`text-sm transition md:p-2 md:text-center md:text-base ${isDropdownOpen ? 'text-first-color underline' : ''} ${isPassed ? 'text-green-500' : 'text-first-color'}`}
         >
           {code}
         </td>

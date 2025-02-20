@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { type Subject } from '../types/types'
-import { useSubject } from '../hooks/useSubjectContext'
+import { type Correlatives } from '../types/types'
+import { useSubjectContext } from '../hooks/useSubjectContext'
 
 interface CorrelativeProps {
   correlative: string
@@ -8,7 +8,7 @@ interface CorrelativeProps {
 
 const Correlative: React.FC<CorrelativeProps> = ({ correlative }) => {
   const [subjectState, setSubjectState] = useState('')
-  const { subjectStateChange, getSubjectState } = useSubject()
+  const { subjectStateChange, getSubjectState } = useSubjectContext()
 
   useEffect(() => {
     const newSubjectState = getSubjectState(correlative)
@@ -30,8 +30,6 @@ const Correlative: React.FC<CorrelativeProps> = ({ correlative }) => {
     </>
   )
 }
-
-type Correlatives = Subject['correlatives']
 
 interface ListOfCorrelativesProps {
   correlatives: Correlatives
