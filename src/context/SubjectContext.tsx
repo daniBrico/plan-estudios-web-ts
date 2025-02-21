@@ -1,20 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { SubjectContext } from '../hooks/useSubjectContext'
 import { type SubjectState } from '../types/types'
-// import { type State } from '../types/enums'
-
-// interface AllSubjectState {
-//   subjectsCode: Subject['code'][]
-//   state: State
-// }
 
 export const SubjectProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
-  // const [allSubjectsState, setAllSubjectsState] = useState<AllSubjectState[]>(
-  //   []
-  // )
-  // // implementación anterior
   const [subjectState, setSubjectState] = useState<SubjectState[]>([])
   const [subjectStateChange, setSubjectStateChange] = useState(false)
 
