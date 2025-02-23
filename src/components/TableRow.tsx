@@ -1,5 +1,6 @@
 import { useSubjectContext } from '../hooks/useSubjectContext'
-import { type Subject } from '../types/types'
+import useSubjectState from '../hooks/useSubjectState'
+import { type DropdownOp, type State, type Subject } from '../types/types'
 import { ListOfCorrelatives } from './Correlative'
 import { DropdownButton } from './DropdownButton'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -15,56 +16,68 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
   correlatives,
   index
 }) => {
+  const {
+    changeSubjectState,
+    getSubjectState,
+    allSubjectsState,
+    areAllCorrelativesPassed
+  } = useSubjectContext()
+  const { actualState, setClassForState } = useSubjectState(code)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const [subjectState, setSubjectState] = useState('Habilitada')
   const [isDisabled, setIsDisabled] = useState(false)
-  const { hasAllCorrelativesPassed, thisSubjectIsPassed } = useSubjectContext()
+  const [dropdownOp, setDropdownOp] = useState<DropdownOp>('')
+
+  const changeDropdownOp = (newOp: DropdownOp): void => setDropdownOp(newOp)
 
   const toggleDropdown = useCallback((): void => {
     setIsDropdownOpen((prev) => !prev)
   }, [])
 
+  const changeStateOpSelected = (option: DropdownOp): void => {
+    let newOp: State
+
+    if (option === '') {
+      newOp =
+        correlatives.length > 0
+          ? (newOp = 'Deshabilitada')
+          : (newOp = 'Habilitada')
+    } else {
+      newOp = option
+    }
+
+    changeSubjectState(code, newOp)
+  }
+
+  useEffect(() => {
+    const subjectState = getSubjectState(code)
+
+    if (!allSubjectsState || !subjectState) return
+
+    if (correlatives.length === 0 && subjectState === actualState) return
+
+    const correlativesPassed = areAllCorrelativesPassed(correlatives)
+
+    if (correlativesPassed && subjectState === 'Deshabilitada')
+      changeSubjectState(code, 'Habilitada')
+
+    if (!correlativesPassed && subjectState !== 'Deshabilitada') {
+      changeSubjectState(code, 'Deshabilitada')
+      changeDropdownOp('')
+    }
+
+    setIsDisabled(!correlativesPassed)
+  }, [
+    allSubjectsState,
+    code,
+    getSubjectState,
+    areAllCorrelativesPassed,
+    changeSubjectState,
+    correlatives,
+    actualState
+  ])
+
   const backgroundColor =
     index % 2 === 0 ? 'md:bg-third-color' : 'md:bg-second-color'
-
-  useEffect(() => {
-    const isThisSubjectPassed = thisSubjectIsPassed(code)
-
-    if (correlatives.length === 0) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      isThisSubjectPassed
-        ? setSubjectState('Aprobada')
-        : setSubjectState('Habilitada')
-
-      return
-    }
-
-    const thisSubjectHasCorrPassed = hasAllCorrelativesPassed(correlatives)
-
-    if (thisSubjectHasCorrPassed) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      isThisSubjectPassed
-        ? setSubjectState('Aprobada')
-        : setSubjectState('Habilitada')
-
-      setIsDisabled(false)
-    } else {
-      setIsDisabled(true)
-    }
-
-    if (!thisSubjectHasCorrPassed) setSubjectState('')
-  }, [correlatives, hasAllCorrelativesPassed, code, thisSubjectIsPassed])
-
-  useEffect(() => {
-    if (correlatives.length > 0) setIsDisabled(true)
-  }, [correlatives.length])
-
-  const stateClasses: Record<string, string> = {
-    Habilitada: 'text-blue-500',
-    Aprobada: 'text-green-500',
-    Regular: 'text-yellow-500',
-    '': 'text-first-color'
-  }
 
   return (
     <>
@@ -72,7 +85,7 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
         className={`bg-third-color grid grid-cols-2 rounded-md p-1 md:table-row md:rounded-none ${backgroundColor} ${isDropdownOpen ? 'hover:bg-none' : 'md:hover:bg-hover-color'}`}
       >
         <td
-          className={`text-sm transition md:p-2 md:text-center md:text-base ${isDropdownOpen ? 'text-first-color underline' : ''} ${stateClasses[subjectState]}`}
+          className={`text-sm transition md:p-2 md:text-center md:text-base ${isDropdownOpen ? 'text-first-color underline' : ''} ${setClassForState(actualState)}`}
         >
           {code}
         </td>
@@ -93,8 +106,10 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
           <DropdownButton
             isDropdownOpen={isDropdownOpen}
             toggleDropdown={toggleDropdown}
-            subjectCode={code}
             isDisabled={isDisabled}
+            changeStateOpSelected={changeStateOpSelected}
+            changeDropdownOp={changeDropdownOp}
+            dropdownOp={dropdownOp}
           />
         </td>
       </tr>

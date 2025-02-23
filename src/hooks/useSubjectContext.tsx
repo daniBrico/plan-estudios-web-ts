@@ -1,13 +1,17 @@
 import { createContext, useContext } from 'react'
-import { type Correlatives, type SubjectState } from '../types/types'
+import {
+  type SubjectState,
+  type Code,
+  type State,
+  type Correlatives
+} from '../types/types'
 
 interface SubjectContextType {
-  subjectState: SubjectState[]
-  updateSubjectState: (code: string, state: string) => void
-  subjectStateChange: boolean
-  getSubjectState: (code: string) => string
-  hasAllCorrelativesPassed: (correlatives: Correlatives) => boolean
-  thisSubjectIsPassed: (code: string) => boolean
+  changeSubjectState: (code: Code, state: State) => void
+  getSubjectState: (code: Code) => State | undefined
+  isSubjectsStateChange: boolean
+  allSubjectsState: SubjectState[]
+  areAllCorrelativesPassed: (correlatives: Correlatives) => boolean
 }
 
 // const defaultValues: SubjectContextType = {

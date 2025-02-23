@@ -41,6 +41,7 @@ function App(): JSX.Element {
       try {
         const careerData = await getCareer(careerSelected)
         setCareer(careerData)
+        localStorage.setItem('career', JSON.stringify(careerData))
         setError(null)
       } catch (err) {
         setError('Error al cargar los datos de la carrera')

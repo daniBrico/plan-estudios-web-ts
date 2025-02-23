@@ -1,65 +1,81 @@
 import React, { useEffect, useState } from 'react'
 import { SubjectContext } from '../hooks/useSubjectContext'
-import { type SubjectState } from '../types/types'
+import {
+  type Subject,
+  type SubjectsByYear,
+  type Code,
+  type State,
+  type SubjectState,
+  type Correlatives
+} from '../types/types'
 
 export const SubjectProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
-  const [subjectState, setSubjectState] = useState<SubjectState[]>([])
-  const [subjectStateChange, setSubjectStateChange] = useState(false)
+  const [allSubjectsState, setAllSubjectsState] = useState<SubjectState[]>([])
+  const [isSubjectsStateChange, setIsSubjectsStateChange] = useState(false)
 
-  const getSubjectState = (code: string): string => {
-    const subjectFound = subjectState.find((subject) => subject.code === code)
+  const changeSubjectState = (code: Code, state: State): void =>
+    setAllSubjectsState((prev) =>
+      prev.map((subject) => {
+        if (subject.code === code) return { ...subject, state: state }
 
-    return subjectFound?.state || ''
-  }
+        return subject
+      })
+    )
 
-  const thisSubjectIsPassed = (code: string): boolean => {
-    const subjectFound = subjectState.find((subject) => subject.code === code)
+  const getSubjectState = (code: Code): State | undefined =>
+    allSubjectsState.find((subject) => subject.code === code)?.state
 
-    if (!subjectFound) return false
-
-    return subjectFound.state === 'Aprobada' ? true : false
-  }
-
-  const updateSubjectState = (code: string, state: string): void => {
-    setSubjectStateChange((prev) => !prev)
-
-    setSubjectState((prev) => {
-      if (state === '') return prev.filter((subject) => subject.code !== code) // Delete if state is empty
-
-      return prev.some((subject) => subject.code === code)
-        ? prev.map((subject) =>
-            subject.code === code ? { ...subject, state } : subject
-          ) // Update if it exists
-        : [...prev, { code, state }] // Add if it doesn't exist
-    })
-  }
-
-  const hasAllCorrelativesPassed = (correlatives: string[]): boolean => {
-    return correlatives.every((correlative) =>
-      subjectState.some(
+  const areAllCorrelativesPassed = (correlatives: Correlatives): boolean =>
+    correlatives.every((correlative) =>
+      allSubjectsState.some(
         (subject) =>
           subject.code === correlative &&
           (subject.state === 'Aprobada' || subject.state === 'Regular')
       )
     )
-  }
 
   useEffect(() => {
-    if (!subjectState) return
-    console.log('🚀 ~ useEffect ~ subjectState: ', subjectState)
-  }, [subjectState])
+    const storedCareer = localStorage.getItem('career')
+
+    if (!storedCareer) return
+
+    const career = JSON.parse(storedCareer)
+
+    let subjectsStateStored: SubjectState[] = []
+
+    career.subjectsByYear.forEach((subjectsByYear: SubjectsByYear) => {
+      subjectsStateStored = [
+        ...subjectsStateStored,
+        ...subjectsByYear.subjects.map((subject: Subject) => {
+          const code: Code = subject.code
+          const state: State =
+            subject.correlatives.length > 0 ? 'Deshabilitada' : 'Habilitada'
+
+          return { code, state }
+        })
+      ]
+    })
+
+    setAllSubjectsState(subjectsStateStored)
+    setIsSubjectsStateChange((prev) => !prev)
+  }, [])
+
+  // useEffect(() => {
+  //   if (!allSubjectsState) return
+
+  //   console.log('🚀 ~ useEffect ~ allSubjectsState: ', allSubjectsState)
+  // }, [allSubjectsState])
 
   return (
     <SubjectContext.Provider
       value={{
-        subjectState,
-        updateSubjectState,
-        subjectStateChange,
+        changeSubjectState,
         getSubjectState,
-        hasAllCorrelativesPassed,
-        thisSubjectIsPassed
+        isSubjectsStateChange,
+        allSubjectsState,
+        areAllCorrelativesPassed
       }}
     >
       {children}

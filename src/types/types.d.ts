@@ -1,5 +1,4 @@
-import { type State } from './enums'
-
+// Career
 export interface Career {
   _id: string
   name: string
@@ -11,30 +10,38 @@ export interface Career {
 
 export type CareerNames = Pick<Career, '_id' | 'name'>
 
+export type CareerHeaderInfo = Omit<Career, '_id' | 'subjectsByYear'>
+
+// Subject
 export interface SubjectsByYear {
   year: string
   subjects: Subject[]
 }
 
+export type Code = string
+export type Correlatives = string[]
+
 export interface Subject {
   name: string
-  code: string
+  code: Code
   offering: string
-  correlatives: string[]
+  correlatives: Correlatives
   state: State | null
 }
 
-export type CareerHeaderInfo = Omit<Career, '_id' | 'subjectsByYear'>
-
-type useGetCareerType = {
-  career: Career | null
-  careerLoading: boolean
-  careerError: Error | null
-}
-
 export interface SubjectState {
-  code: string
-  state: string
+  code: Code
+  state: State
 }
 
 export type Correlatives = Subject['correlatives']
+
+export type State =
+  | 'Aprobada'
+  | 'Cursando'
+  | 'Regular'
+  | 'Recursar'
+  | 'Habilitada'
+  | 'Deshabilitada'
+
+export type DropdownOp = 'Aprobada' | 'Cursando' | 'Regular' | 'Recursar' | ''

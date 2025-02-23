@@ -1,32 +1,17 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment } from 'react'
 import { type Correlatives } from '../types/types'
-import { useSubjectContext } from '../hooks/useSubjectContext'
+import useSubjectState from '../hooks/useSubjectState'
 
 interface CorrelativeProps {
   correlative: string
 }
 
 const Correlative: React.FC<CorrelativeProps> = ({ correlative }) => {
-  const [subjectState, setSubjectState] = useState('')
-  const { subjectStateChange, getSubjectState } = useSubjectContext()
-
-  useEffect(() => {
-    const newSubjectState = getSubjectState(correlative)
-
-    setSubjectState(newSubjectState)
-  }, [subjectStateChange, correlative, getSubjectState])
-
-  const stateClasses: Record<string, string> = {
-    Aprobada: 'text-green-500',
-    Regular: 'text-yellow-500',
-    '': 'text-first-color'
-  }
+  const { actualState, setClassForState } = useSubjectState(correlative)
 
   return (
     <>
-      <span className={`${stateClasses[subjectState] || 'text-first-color'}`}>
-        {correlative}
-      </span>
+      <span className={`${setClassForState(actualState)}`}>{correlative}</span>
     </>
   )
 }
