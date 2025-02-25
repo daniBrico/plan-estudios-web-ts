@@ -3,30 +3,26 @@ import {
   type SubjectState,
   type Code,
   type State,
-  type Correlatives
+  type Correlatives,
+  type Career
 } from '../types/types'
 
-interface SubjectContextType {
+interface CareerContextType {
+  changeCareerSelected: (option: string | null) => void
+  career: Career | null
+  error: string | null
   changeSubjectState: (code: Code, state: State) => void
   getSubjectState: (code: Code) => State | undefined
-  isSubjectsStateChange: boolean
   allSubjectsState: SubjectState[]
   areAllCorrelativesPassed: (correlatives: Correlatives) => boolean
 }
 
-// const defaultValues: SubjectContextType = {
-//   subjectState: [],
-//   updateSubjectState: () => {},
-//   subjectStateChange: false,
-//   getSubjectState: () => ''
-// }
-
-export const SubjectContext = createContext<SubjectContextType | undefined>(
+export const CareerContext = createContext<CareerContextType | undefined>(
   undefined
 )
 
-export const useSubjectContext = (): SubjectContextType => {
-  const context = useContext(SubjectContext)
+export const useCareerContext = (): CareerContextType => {
+  const context = useContext(CareerContext)
 
   if (!context)
     throw new Error('useSubject must be used within an AuthProvider')

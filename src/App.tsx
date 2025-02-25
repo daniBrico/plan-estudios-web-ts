@@ -1,18 +1,13 @@
-import { useEffect, useMemo, useState, type JSX } from 'react'
+import { useMemo, type JSX } from 'react'
 import Select from 'react-select'
 import useGetCareerNames from './hooks/useGetCareerNames'
-import { getCareer } from './api/careerApi'
-import { type Career } from './types/types'
 import { CareerDetails } from './components/CareerDetails'
 import { Header } from './components/Header'
-import { SubjectProvider } from './context/SubjectContext'
+import { useCareerContext } from './hooks/useCareerContext'
 
 function App(): JSX.Element {
   const { careerNames: careerNamesApi, careerNamesError } = useGetCareerNames()
-
-  const [careerSelected, setCareerSelected] = useState<string | null>(null)
-  const [career, setCareer] = useState<Career | null>(null)
-  const [error, setError] = useState<string | null>(null)
+  const { changeCareerSelected, career, error } = useCareerContext()
 
   const handleSelectNames = (
     selectedOption: {
@@ -21,10 +16,9 @@ function App(): JSX.Element {
     } | null
   ): void => {
     if (selectedOption) {
-      setCareerSelected(selectedOption.value)
+      changeCareerSelected(selectedOption.value)
     } else {
-      setCareerSelected(null)
-      setCareer(null)
+      changeCareerSelected(null)
     }
   }
 
@@ -33,24 +27,6 @@ function App(): JSX.Element {
       .filter((el) => el && el.name && el._id)
       .map((el) => ({ label: el.name, value: el._id }))
   }, [careerNamesApi])
-
-  useEffect(() => {
-    if (!careerSelected) return
-
-    const initilizeCareer = async (): Promise<void> => {
-      try {
-        const careerData = await getCareer(careerSelected)
-        setCareer(careerData)
-        localStorage.setItem('career', JSON.stringify(careerData))
-        setError(null)
-      } catch (err) {
-        setError('Error al cargar los datos de la carrera')
-        console.log(`Error al inicializar los datos de la carrera: ${err}`)
-      }
-    }
-
-    initilizeCareer()
-  }, [careerSelected])
 
   if (careerNamesError) console.log(`Error: ${careerNamesError.message}`)
 
@@ -77,9 +53,7 @@ function App(): JSX.Element {
           />
         </div>
         {career && career.subjectsByYear ? (
-          <SubjectProvider>
-            <CareerDetails subjectsByYear={career.subjectsByYear} />
-          </SubjectProvider>
+          <CareerDetails subjectsByYear={career.subjectsByYear} />
         ) : null}
         {error && <div className="text-center text-red-500">{error}</div>}
       </main>

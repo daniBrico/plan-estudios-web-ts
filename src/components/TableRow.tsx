@@ -1,4 +1,4 @@
-import { useSubjectContext } from '../hooks/useSubjectContext'
+import { useCareerContext } from '../hooks/useCareerContext'
 import useSubjectState from '../hooks/useSubjectState'
 import { type DropdownOp, type State, type Subject } from '../types/types'
 import { ListOfCorrelatives } from './Correlative'
@@ -21,7 +21,7 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
     getSubjectState,
     allSubjectsState,
     areAllCorrelativesPassed
-  } = useSubjectContext()
+  } = useCareerContext()
   const { actualState, setClassForState } = useSubjectState(code)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [isDisabled, setIsDisabled] = useState(false)

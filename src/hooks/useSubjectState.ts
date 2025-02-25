@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { type State, type Code } from '../types/types'
-import { useSubjectContext } from './useSubjectContext'
+import { useCareerContext } from './useCareerContext'
 
 interface ReturnType {
   actualState: State | ''
@@ -8,7 +8,7 @@ interface ReturnType {
 }
 
 const useSubjectState = (code: Code): ReturnType => {
-  const { allSubjectsState, getSubjectState } = useSubjectContext()
+  const { allSubjectsState, getSubjectState } = useCareerContext()
   const [actualState, setActualState] = useState<State | ''>('')
 
   useEffect(() => {
