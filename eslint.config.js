@@ -29,6 +29,7 @@ export default tseslint.config(
       '@typescript-eslint/no-unused-expressions': 'error'
       // '@typescript-eslint/no-explicit-any': 'off'
       // '@typescript-eslint/strict-boolean-expressions': 'error'
-    }
+    },
+    ignores: ['node_modules/', 'dist/', '*.test.tsx']
   }
 )

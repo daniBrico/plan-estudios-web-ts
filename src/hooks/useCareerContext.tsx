@@ -15,6 +15,7 @@ interface CareerContextType {
   getSubjectState: (code: Code) => State | undefined
   allSubjectsState: SubjectState[]
   areAllCorrelativesPassed: (correlatives: Correlatives) => boolean
+  cleanValuesAndLocalStorage: () => void
 }
 
 export const CareerContext = createContext<CareerContextType | undefined>(

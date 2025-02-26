@@ -53,6 +53,14 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
 
     if (!allSubjectsState || !subjectState) return
 
+    if (
+      subjectState === 'Aprobada' ||
+      subjectState === 'Cursando' ||
+      subjectState === 'Recursar' ||
+      subjectState === 'Regular'
+    )
+      setDropdownOp(subjectState)
+
     if (correlatives.length === 0 && subjectState === actualState) return
 
     const correlativesPassed = areAllCorrelativesPassed(correlatives)

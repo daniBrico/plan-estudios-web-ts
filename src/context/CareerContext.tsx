@@ -4,16 +4,27 @@ import {
   type Code,
   type State,
   type SubjectState,
-  type Correlatives
+  type Correlatives,
+  type ID
 } from '../types/types'
 import useCareer from '../hooks/useCareer'
+import {
+  getFromLocalStorage,
+  removeStoredValue,
+  saveToLocalStorage
+} from '../utils/storage'
 
 export const CareerProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
   const [allSubjectsState, setAllSubjectsState] = useState<SubjectState[]>([])
-  const [careerSelectedID, setCareerSelected] = useState<string | null>(null)
-  const { career, error } = useCareer({ careerSelectedID })
+  const [careerSelectedID, setCareerSelected] = useState<ID | null>(null)
+  const {
+    career,
+    error,
+    removeCareerLocalStorage,
+    changeCareerLocalStorageValue
+  } = useCareer({ careerSelectedID })
 
   const changeCareerSelected = (option: string | null): void =>
     setCareerSelected(option)
@@ -39,25 +50,46 @@ export const CareerProvider: React.FC<{ children: React.ReactNode }> = ({
       )
     )
 
+  const cleanValuesAndLocalStorage = (): void => {
+    changeCareerSelected(null)
+    removeStoredValue('career')
+    if (careerSelectedID !== null) removeStoredValue(careerSelectedID)
+    setAllSubjectsState([])
+    removeCareerLocalStorage()
+    changeCareerLocalStorageValue(null)
+  }
+
   useEffect(() => {
-    if (!career) return
+    if (allSubjectsState.length === 0 || !careerSelectedID) return
+
+    saveToLocalStorage(careerSelectedID, allSubjectsState)
+  }, [allSubjectsState, careerSelectedID])
+
+  useEffect(() => {
+    if (!careerSelectedID || !career) return
 
     try {
-      const subjectsStateStored = career.subjectsByYear.flatMap(
-        (subjectsByYear) =>
-          subjectsByYear.subjects.map((subject) => ({
-            code: subject.code,
-            state: (subject.correlatives.length > 0
-              ? 'Deshabilitada'
-              : 'Habilitada') as State
-          }))
-      )
+      const item = getFromLocalStorage(careerSelectedID)
 
-      setAllSubjectsState(subjectsStateStored)
+      if (!item) {
+        const subjectsStateStored = career.subjectsByYear.flatMap(
+          (subjectsByYear) =>
+            subjectsByYear.subjects.map((subject) => ({
+              code: subject.code,
+              state:
+                subject.correlatives.length > 0 ? 'Deshabilitada' : 'Habilitada'
+            }))
+        ) as SubjectState[]
+
+        setAllSubjectsState(subjectsStateStored)
+        saveToLocalStorage(careerSelectedID, subjectsStateStored)
+      } else {
+        setAllSubjectsState(item as SubjectState[])
+      }
     } catch (error) {
       console.error('Error parsing career data from localStorage', error)
     }
-  }, [career])
+  }, [careerSelectedID, career])
 
   return (
     <CareerContext.Provider
@@ -68,7 +100,8 @@ export const CareerProvider: React.FC<{ children: React.ReactNode }> = ({
         changeSubjectState,
         getSubjectState,
         allSubjectsState,
-        areAllCorrelativesPassed
+        areAllCorrelativesPassed,
+        cleanValuesAndLocalStorage
       }}
     >
       {children}

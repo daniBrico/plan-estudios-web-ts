@@ -1,6 +1,6 @@
 // Career
 export interface Career {
-  _id: string
+  _id: ID
   name: string
   duration: number
   intermediateDegree: string
@@ -10,6 +10,7 @@ export interface Career {
 
 export type CareerNames = Pick<Career, '_id' | 'name'>
 export type CareerHeaderInfo = Omit<Career, '_id' | 'subjectsByYear'>
+export type ID = string
 
 // Subject
 export interface SubjectsByYear {

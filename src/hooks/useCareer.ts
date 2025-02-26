@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react'
-import { useLocalStorage } from './useLocalStorage'
 import { type Career } from '../types/types'
 import { getCareer } from '../api/careerApi'
+import {
+  getFromLocalStorage,
+  removeStoredValue,
+  saveToLocalStorage
+} from '../utils/storage'
 
 interface useCareerProps {
   careerSelectedID: string | null
@@ -10,15 +14,32 @@ interface useCareerProps {
 interface useCareerReturn {
   career: Career | null
   error: string | null
+  changeCareerValue: (value: Career | null) => void
+  removeCareerLocalStorage: () => void
+  changeCareerLocalStorageValue: (value: Career | null) => void
 }
 
 const useCareer = ({ careerSelectedID }: useCareerProps): useCareerReturn => {
   const [career, setCareer] = useState<Career | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const { localStorageValue, setLocalStorageValue } = useLocalStorage({
-    key: 'career',
-    initialValue: null
-  })
+  const [careerLocalStorage, setCareerLocalStorage] = useState<Career | null>(
+    null
+  )
+
+  const changeCareerValue = (value: Career | null): void => setCareer(value)
+
+  const changeCareerLocalStorageValue = (value: Career | null): void =>
+    setCareerLocalStorage(value)
+
+  const removeCareerLocalStorage = (): void => removeStoredValue('career')
+
+  useEffect(() => {
+    const careerFromLS = getFromLocalStorage('career')
+
+    if (!careerFromLS) return
+
+    setCareerLocalStorage(careerFromLS as Career)
+  }, [])
 
   useEffect(() => {
     if (!careerSelectedID) {
@@ -31,7 +52,8 @@ const useCareer = ({ careerSelectedID }: useCareerProps): useCareerReturn => {
         const careerData = await getCareer(careerSelectedID)
 
         setCareer(careerData)
-        setLocalStorageValue(careerData)
+        saveToLocalStorage('career', careerData)
+        setCareerLocalStorage(careerData)
         setError(null)
       } catch (err) {
         setError('Error al cargar los datos de la carrera')
@@ -39,20 +61,21 @@ const useCareer = ({ careerSelectedID }: useCareerProps): useCareerReturn => {
       }
     }
 
-    console.log('Se ejecuta')
-
-    if (localStorageValue) {
+    if (careerLocalStorage) {
       if (career) return
-
-      console.log('Va por el localStorage')
-      setCareer(localStorageValue as Career)
+      setCareer(careerLocalStorage as Career)
     } else {
-      console.log('Inicializa')
       initializeCareer()
     }
-  }, [careerSelectedID, localStorageValue, setLocalStorageValue, career])
+  }, [careerSelectedID, careerLocalStorage, career])
 
-  return { career, error }
+  return {
+    career,
+    error,
+    changeCareerValue,
+    removeCareerLocalStorage,
+    changeCareerLocalStorageValue
+  }
 }
 
 export default useCareer

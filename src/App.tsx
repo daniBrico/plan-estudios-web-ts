@@ -1,13 +1,24 @@
-import { useMemo, type JSX } from 'react'
+import { useEffect, useMemo, useState, type JSX } from 'react'
 import Select from 'react-select'
 import useGetCareerNames from './hooks/useGetCareerNames'
 import { CareerDetails } from './components/CareerDetails'
 import { Header } from './components/Header'
 import { useCareerContext } from './hooks/useCareerContext'
+import {
+  getFromLocalStorage,
+  removeStoredValue,
+  saveToLocalStorage
+} from './utils/storage'
+import { type ID } from './types/types'
 
 function App(): JSX.Element {
   const { careerNames: careerNamesApi, careerNamesError } = useGetCareerNames()
-  const { changeCareerSelected, career, error } = useCareerContext()
+  const { changeCareerSelected, career, error, cleanValuesAndLocalStorage } =
+    useCareerContext()
+  const [initialSelectedOp, setInitialSelectedOp] = useState<{
+    value: string
+    label: string
+  } | null>(null)
 
   const handleSelectNames = (
     selectedOption: {
@@ -17,8 +28,12 @@ function App(): JSX.Element {
   ): void => {
     if (selectedOption) {
       changeCareerSelected(selectedOption.value)
+      saveToLocalStorage('career-selected-id', selectedOption.value)
     } else {
       changeCareerSelected(null)
+      cleanValuesAndLocalStorage()
+      removeStoredValue('career-selected-id')
+      setInitialSelectedOp(null)
     }
   }
 
@@ -27,6 +42,25 @@ function App(): JSX.Element {
       .filter((el) => el && el.name && el._id)
       .map((el) => ({ label: el.name, value: el._id }))
   }, [careerNamesApi])
+
+  useEffect(() => {
+    const opFromLocalStorage: ID | null =
+      getFromLocalStorage('career-selected-id')
+
+    if (!opFromLocalStorage) return
+
+    const selectedOption = careerNamesApi.find(
+      (option) => option._id === opFromLocalStorage
+    )
+
+    if (selectedOption) {
+      setInitialSelectedOp({
+        value: selectedOption._id,
+        label: selectedOption.name
+      })
+      changeCareerSelected(selectedOption._id)
+    }
+  }, [careerNamesApi, changeCareerSelected])
 
   if (careerNamesError) console.log(`Error: ${careerNamesError.message}`)
 
@@ -50,6 +84,7 @@ function App(): JSX.Element {
             onChange={handleSelectNames}
             placeholder={'Seleccione la carrera'}
             isClearable={true}
+            value={initialSelectedOp}
           />
         </div>
         {career && career.subjectsByYear ? (
