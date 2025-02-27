@@ -49,4 +49,6 @@ body {
   height: 100%;
   overflow-y: scroll;
   /* background-color: #f0f0f0; */
+  /* background-color: var(--color-third-color); */
+  background-color: rgba(236, 236, 238, 0.5);
 }
