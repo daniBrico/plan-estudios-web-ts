@@ -4,20 +4,10 @@
   --font-onest: Onest Variable, sans-serif;
 
   --color-first-color: #f15a5c;
-  --color-first-color2: #6d5e4e;
   --color-second-color: #dddde0;
   --color-third-color: #ececee;
-  --color-fourth-color: #f15a5c;
   --color-back: #fff;
   --color-hover-color: #a8a9b2;
-  --color-aprobada-color: #092a13;
-  --color-aprobada-color-fondo: #57d176;
-  --color-cursando-color: #1d24ca;
-  --color-cursando-color-fondo: #008eda5f;
-  --color-recursar-color: #e8751a;
-  --color-recursar-color-fondo: #e6cf7b80;
-  --color-regular-color: #401f71;
-  --color-regular-color-fondo: #7d27ff81;
 
   --shadow-shadow-select: 0 0 0.8em #f15a5c;
   --shadow-shadow-box: 0 0 0.8em #dddde0;
@@ -41,7 +31,7 @@
   }
 }
 
-/* @font-face {
+@font-face {
   font-family: 'Onest Variable';
   font-style: normal;
   font-display: swap;
@@ -52,10 +42,11 @@
     U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
     U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193,
     U+2212, U+2215, U+FEFF, U+FFFD;
-} */
+}
 
 body {
   /* @apply font-onest; */
   height: 100%;
   overflow-y: scroll;
+  /* background-color: #f0f0f0; */
 }
