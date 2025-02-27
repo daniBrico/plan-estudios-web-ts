@@ -1,6 +1,6 @@
-import { type HttpClient } from '../types/types'
+import { type HttpClient } from '../../types/types'
 
-const API_URL = 'http://localhost:3000/'
+const API_URL = 'https://api.jsonbin.io/v3/b/'
 
 const apiFetch: HttpClient = {
   get: async <T>(url: string): Promise<T> => {
