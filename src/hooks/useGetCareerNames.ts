@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getCareerNames } from '../api/careerApi'
+import careerApi from '../api/careerApiInstance'
 import { type CareerNames } from '../types/types'
 
 const useGetCareerNames = (): {
@@ -12,7 +12,8 @@ const useGetCareerNames = (): {
   useEffect(() => {
     const setCareerFormApi = async (): Promise<void> => {
       try {
-        const careerNames = await getCareerNames()
+        const careerNames = await careerApi.getCareerNames()
+        // const careerNames = await getCareerNames()
 
         setCareerNames(careerNames)
       } catch (err) {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { type Career } from '../types/types'
-import { getCareer } from '../api/careerApi'
+import careerApi from '../api/careerApiInstance'
 import {
   getFromLocalStorage,
   removeStoredValue,
@@ -49,7 +49,8 @@ const useCareer = ({ careerSelectedID }: useCareerProps): useCareerReturn => {
 
     const initializeCareer = async (): Promise<void> => {
       try {
-        const careerData = await getCareer(careerSelectedID)
+        const careerData = await careerApi.getCareer(careerSelectedID)
+        // const careerData = await getCareer(careerSelectedID)
 
         setCareer(careerData)
         saveToLocalStorage('career', careerData)

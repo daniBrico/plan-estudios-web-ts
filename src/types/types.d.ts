@@ -45,3 +45,9 @@ export type State =
   | 'Deshabilitada'
 
 export type DropdownOp = 'Aprobada' | 'Cursando' | 'Regular' | 'Recursar' | ''
+
+// Services
+
+export interface HttpClient {
+  get<T>(url: string): Promise<T>
+}

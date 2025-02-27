@@ -1,8 +1,16 @@
-import { type CareerNames, type Career } from '../types/types'
-import apiFetch from './apiFetch'
+import { type Career, type CareerNames, type HttpClient } from '../types/types'
 
-export const getCareer = async (id: string): Promise<Career> =>
-  await apiFetch(`career/${id}`)
+interface createCareerApiReturn {
+  getCareer: (id: string) => Promise<Career>
+  getCareerNames: () => Promise<CareerNames[]>
+}
 
-export const getCareerNames = async (): Promise<CareerNames[]> =>
-  await apiFetch('career/names')
+export const createCareerApi = (
+  httpClient: HttpClient
+): createCareerApiReturn => ({
+  getCareer: async (id: string): Promise<Career> =>
+    await httpClient.get(`career/${id}`),
+
+  getCareerNames: async (): Promise<CareerNames[]> =>
+    await httpClient.get('career/names')
+})
