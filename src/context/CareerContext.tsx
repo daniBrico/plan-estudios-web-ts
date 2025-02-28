@@ -19,6 +19,9 @@ export const CareerProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [allSubjectsState, setAllSubjectsState] = useState<SubjectState[]>([])
   const [careerSelectedID, setCareerSelected] = useState<ID | null>(null)
+  const [numSubjectsPassed, setNumSubjectsPassed] = useState<number>(0)
+  const [numSubjectsRegular, setNumSubjectsRegular] = useState<number>(0)
+  const [numSubjectsCursando, setNumSubjectsCursando] = useState<number>(0)
   const {
     career,
     error,
@@ -58,6 +61,28 @@ export const CareerProvider: React.FC<{ children: React.ReactNode }> = ({
     removeCareerLocalStorage()
     changeCareerLocalStorageValue(null)
   }
+
+  const getTotalNumOfSubjects = (): number => allSubjectsState.length
+
+  useEffect(() => {
+    if (!allSubjectsState) return
+
+    let contSubjectsPassed = 0
+    let contSubjectsRegular = 0
+    let contSubjectsCursando = 0
+
+    allSubjectsState.forEach((subject) => {
+      if (subject.state === 'Aprobada') contSubjectsPassed++
+
+      if (subject.state === 'Regular') contSubjectsRegular++
+
+      if (subject.state === 'Cursando') contSubjectsCursando++
+    })
+
+    setNumSubjectsPassed(contSubjectsPassed)
+    setNumSubjectsRegular(contSubjectsRegular)
+    setNumSubjectsCursando(contSubjectsCursando)
+  }, [allSubjectsState])
 
   useEffect(() => {
     if (allSubjectsState.length === 0 || !careerSelectedID) return
@@ -101,7 +126,11 @@ export const CareerProvider: React.FC<{ children: React.ReactNode }> = ({
         getSubjectState,
         allSubjectsState,
         areAllCorrelativesPassed,
-        cleanValuesAndLocalStorage
+        cleanValuesAndLocalStorage,
+        numSubjectsPassed,
+        numSubjectsRegular,
+        numSubjectsCursando,
+        getTotalNumOfSubjects
       }}
     >
       {children}

@@ -16,6 +16,10 @@ interface CareerContextType {
   allSubjectsState: SubjectState[]
   areAllCorrelativesPassed: (correlatives: Correlatives) => boolean
   cleanValuesAndLocalStorage: () => void
+  numSubjectsPassed: number
+  numSubjectsRegular: number
+  numSubjectsCursando: number
+  getTotalNumOfSubjects: () => number
 }
 
 export const CareerContext = createContext<CareerContextType | undefined>(

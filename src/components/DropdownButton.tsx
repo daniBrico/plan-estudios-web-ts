@@ -10,6 +10,14 @@ interface DropdownButtonProps {
   dropdownOp: DropdownOp
 }
 
+const options: { label: string; value: DropdownOp }[] = [
+  { label: 'Aprobada', value: 'Aprobada' },
+  { label: 'Cursando', value: 'Cursando' },
+  { label: 'Regular', value: 'Regular' },
+  { label: 'Recursar', value: 'Recursar' },
+  { label: 'Quitar', value: '' }
+]
+
 export const DropdownButton: React.FC<DropdownButtonProps> = ({
   isDropdownOpen,
   toggleDropdown,
@@ -41,14 +49,6 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
     return (): void =>
       document.removeEventListener('mousedown', handleOutsideClick)
   }, [isDropdownOpen, toggleDropdown, isDisabled])
-
-  const options: { label: string; value: DropdownOp }[] = [
-    { label: 'Aprobada', value: 'Aprobada' },
-    { label: 'Cursando', value: 'Cursando' },
-    { label: 'Regular', value: 'Regular' },
-    { label: 'Recursar', value: 'Recursar' },
-    { label: 'Quitar', value: '' }
-  ]
 
   const renderOption = (label: string, value: DropdownOp): JSX.Element => (
     <li

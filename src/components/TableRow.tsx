@@ -90,7 +90,7 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
   return (
     <>
       <tr
-        className={`bg-third-color grid grid-cols-2 rounded-md p-1 md:table-row md:rounded-none ${backgroundColor} `}
+        className={`bg-third-color grid grid-cols-2 rounded-md p-1 md:table-row md:rounded-none ${backgroundColor}`}
       >
         <td
           className={`text-sm transition md:p-2 md:text-center md:text-base ${isDropdownOpen ? 'underline' : ''} ${setClassForState(actualState)}`}
