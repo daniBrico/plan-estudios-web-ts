@@ -64,6 +64,9 @@ export const CareerProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const getTotalNumOfSubjects = (): number => allSubjectsState.length
 
+  const getSubjectNameFromCode = (code: string): string | undefined =>
+    allSubjectsState.find((subject) => subject.code === code)?.name
+
   useEffect(() => {
     if (!allSubjectsState) return
 
@@ -101,6 +104,7 @@ export const CareerProvider: React.FC<{ children: React.ReactNode }> = ({
           (subjectsByYear) =>
             subjectsByYear.subjects.map((subject) => ({
               code: subject.code,
+              name: subject.name,
               state:
                 subject.correlatives.length > 0 ? 'Deshabilitada' : 'Habilitada'
             }))
@@ -130,7 +134,8 @@ export const CareerProvider: React.FC<{ children: React.ReactNode }> = ({
         numSubjectsPassed,
         numSubjectsRegular,
         numSubjectsCursando,
-        getTotalNumOfSubjects
+        getTotalNumOfSubjects,
+        getSubjectNameFromCode
       }}
     >
       {children}

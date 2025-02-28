@@ -31,6 +31,7 @@ export interface Subject {
 
 export interface SubjectState {
   code: Code
+  name: string
   state: State
 }
 

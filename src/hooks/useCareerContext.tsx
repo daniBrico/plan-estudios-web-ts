@@ -20,6 +20,7 @@ interface CareerContextType {
   numSubjectsRegular: number
   numSubjectsCursando: number
   getTotalNumOfSubjects: () => number
+  getSubjectNameFromCode: (code: string) => string | undefined
 }
 
 export const CareerContext = createContext<CareerContextType | undefined>(

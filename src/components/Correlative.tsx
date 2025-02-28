@@ -1,15 +1,16 @@
 import React, { Fragment } from 'react'
 import { type Correlatives } from '../types/types'
 import useSubjectState from '../hooks/useSubjectState'
-// import Tooltip from './Tooltip'
+import { useCareerContext } from '../hooks/useCareerContext'
 
 interface CorrelativeProps {
   correlative: string
-  name: string
 }
 
-const Correlative: React.FC<CorrelativeProps> = ({ correlative, name }) => {
+const Correlative: React.FC<CorrelativeProps> = ({ correlative }) => {
   const { actualState, setClassForState } = useSubjectState(correlative)
+  const { getSubjectNameFromCode } = useCareerContext()
+  const name = getSubjectNameFromCode(correlative)
 
   return (
     <>
@@ -27,18 +28,16 @@ const Correlative: React.FC<CorrelativeProps> = ({ correlative, name }) => {
 
 interface ListOfCorrelativesProps {
   correlatives: Correlatives
-  name: string
 }
 
 export const ListOfCorrelatives: React.FC<ListOfCorrelativesProps> = ({
-  correlatives,
-  name
+  correlatives
 }) => {
   return (
     <>
       {correlatives.map((correlative, index) => (
         <Fragment key={correlative}>
-          <Correlative correlative={correlative} name={name} />
+          <Correlative correlative={correlative} />
           {index < correlatives.length - 1 && <span> - </span>}
         </Fragment>
       ))}
