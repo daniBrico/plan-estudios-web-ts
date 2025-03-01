@@ -50,7 +50,10 @@ export const ListOfCorrelatives: React.FC<ListOfCorrelativesProps> = ({
             </Fragment>
           ))}
         {correlatives.length > maxCorrelativesToShow && (
-          <span className="cursor-pointer" onClick={handleShowAllClick}>
+          <span
+            className="cursor-pointer select-none"
+            onClick={handleShowAllClick}
+          >
             {' ...'}
           </span>
         )}

@@ -126,24 +126,28 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
             dropdownOp={dropdownOp}
           />
         </td>
-        {showAll && (
-          <div className="absolute top-full z-50 mt-1 flex flex-col items-center justify-center rounded-lg bg-white p-2 text-sm font-light ring shadow-lg shadow-gray-500/40 ring-gray-500/10 md:right-0 md:text-base md:font-normal">
-            <div className="flex flex-wrap items-center justify-center gap-0.5">
-              {correlatives.map((correlative, index) => (
-                <Fragment key={correlative + code}>
-                  <Correlative correlative={correlative} />
-                  {index < correlatives.length - 1 && <span> - </span>}
-                </Fragment>
-              ))}
-            </div>
-            <button
-              className="bg-first-color mt-2 cursor-pointer rounded px-2 py-1 text-white"
-              onClick={changeShowAll}
-            >
-              Cerrar
-            </button>
+        <td
+          className={`absolute top-full z-50 mt-1 flex max-h-[500px] flex-col items-center justify-center rounded-lg bg-white p-2 text-sm font-light shadow-lg shadow-gray-500/40 transition-all duration-300 ease-in-out md:right-0 md:text-base md:font-normal ${
+            !showAll
+              ? 'invisible translate-y-[-10px] opacity-0'
+              : 'visible translate-y-0 opacity-100'
+          }`}
+        >
+          <div className="flex flex-wrap items-center justify-center gap-0.5">
+            {correlatives.map((correlative, index) => (
+              <Fragment key={correlative + code}>
+                <Correlative correlative={correlative} />
+                {index < correlatives.length - 1 && <span> - </span>}
+              </Fragment>
+            ))}
           </div>
-        )}
+          <button
+            className="bg-first-color hover:bg-first-color/80 mt-2 cursor-pointer rounded px-2 py-1 text-white transition duration-300"
+            onClick={changeShowAll}
+          >
+            Cerrar
+          </button>
+        </td>
       </tr>
     </>
   )
