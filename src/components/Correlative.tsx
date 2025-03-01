@@ -7,7 +7,7 @@ interface CorrelativeProps {
   correlative: string
 }
 
-const Correlative: React.FC<CorrelativeProps> = ({ correlative }) => {
+export const Correlative: React.FC<CorrelativeProps> = ({ correlative }) => {
   const { actualState, setClassForState } = useSubjectState(correlative)
   const { getSubjectNameFromCode } = useCareerContext()
   const name = getSubjectNameFromCode(correlative)
@@ -28,19 +28,33 @@ const Correlative: React.FC<CorrelativeProps> = ({ correlative }) => {
 
 interface ListOfCorrelativesProps {
   correlatives: Correlatives
+  changeShowAll: () => void
 }
 
 export const ListOfCorrelatives: React.FC<ListOfCorrelativesProps> = ({
-  correlatives
+  correlatives,
+  changeShowAll
 }) => {
+  const maxCorrelativesToShow = 2
+  const handleShowAllClick = (): void => changeShowAll()
+
   return (
     <>
-      {correlatives.map((correlative, index) => (
-        <Fragment key={correlative}>
-          <Correlative correlative={correlative} />
-          {index < correlatives.length - 1 && <span> - </span>}
-        </Fragment>
-      ))}
+      <div className="flex gap-0.5 md:flex-wrap md:items-center md:justify-center">
+        {correlatives
+          .slice(0, maxCorrelativesToShow)
+          .map((correlative, index) => (
+            <Fragment key={correlative}>
+              <Correlative correlative={correlative} />
+              {index < correlatives.length - 1 && <span> - </span>}
+            </Fragment>
+          ))}
+        {correlatives.length > maxCorrelativesToShow && (
+          <span className="cursor-pointer" onClick={handleShowAllClick}>
+            {' ...'}
+          </span>
+        )}
+      </div>
     </>
   )
 }
