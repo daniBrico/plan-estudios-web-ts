@@ -19,15 +19,14 @@ const titles = [
 const renderTableHeads = (
   key: string,
   value: string,
-  clasess: string,
-  numberOfSubjects: number
+  clasess: string
 ): JSX.Element => {
   return (
     <th
       key={key}
       className={`border-back border-b-2 p-2 text-base font-bold tracking-wide ${clasess}`}
     >
-      {key === 'code' ? `(${numberOfSubjects}) ${value}` : value}
+      {value}
     </th>
   )
 }
@@ -44,12 +43,7 @@ const ListOfTables: React.FC<ListOfTablesProps> = ({
         <thead className="bg-first-color top-2 z-20 hidden rounded-t-lg md:sticky md:table-header-group">
           <tr className="rounded-t-lg text-white">
             {titles.map((title) =>
-              renderTableHeads(
-                title.key,
-                title.value,
-                title.classes,
-                subjects.length
-              )
+              renderTableHeads(title.key, title.value, title.classes)
             )}
           </tr>
         </thead>
