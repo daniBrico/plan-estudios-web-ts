@@ -50,7 +50,6 @@ const useCareer = ({ careerSelectedID }: useCareerProps): useCareerReturn => {
     const initializeCareer = async (): Promise<void> => {
       try {
         const careerData = await careerApi.getCareer(careerSelectedID)
-        // const careerData = await getCareer(careerSelectedID)
 
         setCareer(careerData)
         saveToLocalStorage('career', careerData)

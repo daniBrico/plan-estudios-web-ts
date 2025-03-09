@@ -1,6 +1,7 @@
 import React from 'react'
 import { type CareerHeaderInfo } from '../types/types'
 import { CareerHeader } from './CareerHeader'
+import logoUNO from '../assets/logoUNO.svg'
 
 interface HeaderProps {
   careerHeaderInfo?: CareerHeaderInfo | null
@@ -18,7 +19,7 @@ export const Header: React.FC<HeaderProps> = ({ careerHeaderInfo }) => {
           >
             <img
               className="hidden w-28 sm:block sm:w-24"
-              src="../src/assets/logoUNO.svg"
+              src={logoUNO}
               alt="Logo de la Universidad Nacional del Oeste"
             />
             <span className="inline-block border-y-2 text-center text-3xl font-extrabold tracking-wide text-white sm:hidden">
