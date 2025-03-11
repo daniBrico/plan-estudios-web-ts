@@ -14,6 +14,7 @@ interface useCareerProps {
 interface useCareerReturn {
   career: Career | null
   error: string | null
+  careerIsLoading: boolean
   changeCareerValue: (value: Career | null) => void
   removeCareerLocalStorage: () => void
   changeCareerLocalStorageValue: (value: Career | null) => void
@@ -25,6 +26,7 @@ const useCareer = ({ careerSelectedID }: useCareerProps): useCareerReturn => {
   const [careerLocalStorage, setCareerLocalStorage] = useState<Career | null>(
     null
   )
+  const [careerIsLoading, setCareerIsLoading] = useState(false)
 
   const changeCareerValue = (value: Career | null): void => setCareer(value)
 
@@ -36,7 +38,10 @@ const useCareer = ({ careerSelectedID }: useCareerProps): useCareerReturn => {
   useEffect(() => {
     const careerFromLS = getFromLocalStorage('career')
 
-    if (!careerFromLS) return
+    if (!careerFromLS) {
+      setCareerIsLoading(false)
+      return
+    }
 
     setCareerLocalStorage(careerFromLS as Career)
   }, [])
@@ -44,10 +49,12 @@ const useCareer = ({ careerSelectedID }: useCareerProps): useCareerReturn => {
   useEffect(() => {
     if (!careerSelectedID) {
       setCareer(null)
+      setCareerIsLoading(false)
       return
     }
 
     const initializeCareer = async (): Promise<void> => {
+      setCareerIsLoading(true)
       try {
         const careerData = await careerApi.getCareer(careerSelectedID)
 
@@ -58,10 +65,13 @@ const useCareer = ({ careerSelectedID }: useCareerProps): useCareerReturn => {
       } catch (err) {
         setError('Error al cargar los datos de la carrera')
         console.error(`Error al inicializar los datos de la carrera: ${err}`)
+      } finally {
+        setCareerIsLoading(false)
       }
     }
 
     if (careerLocalStorage) {
+      setCareerIsLoading(false)
       if (career) return
       setCareer(careerLocalStorage as Career)
     } else {
@@ -72,6 +82,7 @@ const useCareer = ({ careerSelectedID }: useCareerProps): useCareerReturn => {
   return {
     career,
     error,
+    careerIsLoading,
     changeCareerValue,
     removeCareerLocalStorage,
     changeCareerLocalStorageValue

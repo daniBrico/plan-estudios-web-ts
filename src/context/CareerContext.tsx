@@ -25,6 +25,7 @@ export const CareerProvider: React.FC<{ children: React.ReactNode }> = ({
   const {
     career,
     error,
+    careerIsLoading,
     removeCareerLocalStorage,
     changeCareerLocalStorageValue
   } = useCareer({ careerSelectedID })
@@ -126,6 +127,7 @@ export const CareerProvider: React.FC<{ children: React.ReactNode }> = ({
         changeCareerSelected,
         career,
         error,
+        careerIsLoading,
         changeSubjectState,
         getSubjectState,
         allSubjectsState,

@@ -10,11 +10,17 @@ import {
   saveToLocalStorage
 } from './utils/storage'
 import { type ID } from './types/types'
+import { LoadingSpinner } from './components/LoadingSpinner'
 
 function App(): JSX.Element {
   const { careerNames: careerNamesApi, careerNamesError } = useGetCareerNames()
-  const { changeCareerSelected, career, error, cleanValuesAndLocalStorage } =
-    useCareerContext()
+  const {
+    changeCareerSelected,
+    career,
+    error,
+    careerIsLoading,
+    cleanValuesAndLocalStorage
+  } = useCareerContext()
   const [initialSelectedOp, setInitialSelectedOp] = useState<{
     value: string
     label: string
@@ -87,10 +93,11 @@ function App(): JSX.Element {
             value={initialSelectedOp}
           />
         </div>
+        {careerIsLoading && <LoadingSpinner />}
+        {error && <div className="text-center text-red-500">{error}</div>}
         {career && career.subjectsByYear ? (
           <CareerDetails subjectsByYear={career.subjectsByYear} />
         ) : null}
-        {error && <div className="text-center text-red-500">{error}</div>}
       </main>
     </>
   )

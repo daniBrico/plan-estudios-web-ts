@@ -11,6 +11,7 @@ interface CareerContextType {
   changeCareerSelected: (option: string | null) => void
   career: Career | null
   error: string | null
+  careerIsLoading: boolean
   changeSubjectState: (code: Code, state: State) => void
   getSubjectState: (code: Code) => State | undefined
   allSubjectsState: SubjectState[]

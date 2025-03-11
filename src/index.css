@@ -8,9 +8,22 @@
   --color-third-color: #ececee;
   --color-back: #fff;
   --color-hover-color: #a8a9b2;
+  --color-back: rgba(236, 236, 238, 0.5);
 
   --shadow-shadow-select: 0 0 0.8em #f15a5c;
   --shadow-shadow-box: 0 0 0.8em #dddde0;
+
+  --animate-loading-spinner: loading-spinner 0.9s linear infinite;
+
+  @keyframes loading-spinner {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(1turn);
+    }
+  }
 }
 
 /*
@@ -48,7 +61,6 @@ body {
   /* @apply font-onest; */
   height: 100%;
   overflow-y: scroll;
-  /* background-color: #f0f0f0; */
-  /* background-color: var(--color-third-color); */
-  background-color: rgba(236, 236, 238, 0.5);
+  /* background-color: rgba(236, 236, 238, 0.5); */
+  background-color: var(--color-back);
 }
