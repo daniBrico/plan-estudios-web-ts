@@ -36,7 +36,8 @@ const ListOfTables: React.FC<ListOfTablesProps> = ({
 }) => {
   return (
     <>
-      <h2 className="bg-first-color md:text-first-color sticky top-2 z-20 mt-4 mb-2 rounded-tl-md rounded-tr-md pb-0.5 text-center text-xl text-white md:static md:rounded-none md:bg-inherit md:text-2xl">
+      {/* I removed the sticky from the h2 on the mobile version temporarily as it doesn't work with the current interface */}
+      <h2 className="bg-first-color md:text-first-color mt-4 mb-2 rounded-tl-md rounded-tr-md pb-0.5 text-center text-xl text-white md:static md:rounded-none md:bg-inherit md:text-2xl">
         {`(${subjects.length}) ${tableTitle}`}
       </h2>
       <table className="md:shadow-shadow-box mx-auto mb-5 w-full rounded-t-lg rounded-tl-lg rounded-b-lg">

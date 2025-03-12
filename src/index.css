@@ -57,6 +57,11 @@
     U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 body {
   /* @apply font-onest; */
   height: 100%;
