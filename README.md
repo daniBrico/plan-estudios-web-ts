@@ -7,3 +7,5 @@ Los cambios realizados por el usuario se guardan en el almacenamiento local (Loc
 La aplicación obtiene la información de la carrera (por el momento, solo de Informática) desde una API que se conecta a una base de datos MongoDB.
 
 Fue desarrollada utilizando React, TailwindCSS y Typescript.
+
+Puedes visitar el sitio en el siguiente [link](https://plan-estudios-web-ts.onrender.com/).
