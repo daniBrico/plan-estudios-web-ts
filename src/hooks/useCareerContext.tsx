@@ -4,7 +4,8 @@ import {
   type Code,
   type State,
   type Correlatives,
-  type Career
+  type Career,
+  type Name
 } from '../types/types'
 
 interface CareerContextType {
@@ -21,7 +22,7 @@ interface CareerContextType {
   numSubjectsRegular: number
   numSubjectsCursando: number
   getTotalNumOfSubjects: () => number
-  getSubjectNameFromCode: (code: string) => string | undefined
+  getSubjectNameFromCode: (code: string) => Name | undefined
 }
 
 export const CareerContext = createContext<CareerContextType | undefined>(

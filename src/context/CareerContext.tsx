@@ -5,7 +5,8 @@ import {
   type State,
   type SubjectState,
   type Correlatives,
-  type ID
+  type ID,
+  type Name
 } from '../types/types'
 import useCareer from '../hooks/useCareer'
 import {
@@ -65,8 +66,8 @@ export const CareerProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const getTotalNumOfSubjects = (): number => allSubjectsState.length
 
-  const getSubjectNameFromCode = (code: string): string | undefined =>
-    allSubjectsState.find((subject) => subject.code === code)?.name.longName
+  const getSubjectNameFromCode = (code: string): Name | undefined =>
+    allSubjectsState.find((subject) => subject.code === code)?.name
 
   useEffect(() => {
     if (!allSubjectsState) return
