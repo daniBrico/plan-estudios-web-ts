@@ -20,9 +20,13 @@ export interface SubjectsByYear {
 
 export type Code = string
 export type Correlatives = string[]
+export type Name = {
+  longName: string
+  shortName: string
+}
 
 export interface Subject {
-  name: string
+  name: Name
   code: Code
   offering: string
   correlatives: Correlatives
@@ -31,7 +35,7 @@ export interface Subject {
 
 export interface SubjectState {
   code: Code
-  name: string
+  name: Name
   state: State
 }
 

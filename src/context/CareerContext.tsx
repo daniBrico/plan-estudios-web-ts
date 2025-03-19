@@ -66,7 +66,7 @@ export const CareerProvider: React.FC<{ children: React.ReactNode }> = ({
   const getTotalNumOfSubjects = (): number => allSubjectsState.length
 
   const getSubjectNameFromCode = (code: string): string | undefined =>
-    allSubjectsState.find((subject) => subject.code === code)?.name
+    allSubjectsState.find((subject) => subject.code === code)?.name.longName
 
   useEffect(() => {
     if (!allSubjectsState) return
