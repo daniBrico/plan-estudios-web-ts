@@ -35,12 +35,21 @@ const ListOfTables: React.FC<ListOfTablesProps> = ({
   tableTitle,
   subjects
 }) => {
+  const countAndTableTitle = `(${subjects.length}) ${tableTitle}`
+
   return (
-    <div className="w-full">
-      <h2 className="bg-first-color md:text-first-color sticky top-2 z-100 mt-4 rounded-tl-md rounded-tr-md text-center text-xl text-white md:static md:mb-3 md:rounded-none md:bg-inherit md:text-2xl">
-        {`(${subjects.length}) ${tableTitle}`}
+    <div className="relative w-full">
+      <h2 className="bg-first-color md:text-first-color sticky top-2 z-100 mt-4 rounded-tl-md rounded-tr-md text-center text-xl text-white md:invisible md:static md:mb-3 md:hidden md:w-full md:rounded-none md:bg-inherit md:text-2xl">
+        {countAndTableTitle}
       </h2>
-      <table className="md:shadow-shadow-box mx-auto mb-5 w-full rounded-t-lg rounded-tl-lg rounded-b-lg">
+      <table
+        className="custom-content md:shadow-shadow-box mx-auto mb-5 w-full rounded-t-lg rounded-tl-lg rounded-b-lg"
+        style={
+          {
+            '--dynamic-content': `'${countAndTableTitle}'`
+          } as React.CSSProperties
+        }
+      >
         <thead className="bg-first-color top-2 z-20 hidden rounded-t-lg md:sticky md:table-header-group">
           <tr className="rounded-t-lg text-white">
             {titles.map((title) =>
@@ -72,8 +81,8 @@ export const CareerDetails: React.FC<CareerDetailsProps> = ({
 
   return (
     <>
-      <article className="relative m-auto max-w-4xl px-4 lg:flex lg:flex-col lg:items-center lg:px-0">
-        <h2 className="text-first-color mx-auto mt-2 text-center text-2xl font-semibold md:text-3xl">
+      <article className="relative m-auto max-w-4xl px-4 lg:flex lg:flex-col lg:items-center lg:gap-4 lg:px-0">
+        <h2 className="text-first-color mx-auto mt-2 text-center text-2xl font-semibold md:mb-4 md:text-3xl">
           Plan de Estudios
         </h2>
         {subjectsByYear.map((subjectForYear) => (

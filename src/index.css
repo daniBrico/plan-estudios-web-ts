@@ -68,3 +68,26 @@ body {
   overflow-y: scroll;
   background-color: var(--color-back);
 }
+
+.custom-content::before {
+  content: var(--dynamic-content); /* Usamos una variable CSS */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-5deg);
+  z-index: 1100;
+  font-size: 4rem; /* text-6xl */
+  font-weight: 700; /* font-bold */
+  opacity: 0.3; /* opacity-30 */
+  color: var(--color-first-color); /* Usamos otra variable CSS */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 48rem) {
+  .custom-content::before {
+    visibility: hidden;
+    display: none;
+  }
+}
