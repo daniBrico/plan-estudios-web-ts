@@ -41,17 +41,23 @@ export const ListOfCorrelatives: React.FC<ListOfCorrelativesProps> = ({
   return (
     <>
       <div className="flex gap-0.5 md:flex-wrap md:items-center md:justify-center">
-        {correlatives
-          .slice(0, maxCorrelativesToShow)
-          .map((correlative, index) => (
-            <Fragment key={correlative}>
-              <Correlative correlative={correlative} />
-              {index < correlatives.length - 1 && <span> - </span>}
-            </Fragment>
-          ))}
+        {correlatives.length === 0 && (
+          <span className="text-first-color cursor-pointer text-lg select-none">
+            {'-'}
+          </span>
+        )}
+        {correlatives.length <= maxCorrelativesToShow &&
+          correlatives
+            .slice(0, maxCorrelativesToShow)
+            .map((correlative, index) => (
+              <Fragment key={correlative}>
+                <Correlative correlative={correlative} />
+                {index < correlatives.length - 1 && <span> - </span>}
+              </Fragment>
+            ))}
         {correlatives.length > maxCorrelativesToShow && (
           <span
-            className="cursor-pointer select-none"
+            className="text-first-color cursor-pointer text-lg select-none"
             onClick={handleShowAllClick}
           >
             {' ...'}
