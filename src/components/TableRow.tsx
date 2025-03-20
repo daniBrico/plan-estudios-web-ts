@@ -116,7 +116,7 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
         <td className="flex items-end justify-center text-center text-sm font-light md:table-cell md:py-2 md:text-base md:font-normal">
           <ListOfCorrelatives
             correlatives={correlatives}
-            changeShowAll={changeShowAll}
+            // changeShowAll={changeShowAll}
           />
         </td>
         <td

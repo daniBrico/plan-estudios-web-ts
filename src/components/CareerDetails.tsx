@@ -30,14 +30,14 @@ const renderTableHeads = (
     </th>
   )
 }
+
 const ListOfTables: React.FC<ListOfTablesProps> = ({
   tableTitle,
   subjects
 }) => {
   return (
-    <>
-      {/* I removed the sticky from the h2 on the mobile version temporarily as it doesn't work with the current interface */}
-      <h2 className="bg-first-color md:text-first-color mt-4 mb-2 rounded-tl-md rounded-tr-md pb-0.5 text-center text-xl text-white md:static md:rounded-none md:bg-inherit md:text-2xl">
+    <div className="w-full">
+      <h2 className="bg-first-color md:text-first-color sticky top-2 z-100 mt-4 rounded-tl-md rounded-tr-md text-center text-xl text-white md:static md:mb-3 md:rounded-none md:bg-inherit md:text-2xl">
         {`(${subjects.length}) ${tableTitle}`}
       </h2>
       <table className="md:shadow-shadow-box mx-auto mb-5 w-full rounded-t-lg rounded-tl-lg rounded-b-lg">
@@ -48,11 +48,11 @@ const ListOfTables: React.FC<ListOfTablesProps> = ({
             )}
           </tr>
         </thead>
-        <tbody className="grid grid-cols-1 gap-1 text-black sm:grid-cols-2 md:table-row-group">
+        <tbody className="mt-2 grid grid-cols-1 gap-1 text-black sm:grid-cols-2 md:table-row-group">
           <TableRows subjects={subjects} />
         </tbody>
       </table>
-    </>
+    </div>
   )
 }
 
@@ -72,7 +72,7 @@ export const CareerDetails: React.FC<CareerDetailsProps> = ({
 
   return (
     <>
-      <article className="m-auto max-w-4xl px-4 lg:flex lg:flex-col lg:items-center lg:px-0">
+      <article className="relative m-auto max-w-4xl px-4 lg:flex lg:flex-col lg:items-center lg:px-0">
         <h2 className="text-first-color mx-auto mt-2 text-center text-2xl font-semibold md:text-3xl">
           Plan de Estudios
         </h2>
