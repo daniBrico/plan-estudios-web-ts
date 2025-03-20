@@ -19,14 +19,16 @@ const titles = [
 const renderTableHeads = (
   key: string,
   value: string,
-  clasess: string
+  clasess: string,
+  countOfSubjectsByYear: number
 ): JSX.Element => {
   return (
     <th
       key={key}
-      className={`border-back border-b-2 p-2 text-base font-bold tracking-wide ${clasess}`}
+      className={`border-back border-b-2 text-base font-bold tracking-wide ${clasess} ${key === 'code' ? 'px-2 py-2' : 'p-2'}`}
     >
-      {value}
+      {key === 'code' ? `(${countOfSubjectsByYear}) ${value}` : value}
+      {/* {value} */}
     </th>
   )
 }
@@ -35,25 +37,30 @@ const ListOfTables: React.FC<ListOfTablesProps> = ({
   tableTitle,
   subjects
 }) => {
-  const countAndTableTitle = `(${subjects.length}) ${tableTitle}`
+  const countOfSubjectsByYear = subjects.length
 
   return (
     <div className="relative w-full">
-      <h2 className="bg-first-color md:text-first-color sticky top-2 z-100 mt-4 rounded-tl-md rounded-tr-md text-center text-xl text-white md:invisible md:static md:mb-3 md:hidden md:w-full md:rounded-none md:bg-inherit md:text-2xl">
-        {countAndTableTitle}
+      <h2 className="bg-first-color md:text-first-color sticky top-2 z-100 mt-4 rounded-tl-md rounded-tr-md py-0.5 text-center text-xl text-white md:invisible md:static md:mb-3 md:hidden md:w-full md:rounded-none md:bg-inherit md:text-2xl">
+        {`(${countOfSubjectsByYear}) ${tableTitle}`}
       </h2>
       <table
         className="custom-content md:shadow-shadow-box mx-auto mb-5 w-full rounded-t-lg rounded-tl-lg rounded-b-lg"
         style={
           {
-            '--dynamic-content': `'${countAndTableTitle}'`
+            '--dynamic-content': `'${tableTitle}'`
           } as React.CSSProperties
         }
       >
-        <thead className="bg-first-color top-2 z-20 hidden rounded-t-lg md:sticky md:table-header-group">
+        <thead className="bg-first-color thead top-2 z-20 hidden rounded-t-lg md:sticky md:table-header-group">
           <tr className="rounded-t-lg text-white">
             {titles.map((title) =>
-              renderTableHeads(title.key, title.value, title.classes)
+              renderTableHeads(
+                title.key,
+                title.value,
+                title.classes,
+                countOfSubjectsByYear
+              )
             )}
           </tr>
         </thead>

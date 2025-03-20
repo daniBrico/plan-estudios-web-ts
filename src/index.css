@@ -69,6 +69,7 @@ body {
   background-color: var(--color-back);
 }
 
+/* Career Year */
 .custom-content::before {
   content: var(--dynamic-content); /* Usamos una variable CSS */
   position: absolute;
@@ -85,9 +86,35 @@ body {
   justify-content: center;
 }
 
+.thead {
+  border-top-right-radius: 50%;
+}
+
+/* Table, thead code */
+/* .thead-code::before {
+  content: var(--dynamic-subjects-count);
+  position: absolute;
+  color: var(--color-first-color);
+  right: 100%;
+  margin-right: 0.25rem;
+  z-index: 2000;
+  height: 100%;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+} */
+
 @media (max-width: 48rem) {
   .custom-content::before {
     visibility: hidden;
     display: none;
   }
 }
+/*
+@media (max-width: 64rem) {
+  .thead-code::before {
+    visibility: hidden;
+    display: none;
+  }
+} */
