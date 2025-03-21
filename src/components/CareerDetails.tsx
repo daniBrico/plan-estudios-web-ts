@@ -25,10 +25,9 @@ const renderTableHeads = (
   return (
     <th
       key={key}
-      className={`border-back border-b-2 text-base font-bold tracking-wide ${clasess} ${key === 'code' ? 'px-2 py-2' : 'p-2'}`}
+      className={`border-back border-b-2 text-base font-bold tracking-wide ${clasess} ${key === 'code' ? 'px-2 py-2 whitespace-nowrap' : 'p-2'}`}
     >
       {key === 'code' ? `(${countOfSubjectsByYear}) ${value}` : value}
-      {/* {value} */}
     </th>
   )
 }
@@ -40,12 +39,12 @@ const ListOfTables: React.FC<ListOfTablesProps> = ({
   const countOfSubjectsByYear = subjects.length
 
   return (
-    <div className="relative w-full">
+    <div className="w-full">
       <h2 className="bg-first-color md:text-first-color sticky top-2 z-100 mt-4 rounded-tl-md rounded-tr-md py-0.5 text-center text-xl text-white md:invisible md:static md:mb-3 md:hidden md:w-full md:rounded-none md:bg-inherit md:text-2xl">
         {`(${countOfSubjectsByYear}) ${tableTitle}`}
       </h2>
       <table
-        className="custom-content md:shadow-shadow-box mx-auto mb-5 w-full rounded-t-lg rounded-tl-lg rounded-b-lg"
+        className="custom-content md:shadow-shadow-box relative mx-auto w-full rounded-lg"
         style={
           {
             '--dynamic-content': `'${tableTitle}'`
@@ -88,7 +87,7 @@ export const CareerDetails: React.FC<CareerDetailsProps> = ({
 
   return (
     <>
-      <article className="relative m-auto max-w-4xl px-4 lg:flex lg:flex-col lg:items-center lg:gap-4 lg:px-0">
+      <article className="relative m-auto max-w-4xl gap-8 px-4 md:flex md:flex-col md:items-center lg:px-0">
         <h2 className="text-first-color mx-auto mt-2 text-center text-2xl font-semibold md:mb-4 md:text-3xl">
           Plan de Estudios
         </h2>
