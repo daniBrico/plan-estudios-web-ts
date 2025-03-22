@@ -57,7 +57,7 @@
     U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-.main {
+main {
   overflow-x: hidden;
 }
 
