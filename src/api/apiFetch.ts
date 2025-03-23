@@ -1,6 +1,8 @@
 import { type HttpClient } from '../types/types'
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+const { VITE_BACKEND_URL } = import.meta.env
+
+const BACKEND_URL = VITE_BACKEND_URL
 
 const apiFetch: HttpClient = {
   get: async <T>(url: string): Promise<T> => {

@@ -1,9 +1,9 @@
 import { useCareerContext } from '../hooks/useCareerContext'
 import useSubjectState from '../hooks/useSubjectState'
 import { type DropdownOp, type State, type Subject } from '../types/types'
-import { Correlative, ListOfCorrelatives } from './Correlative'
+import { ListOfCorrelatives } from './Correlative'
 import { DropdownButton } from './DropdownButton'
-import React, { Fragment, useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 interface ListOfRowsProps extends Omit<Subject, 'state'> {
   index: number
@@ -26,9 +26,6 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [isDisabled, setIsDisabled] = useState(false)
   const [dropdownOp, setDropdownOp] = useState<DropdownOp>('')
-  const [showAll, setShowAll] = useState(false)
-
-  const changeShowAll = (): void => setShowAll((prev) => !prev)
 
   const changeDropdownOp = (newOp: DropdownOp): void => setDropdownOp(newOp)
 
@@ -114,10 +111,7 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
           {offering}
         </td>
         <td className="flex items-end justify-center text-center text-sm font-light md:table-cell md:py-2 md:text-base md:font-normal">
-          <ListOfCorrelatives
-            correlatives={correlatives}
-            // changeShowAll={changeShowAll}
-          />
+          <ListOfCorrelatives correlatives={correlatives} />
         </td>
         <td
           className={`flex items-end justify-end md:table-cell md:px-1 md:py-2`}
@@ -130,28 +124,6 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
             changeDropdownOp={changeDropdownOp}
             dropdownOp={dropdownOp}
           />
-        </td>
-        <td
-          className={`absolute top-full z-50 mt-1 flex max-h-[500px] flex-col items-center justify-center rounded-lg bg-white p-2 text-sm font-light shadow-lg shadow-gray-500/40 transition-all duration-300 ease-in-out md:right-0 md:text-base md:font-normal ${
-            !showAll
-              ? 'invisible translate-y-[-10px] opacity-0'
-              : 'visible translate-y-0 opacity-100'
-          }`}
-        >
-          <div className="flex flex-wrap items-center justify-center gap-0.5">
-            {correlatives.map((correlative, index) => (
-              <Fragment key={correlative + code}>
-                <Correlative correlative={correlative} />
-                {index < correlatives.length - 1 && <span> - </span>}
-              </Fragment>
-            ))}
-          </div>
-          <button
-            className="bg-first-color hover:bg-first-color/80 mt-2 cursor-pointer rounded px-2 py-1 text-white transition duration-300"
-            onClick={changeShowAll}
-          >
-            Cerrar
-          </button>
         </td>
       </tr>
     </>

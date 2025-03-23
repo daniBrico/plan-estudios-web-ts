@@ -28,15 +28,12 @@ export const Correlative: React.FC<CorrelativeProps> = ({ correlative }) => {
 
 interface ListOfCorrelativesProps {
   correlatives: Correlatives
-  // changeShowAll: () => void
 }
 
 export const ListOfCorrelatives: React.FC<ListOfCorrelativesProps> = ({
   correlatives
-  // changeShowAll
 }) => {
   const maxCorrelativesToShow = 2
-  // const handleShowAllClick = (): void => changeShowAll()
 
   return (
     <>
@@ -54,10 +51,7 @@ export const ListOfCorrelatives: React.FC<ListOfCorrelativesProps> = ({
               </Fragment>
             ))}
         {correlatives.length > maxCorrelativesToShow && (
-          <span
-            className="text-first-color cursor-pointer text-lg select-none"
-            // onClick={handleShowAllClick}
-          >
+          <span className="text-first-color cursor-pointer text-lg select-none">
             {' ...'}
           </span>
         )}
