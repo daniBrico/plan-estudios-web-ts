@@ -23,7 +23,7 @@ const ScrollToTopButton = (): JSX.Element => {
 
   useEffect(() => {
     const handleScroll = (): void => {
-      // Calcula la posición actual del scroll
+      // Gets the current scroll position
       const scrollY = window.scrollY || window.pageYOffset
 
       if (scrollY > 600) {
@@ -63,13 +63,7 @@ const ScrollToTopButton = (): JSX.Element => {
 
   return (
     <>
-      {!isMobile ? (
-        <Button
-          children={arrowUpIcon()}
-          handleClickCallback={handleButtonToTop}
-          cssClasses={`right-8 bottom-16 h-13 w-13 rounded-4xl hover:opacity-90 ${showButton ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
-        />
-      ) : (
+      {isMobile ? (
         <>
           <Button
             children={ArrowLeftIcon()}
@@ -84,6 +78,12 @@ const ScrollToTopButton = (): JSX.Element => {
             />
           }
         </>
+      ) : (
+        <Button
+          children={arrowUpIcon()}
+          handleClickCallback={handleButtonToTop}
+          cssClasses={`right-8 bottom-16 h-13 w-13 rounded-4xl hover:opacity-90 ${showButton ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
+        />
       )}
     </>
   )

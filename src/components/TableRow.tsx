@@ -98,7 +98,7 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
           {code}
         </td>
         <td
-          className={`order-first col-span-2 text-sm font-medium text-wrap whitespace-nowrap transition md:p-2 md:text-base md:font-normal ${isDropdownOpen ? `${setClassForState(actualState)} underline` : ''}`}
+          className={`order-first col-span-2 text-sm font-medium text-wrap transition md:p-2 md:text-base md:font-normal ${isDropdownOpen ? `${setClassForState(actualState)} underline` : ''}`}
         >
           <p className="invisible hidden md:visible md:inline">
             {name.longName}

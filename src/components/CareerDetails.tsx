@@ -51,7 +51,7 @@ const ListOfTables: React.FC<ListOfTablesProps> = ({
           } as React.CSSProperties
         }
       >
-        <thead className="bg-first-color thead top-2 z-20 hidden rounded-t-lg md:sticky md:table-header-group">
+        <thead className="bg-first-color thead top-2 z-20 hidden w-full rounded-t-lg md:sticky md:table-header-group">
           <tr className="rounded-t-lg text-white">
             {titles.map((title) =>
               renderTableHeads(
@@ -63,7 +63,7 @@ const ListOfTables: React.FC<ListOfTablesProps> = ({
             )}
           </tr>
         </thead>
-        <tbody className="mt-2 grid grid-cols-1 gap-1 text-black sm:grid-cols-2 md:table-row-group">
+        <tbody className="mt-2 grid w-full grid-cols-1 gap-1 text-black sm:grid-cols-2 md:table-row-group">
           <TableRows subjects={subjects} />
         </tbody>
       </table>
@@ -87,7 +87,7 @@ export const CareerDetails: React.FC<CareerDetailsProps> = ({
 
   return (
     <>
-      <article className="relative m-auto max-w-4xl gap-8 px-4 md:flex md:flex-col md:items-center lg:px-0">
+      <article className="relative m-auto w-full max-w-4xl gap-8 px-6 md:flex md:flex-col md:items-center lg:px-0">
         <h2 className="text-first-color mx-auto mt-2 text-center text-2xl font-semibold md:mb-4 md:text-3xl">
           Plan de Estudios
         </h2>
@@ -99,7 +99,7 @@ export const CareerDetails: React.FC<CareerDetailsProps> = ({
           />
         ))}
       </article>
-      <article className="m-auto mt-4 max-w-md px-4">
+      <article className="m-auto mt-4 max-w-md px-6">
         <h2 className="text-first-color mx-auto mt-2 text-center text-2xl font-semibold sm:mt-8 md:text-3xl">
           Información adicional
         </h2>

@@ -67,16 +67,16 @@ body {
 
 /* Career Year */
 .custom-content::before {
-  content: var(--dynamic-content); /* Usamos una variable CSS */
+  content: var(--dynamic-content);
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) rotate(-5deg);
   z-index: 1100;
-  font-size: 4rem; /* text-6xl */
-  font-weight: 700; /* font-bold */
-  opacity: 0.3; /* opacity-30 */
-  color: var(--color-first-color); /* Usamos otra variable CSS */
+  font-size: 4rem;
+  font-weight: 700;
+  opacity: 0.3;
+  color: var(--color-first-color);
   width: 100%;
   display: flex;
   justify-content: center;
