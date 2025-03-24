@@ -3,7 +3,7 @@ import useSubjectState from '../hooks/useSubjectState'
 import { type DropdownOp, type State, type Subject } from '../types/types'
 import { ListOfCorrelatives } from './Correlative'
 import { DropdownButton } from './DropdownButton'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface ListOfRowsProps extends Omit<Subject, 'state'> {
   index: number
@@ -28,10 +28,6 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
   const [dropdownOp, setDropdownOp] = useState<DropdownOp>('')
 
   const changeDropdownOp = (newOp: DropdownOp): void => setDropdownOp(newOp)
-
-  const toggleDropdown = useCallback((): void => {
-    setIsDropdownOpen((prev) => !prev)
-  }, [])
 
   const changeStateOpSelected = (option: DropdownOp): void => {
     let newOp: State
@@ -118,11 +114,11 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
         >
           <DropdownButton
             isDropdownOpen={isDropdownOpen}
-            toggleDropdown={toggleDropdown}
             isDisabled={isDisabled}
             changeStateOpSelected={changeStateOpSelected}
             changeDropdownOp={changeDropdownOp}
             dropdownOp={dropdownOp}
+            setIsDropdownOpen={setIsDropdownOpen}
           />
         </td>
       </tr>

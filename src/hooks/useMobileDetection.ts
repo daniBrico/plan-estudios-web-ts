@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react'
 
-const useMobileDetection = (): boolean => {
-  const [isMobile, setIsMobile] = useState(false)
+const useMobileDetection = (): boolean | null => {
+  const [isMobile, setIsMobile] = useState<boolean | null>(null)
 
+  // Based on the display width
   useEffect(() => {
-    const isTouchDevice =
-      'ontouchstart' in window || navigator.maxTouchPoints > 0
+    if (!isMobile) setIsMobile(window.innerWidth <= 768)
 
-    setIsMobile(isTouchDevice)
-  }, [])
+    const handleResize = (): void => setIsMobile(window.innerWidth <= 768)
+
+    window.addEventListener('resize', handleResize)
+
+    return (): void => window.removeEventListener('resize', handleResize)
+  }, [isMobile])
 
   return isMobile
 }

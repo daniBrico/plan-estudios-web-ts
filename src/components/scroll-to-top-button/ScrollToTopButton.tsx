@@ -20,17 +20,14 @@ const ArrowLeftIcon = (): JSX.Element => (
 const ScrollToTopButton = (): JSX.Element => {
   const [showButton, setShowButton] = useState(false)
   const [arrowUpIsOpen, setArrowUpIsOpen] = useState(false)
+  const isMobile = useMobileDetection()
 
   useEffect(() => {
     const handleScroll = (): void => {
       // Gets the current scroll position
       const scrollY = window.scrollY || window.pageYOffset
 
-      if (scrollY > 600) {
-        setShowButton(true)
-      } else {
-        setShowButton(false)
-      }
+      setShowButton(scrollY > 600)
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -46,8 +43,6 @@ const ScrollToTopButton = (): JSX.Element => {
       }),
     []
   )
-
-  const isMobile = useMobileDetection()
 
   const handleOpenArrowUp = useCallback((): void => {
     setArrowUpIsOpen(true)
