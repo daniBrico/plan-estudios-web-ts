@@ -3,7 +3,6 @@ import { type DropdownOp } from '../types/types'
 
 interface DropdownButtonProps {
   isDropdownOpen: boolean
-  // toggleDropdown: () => void
   setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>
   isDisabled: boolean
   changeStateOpSelected: (option: DropdownOp) => void
@@ -92,7 +91,7 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
         </div>
         {/* Dropdown list elements */}
         <ul
-          className={`text-first-color shadow-shadow-box bg-third-color absolute mt-1 flex w-28 flex-col gap-0.5 rounded-md border border-solid border-white px-2 py-2 text-center transition duration-300 sm:w-30 ${isDropdownOpen ? 'visible opacity-100' : 'invisible opacity-0'} z-120`}
+          className={`text-first-color shadow-shadow-box bg-third-color transition-visibility absolute mt-1 flex w-28 flex-col gap-0.5 rounded-md border border-solid border-white px-2 py-2 text-center transition-opacity duration-500 ease-in-out sm:w-30 ${isDropdownOpen ? 'visible opacity-100' : 'invisible opacity-0'} z-130`}
         >
           {options.map((option) => renderOption(option.label, option.value))}
         </ul>
