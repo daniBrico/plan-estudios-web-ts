@@ -11,7 +11,7 @@ import {
 } from './utils/storage'
 import { type ID } from './types/types'
 import { LoadingSpinner } from './components/LoadingSpinner'
-import ScrollToTopButton from './components/ScrollToTopButton'
+import ScrollToTopButton from './components/scroll-to-top-button/ScrollToTopButton'
 
 function App(): JSX.Element {
   const { careerNames: careerNamesApi, careerNamesError } = useGetCareerNames()
