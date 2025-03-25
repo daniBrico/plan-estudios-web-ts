@@ -13,7 +13,7 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button
-      className={`bg-first-color fixed z-200 flex cursor-pointer items-center justify-center text-white shadow-xl transition-opacity duration-300 select-none ${cssClasses}`}
+      className={`bg-first-color fixed z-[200] flex cursor-pointer items-center justify-center text-white shadow-xl transition-opacity duration-300 select-none ${cssClasses}`}
       onClick={handleClickCallback}
     >
       {children}

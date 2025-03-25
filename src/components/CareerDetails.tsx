@@ -40,7 +40,7 @@ const ListOfTables: React.FC<ListOfTablesProps> = ({
 
   return (
     <div className="w-full">
-      <h2 className="bg-first-color md:text-first-color sticky top-2 z-120 mt-4 rounded-tl-md rounded-tr-md py-0.5 text-center text-xl text-white md:invisible md:static md:mb-3 md:hidden md:w-full md:rounded-none md:bg-inherit md:text-2xl">
+      <h2 className="bg-first-color md:text-first-color sticky top-2 z-[120] mt-4 rounded-tl-md rounded-tr-md py-0.5 text-center text-xl text-white md:invisible md:static md:mb-3 md:hidden md:w-full md:rounded-none md:bg-inherit md:text-2xl">
         {`(${countOfSubjectsByYear}) ${tableTitle}`}
       </h2>
       <table
