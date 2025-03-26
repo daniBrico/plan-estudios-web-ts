@@ -34,9 +34,17 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
   const [dropdownOp, setDropdownOp] = useState<DropdownOp>('')
   const [showModal, setShowModal] = useState(false)
   const modalRef = useRef<HTMLDivElement>(null)
+  const correlativesContainerRef = useRef<HTMLDivElement>(null)
   const { getSubjectNameFromCode } = useCareerContext()
 
   const changeDropdownOp = (newOp: DropdownOp): void => setDropdownOp(newOp)
+
+  const changeShowModal = (newValue: boolean): void => {
+    setShowModal(newValue)
+
+    if (!newValue && correlativesContainerRef.current)
+      correlativesContainerRef.current.scrollTop = 0
+  }
 
   const changeStateOpSelected = (option: DropdownOp): void => {
     let newOp: State
@@ -92,7 +100,7 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent): void => {
       if (modalRef.current && !modalRef.current.contains(e.target as Node))
-        if (showModal) setShowModal(false)
+        if (showModal) changeShowModal(false)
     }
 
     if (showModal) document.addEventListener('mousedown', handleOutsideClick)
@@ -130,7 +138,7 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
         <td className="flex items-end justify-center text-center text-sm font-light md:table-cell md:py-2 md:text-base md:font-normal">
           <ListOfCorrelatives
             correlatives={correlatives}
-            setShowModal={setShowModal}
+            changeShowModal={changeShowModal}
           />
           {
             <div
@@ -146,15 +154,18 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
                     {name.longName}
                   </p>
                   <div
-                    className="absolute top-0 right-0 w-6 translate-y-0.5 rounded-full bg-white p-1 sm:w-7"
-                    onClick={() => setShowModal(false)}
+                    className="absolute top-0 right-0 w-6 rounded-full bg-white p-1 sm:w-7"
+                    onClick={() => changeShowModal(false)}
                   >
                     <CancelIcon />
                   </div>
                 </div>
                 {/* correlativas */}
                 {
-                  <div className="bg-third-color flex flex-col gap-1 rounded-sm border-2 border-white px-1.5 py-1">
+                  <div
+                    ref={correlativesContainerRef}
+                    className="bg-third-color flex max-h-36 flex-col gap-1 overflow-y-scroll rounded-sm border-2 border-white px-1.5 py-1"
+                  >
                     {correlatives.map((correlative) => {
                       const subjectNameFromCode =
                         getSubjectNameFromCode(correlative) || ''
@@ -165,11 +176,11 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
 
                       return (
                         <div key={correlative}>
-                          <div className="flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-2">
                             <Correlative
                               correlative={correlative}
                               tooltip={false}
-                              cssClasess="font-light"
+                              cssClasess="font-light min-w-12"
                             />
                             <p className="grow-2 text-left text-black">{`${subjectName}`}</p>
                           </div>

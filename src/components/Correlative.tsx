@@ -30,7 +30,9 @@ export const Correlative: React.FC<CorrelativeProps> = ({
 
   return (
     <>
-      <div className={`group relative z-[105] inline-block ${cssClasess}`}>
+      <div
+        className={`group relative z-[105] inline-block text-left ${cssClasess}`}
+      >
         <span className={`${setClassForState(actualState)} cursor-pointer`}>
           {correlative}
         </span>
@@ -42,20 +44,24 @@ export const Correlative: React.FC<CorrelativeProps> = ({
 
 interface ListOfCorrelativesProps {
   correlatives: Correlatives
-  setShowModal: React.Dispatch<React.SetStateAction<boolean>>
+  changeShowModal: (newValue: boolean) => void
 }
 
 export const ListOfCorrelatives: React.FC<ListOfCorrelativesProps> = ({
   correlatives,
-  setShowModal
+  changeShowModal
 }) => {
   const maxCorrelativesToShow = 3
+
+  const handleClick = (): void => {
+    if (correlatives.length > 0) changeShowModal(true)
+  }
 
   return (
     <>
       <div
-        className="flex gap-0.5 md:flex-wrap md:items-center md:justify-center"
-        onClick={() => setShowModal(true)}
+        className={`flex gap-0.5 md:flex-wrap md:items-center md:justify-center ${correlatives.length > 0 ? 'pointer' : 'default:'}`}
+        onClick={handleClick}
       >
         {correlatives.length === 0 && (
           <span className="text-first-color text-lg select-none">{'-'}</span>
