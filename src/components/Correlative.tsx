@@ -26,8 +26,6 @@ export const Correlative: React.FC<CorrelativeProps> = ({
   const { getSubjectNameFromCode } = useCareerContext()
   const name = getSubjectNameFromCode(correlative)
 
-  // font-thin sm:font-normal
-
   return (
     <>
       <div className={`group relative inline-block text-left ${cssClasess}`}>
@@ -58,7 +56,7 @@ export const ListOfCorrelatives: React.FC<ListOfCorrelativesProps> = ({
   return (
     <>
       <div
-        className={`flex gap-0.5 md:flex-wrap md:items-center md:justify-center ${correlatives.length > 0 ? 'pointer' : 'default:'}`}
+        className={`relative z-[130] flex gap-0.5 md:flex-wrap md:items-center md:justify-center ${correlatives.length > 0 ? 'pointer' : 'default:'}`}
         onClick={handleClick}
       >
         {correlatives.length === 0 && (

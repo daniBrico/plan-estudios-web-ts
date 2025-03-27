@@ -142,19 +142,19 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
           />
           {
             <div
-              className={`bg-second-color/40 fixed top-0 left-0 z-[1000] flex h-dvh w-dvw items-center justify-center transition-opacity duration-500 ease-in-out md:invisible md:hidden md:opacity-0 ${showModal ? 'visible opacity-100' : 'invisible opacity-0'}`}
+              className={`bg-second-color/40 fixed top-0 left-0 z-[1000] flex h-dvh w-dvw items-center justify-center transition-opacity duration-500 ease-in-out ${showModal ? 'visible opacity-100' : 'invisible opacity-0'}`}
             >
               <div className="absolute h-full w-full" />
               <div
                 ref={modalRef}
-                className="bg-first-color z-200 flex w-[90%] flex-col gap-2.5 rounded-lg border-2 border-white p-2 text-white shadow-lg shadow-black/40 sm:w-[60%]"
+                className="bg-first-color z-200 flex w-[75%] flex-col gap-2.5 rounded-lg border-2 border-white p-2 text-white shadow-lg shadow-black/40 sm:w-[60%] md:w-[50%] lg:w-[40%]"
               >
                 <div className="relative flex items-center justify-center">
                   <p className="text-md py-0.5 font-bold sm:text-lg">
                     {name.longName}
                   </p>
                   <div
-                    className="absolute top-0 right-0 w-6 rounded-full bg-white p-1 sm:w-7"
+                    className="transition-rotate absolute top-0 right-0 w-6 cursor-pointer rounded-full bg-white p-1 transition-transform duration-300 hover:scale-110 hover:rotate-180 sm:w-7"
                     onClick={() => changeShowModal(false)}
                   >
                     <CancelIcon />
@@ -164,7 +164,7 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
                 {
                   <div
                     ref={correlativesContainerRef}
-                    className="bg-third-color flex max-h-36 flex-col gap-1 overflow-y-scroll rounded-sm border-2 border-white px-1.5 py-1"
+                    className="bg-third-color flex max-h-64 flex-col gap-1 overflow-y-auto rounded-sm border-2 border-white px-1.5 py-1 lg:max-h-90"
                   >
                     {correlatives.map((correlative) => {
                       const subjectNameFromCode =
