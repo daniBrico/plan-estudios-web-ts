@@ -142,7 +142,7 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
           />
           {
             <div
-              className={`bg-second-color/40 fixed top-0 left-0 z-[1000] flex h-dvh w-dvw items-center justify-center transition-opacity duration-500 ease-in-out ${showModal ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}
+              className={`bg-second-color/40 fixed top-0 left-0 z-[1000] flex h-dvh w-dvw items-center justify-center transition-opacity duration-300 ease-in-out ${showModal ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}
             >
               <div className="absolute h-full w-full" />
               <div

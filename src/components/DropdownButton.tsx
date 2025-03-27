@@ -64,7 +64,7 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
     <li
       key={value}
       onClick={() => setOption(value)}
-      className={`hover:bg-first-color box-border cursor-pointer rounded-md px-0.5 py-1 transition hover:text-white hover:shadow-sm`}
+      className={`hover:bg-first-color box-border cursor-pointer rounded-md px-0.5 py-1 transition duration-0 hover:text-white hover:shadow-sm`}
     >
       {label}
     </li>
@@ -77,7 +77,7 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
         <div className={`relative z-[110]`}>
           <div
             onClick={() => !isDisabled && setIsDropdownOpen((prev) => !prev)}
-            className={`select group border-first-color flex min-h-8 items-center justify-between rounded-sm border-2 border-solid px-2 text-white transition-shadow duration-600 ${isDropdownOpen ? 'shadow-shadow-select border-[#f15a5c]' : ''} ${isDisabled ? 'cursor-default opacity-50' : 'hover:bg-first-color cursor-pointer hover:border-white'}`}
+            className={`select group border-first-color flex min-h-8 items-center justify-between rounded-sm border-2 border-solid px-2 text-white transition-shadow duration-300 ${isDropdownOpen ? 'shadow-shadow-select border-[#f15a5c]' : ''} ${isDisabled ? 'cursor-default opacity-50' : 'hover:bg-first-color cursor-pointer hover:border-white'}`}
           >
             {/* Current selected option */}
             <span className="selected text-first-color group-hover:text-white">
@@ -91,7 +91,7 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
         </div>
         {/* Dropdown list elements */}
         <ul
-          className={`text-first-color shadow-shadow-box bg-third-color transition-visibility absolute mt-1 flex w-28 flex-col gap-0.5 rounded-md border border-solid border-white px-2 py-2 text-center transition-opacity duration-500 ease-in-out sm:w-30 ${isDropdownOpen ? 'visible opacity-100' : 'invisible opacity-0'} z-[130]`}
+          className={`text-first-color shadow-shadow-box bg-third-color transition-visibility absolute mt-1 flex w-28 flex-col gap-0.5 rounded-md border border-solid border-white px-2 py-2 text-center transition-opacity duration-300 ease-in-out sm:w-30 ${isDropdownOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'} z-[130]`}
         >
           {options.map((option) => renderOption(option.label, option.value))}
         </ul>

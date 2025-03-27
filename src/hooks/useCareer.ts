@@ -36,6 +36,7 @@ const useCareer = ({ careerSelectedID }: useCareerProps): useCareerReturn => {
   const removeCareerLocalStorage = (): void => removeStoredValue('career')
 
   useEffect(() => {
+    setCareerIsLoading(true)
     const careerFromLS = getFromLocalStorage('career')
 
     if (!careerFromLS) {
