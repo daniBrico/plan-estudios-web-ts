@@ -142,12 +142,12 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
           />
           {
             <div
-              className={`bg-second-color/40 fixed top-0 left-0 z-[1000] flex h-dvh w-dvw items-center justify-center transition-opacity duration-500 ease-in-out ${showModal ? 'visible opacity-100' : 'invisible opacity-0'}`}
+              className={`bg-second-color/40 fixed top-0 left-0 z-[1000] flex h-dvh w-dvw items-center justify-center transition-opacity duration-500 ease-in-out ${showModal ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}
             >
               <div className="absolute h-full w-full" />
               <div
                 ref={modalRef}
-                className="bg-first-color z-200 flex w-[75%] flex-col gap-2.5 rounded-lg border-2 border-white p-2 text-white shadow-lg shadow-black/40 sm:w-[60%] md:w-[50%] lg:w-[40%]"
+                className={`bg-first-color z-200 flex w-[75%] flex-col gap-2.5 rounded-lg border-2 border-white p-2 text-white shadow-lg shadow-black/40 duration-300 ease-in-out sm:w-[60%] md:w-[50%] lg:w-[40%] ${showModal ? 'animate-expand-element opacity-100' : 'animate-shrink-element opacity-0'}`}
               >
                 <div className="relative flex items-center justify-center">
                   <p className="text-md py-0.5 font-bold sm:text-lg">

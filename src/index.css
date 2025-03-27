@@ -24,6 +24,31 @@
       transform: rotate(1turn);
     }
   }
+
+  --animate-expand-element: expand-element 0.3s ease-in-out;
+
+  @keyframes expand-element {
+    0% {
+      transform: scale(0);
+    }
+    90% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  --animate-shrink-element: shrink-element 0.3s ease-in-out;
+
+  @keyframes shrink-element {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
 }
 
 /*
