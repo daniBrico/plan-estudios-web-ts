@@ -82,12 +82,39 @@
     U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 body {
   @apply font-onest;
-  height: 100vh;
-  overflow-y: scroll;
+  padding: 0;
+  margin: 0;
+  /* overflow-y: scroll; */
   background-color: var(--color-back);
   scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  flex-shrink: 0; /* Evita que el header se encoja */
+}
+
+main {
+  flex: 1; /* Ocupa todo el espacio disponible */
+}
+
+footer {
+  flex-shrink: 0; /* Evita que el footer se encoja */
 }
 
 /* Career Year */

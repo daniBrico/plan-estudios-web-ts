@@ -12,6 +12,7 @@ import {
 import { type ID } from './types/types'
 import { LoadingSpinner } from './components/LoadingSpinner'
 import ScrollToTopButton from './components/scroll-to-top-button/ScrollToTopButton'
+import Footer from './components/Footer'
 
 function App(): JSX.Element {
   const { careerNames: careerNamesApi, careerNamesError } = useGetCareerNames()
@@ -87,7 +88,7 @@ function App(): JSX.Element {
   return (
     <>
       <Header careerHeaderInfo={careerHeaderInfo} />
-      <main id="mainElement" onScroll={handleScroll}>
+      <main className="" id="mainElement" onScroll={handleScroll}>
         <div className="w-full">
           <Select
             className="mx-auto my-8 w-xs sm:w-sm"
@@ -105,6 +106,7 @@ function App(): JSX.Element {
         ) : null}
       </main>
       <ScrollToTopButton />
+      <Footer />
     </>
   )
 }

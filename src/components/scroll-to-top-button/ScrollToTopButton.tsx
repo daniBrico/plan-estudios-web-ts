@@ -63,13 +63,13 @@ const ScrollToTopButton = (): JSX.Element => {
           <Button
             children={ArrowLeftIcon()}
             handleClickCallback={handleOpenArrowUp}
-            cssClasses={`right-0 bottom-16 h-16 rounded-tl-lg rounded-bl-lg ${showButton ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
+            cssClasses={`right-0 bottom-26 h-16 rounded-tl-lg rounded-bl-lg ${showButton ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
           />
           {
             <Button
               children={<div className="w-12">{arrowUpIcon()}</div>}
               handleClickCallback={handleButtonToTop}
-              cssClasses={`right-0 bottom-16 h-16 w-18 rounded-tl-lg rounded-bl-lg ease-in transition-transform ${arrowUpIsOpen ? 'translate-x-0' : 'translate-x-full'}`}
+              cssClasses={`right-0 bottom-26 h-16 w-18 rounded-tl-lg rounded-bl-lg ease-in transition-transform ${arrowUpIsOpen ? 'translate-x-0' : 'translate-x-full'}`}
             />
           }
         </>
@@ -77,7 +77,7 @@ const ScrollToTopButton = (): JSX.Element => {
         <Button
           children={arrowUpIcon()}
           handleClickCallback={handleButtonToTop}
-          cssClasses={`right-8 bottom-16 h-13 w-13 rounded-4xl hover:opacity-90 ${showButton ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
+          cssClasses={`right-8 bottom-20 h-13 w-13 rounded-4xl hover:opacity-90 ${showButton ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
         />
       )}
     </>

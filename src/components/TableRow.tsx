@@ -6,7 +6,7 @@ import {
   type State,
   type Subject
 } from '../types/types'
-import { CancelIcon } from './CancelIcon'
+import { CancelIcon } from './svg-components/CancelIcon'
 import { Correlative, ListOfCorrelatives } from './Correlative'
 import { DropdownButton } from './DropdownButton'
 import React, { useEffect, useRef, useState } from 'react'
