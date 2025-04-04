@@ -58,14 +58,12 @@ const useCareer = ({ careerSelectedID }: useCareerProps): useCareerReturn => {
       setCareerIsLoading(true)
 
       try {
-        setTimeout(async () => {
-          const careerData = await careerApi.getCareer(careerSelectedID)
+        const careerData = await careerApi.getCareer(careerSelectedID)
 
-          setCareer(careerData)
-          saveToLocalStorage('career', careerData)
-          setCareerLocalStorage(careerData)
-          setError(null)
-        }, 3000)
+        setCareer(careerData)
+        saveToLocalStorage('career', careerData)
+        setCareerLocalStorage(careerData)
+        setError(null)
       } catch (err) {
         setError('Error al cargar los datos de la carrera')
         console.error(`Error al inicializar los datos de la carrera: ${err}`)

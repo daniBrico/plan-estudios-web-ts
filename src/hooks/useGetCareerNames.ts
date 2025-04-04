@@ -23,12 +23,9 @@ const useGetCareerNames = (): useGetCareerNamesReturn => {
 
     const setCareerFormApi = async (): Promise<void> => {
       try {
-        setTimeout(async () => {
-          const careerNames = await careerApi.getCareerNames()
+        const careerNames = await careerApi.getCareerNames()
 
-          setCareerNames(careerNames)
-        }, 3000)
-        // const careerNames = await getCareerNames()
+        setCareerNames(careerNames)
       } catch (err) {
         setError(err as Error)
       }
