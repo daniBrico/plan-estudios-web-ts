@@ -13,6 +13,7 @@ interface CareerContextType {
   career: Career | null
   error: string | null
   careerIsLoading: boolean
+  locStorIsLoading: boolean
   changeSubjectState: (code: Code, state: State) => void
   getSubjectState: (code: Code) => State | undefined
   allSubjectsState: SubjectState[]

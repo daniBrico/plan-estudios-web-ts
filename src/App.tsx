@@ -15,14 +15,21 @@ import ScrollToTopButton from './components/scroll-to-top-button/ScrollToTopButt
 import Footer from './components/Footer'
 
 function App(): JSX.Element {
-  const { careerNames: careerNamesApi, careerNamesError } = useGetCareerNames()
+  const {
+    careerNames: careerNamesApi,
+    careerNamesError,
+    careerNamesIsLoading
+  } = useGetCareerNames()
+
   const {
     changeCareerSelected,
     career,
     error,
     careerIsLoading,
+    locStorIsLoading,
     cleanValuesAndLocalStorage
   } = useCareerContext()
+
   const [initialSelectedOp, setInitialSelectedOp] = useState<{
     value: string
     label: string
@@ -81,25 +88,26 @@ function App(): JSX.Element {
       }
     : null
 
-  const handleScroll = (): void => {
-    console.log('Esto escrolleando!')
-  }
-
   return (
     <>
       <Header careerHeaderInfo={careerHeaderInfo} />
-      <main className="" id="mainElement" onScroll={handleScroll}>
+      <main className="" id="mainElement">
         <div className="w-full">
           <Select
             className="mx-auto my-8 w-xs sm:w-sm"
             options={careerNames}
             onChange={handleSelectNames}
-            placeholder={'Seleccione la carrera'}
+            placeholder={'Seleccione la Carrera'}
             isClearable={true}
             value={initialSelectedOp}
           />
         </div>
-        {careerIsLoading && <LoadingSpinner />}
+        {(careerIsLoading || locStorIsLoading) && (
+          <LoadingSpinner message="Cargando Plan de Estudios" />
+        )}
+        {!locStorIsLoading && careerNamesIsLoading && (
+          <LoadingSpinner message="Consultando carrerras disponibles" />
+        )}
         {error && <div className="text-center text-red-500">{error}</div>}
         {career && career.subjectsByYear ? (
           <CareerDetails subjectsByYear={career.subjectsByYear} />

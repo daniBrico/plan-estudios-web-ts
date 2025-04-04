@@ -2,20 +2,33 @@ import { useEffect, useState } from 'react'
 import careerApi from '../api/careerApiInstance'
 import { type CareerNames } from '../types/types'
 
-const useGetCareerNames = (): {
+interface useGetCareerNamesReturn {
   careerNames: CareerNames[]
   careerNamesError: Error | null
-} => {
+  careerNamesIsLoading: boolean
+}
+
+const useGetCareerNames = (): useGetCareerNamesReturn => {
   const [careerNames, setCareerNames] = useState<CareerNames[]>([])
   const [careerNamesError, setError] = useState<Error | null>(null)
+  const [careerNamesIsLoading, setCareerNamesIsLoading] =
+    useState<boolean>(false)
 
   useEffect(() => {
+    setCareerNamesIsLoading(false)
+  }, [careerNames])
+
+  useEffect(() => {
+    setCareerNamesIsLoading(true)
+
     const setCareerFormApi = async (): Promise<void> => {
       try {
-        const careerNames = await careerApi.getCareerNames()
-        // const careerNames = await getCareerNames()
+        setTimeout(async () => {
+          const careerNames = await careerApi.getCareerNames()
 
-        setCareerNames(careerNames)
+          setCareerNames(careerNames)
+        }, 3000)
+        // const careerNames = await getCareerNames()
       } catch (err) {
         setError(err as Error)
       }
@@ -24,7 +37,7 @@ const useGetCareerNames = (): {
     setCareerFormApi()
   }, [])
 
-  return { careerNames, careerNamesError }
+  return { careerNames, careerNamesError, careerNamesIsLoading }
 }
 
 export default useGetCareerNames

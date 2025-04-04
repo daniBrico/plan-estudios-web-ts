@@ -15,6 +15,7 @@ interface useCareerReturn {
   career: Career | null
   error: string | null
   careerIsLoading: boolean
+  locStorIsLoading: boolean
   changeCareerValue: (value: Career | null) => void
   removeCareerLocalStorage: () => void
   changeCareerLocalStorageValue: (value: Career | null) => void
@@ -26,6 +27,7 @@ const useCareer = ({ careerSelectedID }: useCareerProps): useCareerReturn => {
   const [careerLocalStorage, setCareerLocalStorage] = useState<Career | null>(
     null
   )
+  const [locStorIsLoading, setLocStorIsLoading] = useState<boolean>(false)
   const [careerIsLoading, setCareerIsLoading] = useState(false)
 
   const changeCareerValue = (value: Career | null): void => setCareer(value)
@@ -37,14 +39,12 @@ const useCareer = ({ careerSelectedID }: useCareerProps): useCareerReturn => {
 
   useEffect(() => {
     setCareerIsLoading(true)
-    const careerFromLS = getFromLocalStorage('career')
+    const careerFromLS: Career | null = getFromLocalStorage('career')
 
-    if (!careerFromLS) {
-      setCareerIsLoading(false)
-      return
-    }
+    if (!careerFromLS) return
 
-    setCareerLocalStorage(careerFromLS as Career)
+    setLocStorIsLoading(true)
+    setCareerLocalStorage(careerFromLS)
   }, [])
 
   useEffect(() => {
@@ -56,23 +56,25 @@ const useCareer = ({ careerSelectedID }: useCareerProps): useCareerReturn => {
 
     const initializeCareer = async (): Promise<void> => {
       setCareerIsLoading(true)
-      try {
-        const careerData = await careerApi.getCareer(careerSelectedID)
 
-        setCareer(careerData)
-        saveToLocalStorage('career', careerData)
-        setCareerLocalStorage(careerData)
-        setError(null)
+      try {
+        setTimeout(async () => {
+          const careerData = await careerApi.getCareer(careerSelectedID)
+
+          setCareer(careerData)
+          saveToLocalStorage('career', careerData)
+          setCareerLocalStorage(careerData)
+          setError(null)
+        }, 3000)
       } catch (err) {
         setError('Error al cargar los datos de la carrera')
         console.error(`Error al inicializar los datos de la carrera: ${err}`)
-      } finally {
-        setCareerIsLoading(false)
       }
     }
 
     if (careerLocalStorage) {
       setCareerIsLoading(false)
+      setLocStorIsLoading(false)
       if (career) return
       setCareer(careerLocalStorage as Career)
     } else {
@@ -84,6 +86,7 @@ const useCareer = ({ careerSelectedID }: useCareerProps): useCareerReturn => {
     career,
     error,
     careerIsLoading,
+    locStorIsLoading,
     changeCareerValue,
     removeCareerLocalStorage,
     changeCareerLocalStorageValue
