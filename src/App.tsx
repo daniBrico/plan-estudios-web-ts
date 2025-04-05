@@ -109,9 +109,6 @@ function App(): JSX.Element {
         {(careerIsLoading || locStorIsLoading) && (
           <LoadingSpinner message="Cargando Plan de Estudios" />
         )}
-        {!locStorIsLoading && careerNamesIsLoading && (
-          <LoadingSpinner message="Consultando carrerras disponibles" />
-        )}
         {error && <div className="text-center text-red-500">{error}</div>}
         {career && career.subjectsByYear ? (
           <CareerDetails subjectsByYear={career.subjectsByYear} />
