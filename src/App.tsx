@@ -64,17 +64,20 @@ function App(): JSX.Element {
 
     if (!opFromLocalStorage) return
 
-    const selectedOption = careerNamesApi.find(
-      (option) => option._id === opFromLocalStorage
-    )
+    if (careerNamesApi.length > 0) {
+      const selectedOption = careerNamesApi.find(
+        (option) => option._id === opFromLocalStorage
+      )
 
-    if (selectedOption) {
-      setInitialSelectedOp({
-        value: selectedOption._id,
-        label: selectedOption.name
-      })
-      changeCareerSelected(selectedOption._id)
+      if (selectedOption) {
+        setInitialSelectedOp({
+          value: selectedOption._id,
+          label: selectedOption.name
+        })
+      }
     }
+
+    changeCareerSelected(opFromLocalStorage)
   }, [careerNamesApi, changeCareerSelected])
 
   if (careerNamesError) console.log(`Error: ${careerNamesError.message}`)
@@ -100,6 +103,7 @@ function App(): JSX.Element {
             placeholder={'Seleccione la Carrera'}
             isClearable={true}
             value={initialSelectedOp}
+            isLoading={careerNamesIsLoading}
           />
         </div>
         {(careerIsLoading || locStorIsLoading) && (

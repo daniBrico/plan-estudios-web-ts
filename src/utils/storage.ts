@@ -19,6 +19,16 @@ export const getFromLocalStorage = <T>(key: Key): T | null => {
   }
 }
 
+export const isInLocalStorage = (key: Key): boolean => {
+  try {
+    const data = localStorage.getItem(key)
+    return data === null
+  } catch (error) {
+    console.error('Error getting from localStorage:', error)
+    return false
+  }
+}
+
 export const removeStoredValue = (key: Key): void => {
   try {
     localStorage.removeItem(key)

@@ -21,7 +21,7 @@ const useGetCareerNames = (): useGetCareerNamesReturn => {
   useEffect(() => {
     setCareerNamesIsLoading(true)
 
-    const setCareerFormApi = async (): Promise<void> => {
+    const setCareerFromApi = async (): Promise<void> => {
       try {
         const careerNames = await careerApi.getCareerNames()
 
@@ -31,7 +31,7 @@ const useGetCareerNames = (): useGetCareerNamesReturn => {
       }
     }
 
-    setCareerFormApi()
+    setCareerFromApi()
   }, [])
 
   return { careerNames, careerNamesError, careerNamesIsLoading }
