@@ -104,6 +104,7 @@ function App(): JSX.Element {
             isClearable={true}
             value={initialSelectedOp}
             isLoading={careerNamesIsLoading}
+            loadingMessage={() => 'Cargando carreras disponibles..'}
           />
         </div>
         {(careerIsLoading || locStorIsLoading) && (
