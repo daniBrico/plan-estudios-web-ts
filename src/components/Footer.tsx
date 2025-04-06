@@ -2,15 +2,6 @@ import { type JSX } from 'react'
 import { GithubCatIconSvg } from './svg-components/GithubCatIconSvg'
 import { PortfolioIconSvg } from './svg-components/PortfolioIconSvg'
 
-const lastUpdate = (): string => {
-  const currentDate = new Date()
-  const day = String(currentDate.getDate()).padStart(2, '0')
-  const month = String(currentDate.getMonth() + 1).padStart(2, '0')
-  const year = currentDate.getFullYear()
-
-  return `Últ. Act. ${day}/${month}/${year}`
-}
-
 function Footer(): JSX.Element {
   const white = '#fff'
 
@@ -20,7 +11,6 @@ function Footer(): JSX.Element {
         <div className="mx-auto max-w-4xl">
           <div className="flex justify-between px-1 text-sm font-light text-white md:text-base">
             <p>@danielJorge</p>
-            <p>{lastUpdate()}</p>
           </div>
           <div className="mt-2 flex flex-col gap-2 px-1 text-sm font-light sm:flex-row sm:gap-6 md:text-base">
             <a
