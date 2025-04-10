@@ -12,7 +12,7 @@ function HomePage(): JSX.Element {
             Esta web representa el Plan de Estudios de la carrera de Informática
             de la Universidad Nacional del Oeste (
             <a
-              className="underline"
+              className="text-blue-500 underline visited:text-purple-500 hover:no-underline"
               target="_blank"
               rel="noopener noreferrer"
               href="https://www.uno.edu.ar/index.php/carreras/66-licenciatura-en-informatica"
