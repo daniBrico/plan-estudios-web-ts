@@ -17,7 +17,7 @@ const ArrowLeftIcon = (): JSX.Element => (
   </div>
 )
 
-const ScrollToTopButton = (): JSX.Element => {
+export const ScrollToTopButton = (): JSX.Element => {
   const [showButton, setShowButton] = useState(false)
   const [arrowUpIsOpen, setArrowUpIsOpen] = useState(false)
   const isMobile = useMobileDetection()
@@ -83,5 +83,3 @@ const ScrollToTopButton = (): JSX.Element => {
     </>
   )
 }
-
-export default ScrollToTopButton
