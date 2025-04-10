@@ -1,5 +1,6 @@
-import React, { type JSX, useEffect, useRef } from 'react'
+import React, { type JSX, useEffect, useRef, useState } from 'react'
 import { type DropdownOp } from '../types/types'
+import { CancelIcon } from './svg-components/CancelIcon'
 
 interface DropdownButtonProps {
   isDropdownOpen: boolean
@@ -8,14 +9,14 @@ interface DropdownButtonProps {
   changeStateOpSelected: (option: DropdownOp) => void
   changeDropdownOp: (option: DropdownOp) => void
   dropdownOp: DropdownOp
+  backgroundColor: string
 }
 
 const options: { label: string; value: DropdownOp }[] = [
   { label: 'Aprobada', value: 'Aprobada' },
   { label: 'Cursando', value: 'Cursando' },
   { label: 'Regular', value: 'Regular' },
-  { label: 'Recursar', value: 'Recursar' },
-  { label: 'Quitar', value: '' }
+  { label: 'Recursar', value: 'Recursar' }
 ]
 
 export const DropdownButton: React.FC<DropdownButtonProps> = ({
@@ -24,8 +25,10 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
   isDisabled,
   changeStateOpSelected,
   changeDropdownOp,
-  dropdownOp
+  dropdownOp,
+  backgroundColor
 }) => {
+  const [isIconHovered, setIsIconHovered] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const setOption = (option: DropdownOp): void => {
@@ -73,14 +76,22 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
   return (
     <>
       <div className="relative w-28 sm:w-3/4 md:w-full" ref={dropdownRef}>
+        <div
+          className={`border-first-color absolute right-full z-[110] mr-1 h-8 w-8 cursor-pointer rounded-full border-2 border-solid p-1 transition-all duration-300 ${dropdownOp !== '' && isDropdownOpen ? 'z-[140] translate-x-0 opacity-100' : 'translate-x-8 opacity-0'} hover:bg-first-color hover:border-white`}
+          onClick={() => setOption('')}
+          onMouseEnter={() => setIsIconHovered(true)}
+          onMouseLeave={() => setIsIconHovered(false)}
+        >
+          <CancelIcon isIconHovered={isIconHovered} />
+        </div>
         {/* Dropdown button */}
-        <div className={`relative z-[110]`}>
+        <div className={`bg-third-color relative z-[120] ${backgroundColor}`}>
           <div
             onClick={() => !isDisabled && setIsDropdownOpen((prev) => !prev)}
-            className={`select group border-first-color flex min-h-8 items-center justify-between rounded-sm border-2 border-solid px-2 text-white transition-shadow duration-300 ${isDropdownOpen ? 'shadow-shadow-select border-[#f15a5c]' : ''} ${isDisabled ? 'cursor-default opacity-50' : 'hover:bg-first-color cursor-pointer hover:border-white'}`}
+            className={`select group border-first-color flex min-h-8 items-center justify-between rounded-sm border-2 border-solid px-2 text-white transition-shadow duration-300 ${isDropdownOpen ? 'border-[#f15a5c]' : ''} ${isDisabled ? 'cursor-default opacity-50' : 'hover:bg-first-color cursor-pointer hover:border-white'}`}
           >
             {/* Current selected option */}
-            <span className="selected text-first-color group-hover:text-white">
+            <span className="selected text-first-color select-none group-hover:text-white">
               {dropdownOp}
             </span>
             {/* Caret symbol */}
@@ -91,7 +102,7 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
         </div>
         {/* Dropdown list elements */}
         <ul
-          className={`text-first-color shadow-shadow-box bg-third-color transition-visibility absolute mt-1 flex w-28 flex-col gap-0.5 rounded-md border border-solid border-white px-2 py-2 text-center transition-opacity duration-300 ease-in-out sm:w-30 ${isDropdownOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'} z-[130]`}
+          className={`text-first-color shadow-shadow-box bg-third-color absolute mt-1 flex w-28 flex-col gap-0.5 rounded-md border border-solid border-white px-2 py-2 text-center transition-opacity duration-300 ease-in-out sm:w-30 ${isDropdownOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'} z-[160]`}
         >
           {options.map((option) => renderOption(option.label, option.value))}
         </ul>

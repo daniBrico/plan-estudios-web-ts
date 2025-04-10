@@ -49,14 +49,12 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
   const changeStateOpSelected = (option: DropdownOp): void => {
     let newOp: State
 
-    if (option === '') {
-      newOp =
-        correlatives.length > 0
+    newOp =
+      option === ''
+        ? correlatives.length > 0
           ? (newOp = 'Deshabilitada')
           : (newOp = 'Habilitada')
-    } else {
-      newOp = option
-    }
+        : (newOp = option)
 
     changeSubjectState(code, newOp)
   }
@@ -203,6 +201,7 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
             changeDropdownOp={changeDropdownOp}
             dropdownOp={dropdownOp}
             setIsDropdownOpen={setIsDropdownOpen}
+            backgroundColor={backgroundColor}
           />
         </td>
       </tr>
