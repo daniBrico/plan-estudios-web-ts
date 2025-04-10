@@ -23,13 +23,12 @@ const useSubjectState = (code: Code): ReturnType => {
 
   const setClassForState = (actualState: State | ''): string => {
     const stateClassMap = {
-      Aprobada: 'text-green-500',
-      Habilitada: 'text-blue-500',
-      Cursando: 'text-blue-500',
+      Aprobada: 'text-green',
+      Habilitada: 'text-blue',
+      Cursando: 'text-blue',
       Deshabilitada: 'text-first-color',
-      Recursar:
-        actualState === 'Recursar' ? 'text-blue-500' : 'text-first-color',
-      Regular: 'text-yellow-500',
+      Recursar: actualState === 'Recursar' ? 'text-blue' : 'text-first-color',
+      Regular: 'text-yellow',
       '': ''
     }
 

@@ -10,6 +10,11 @@
   --color-hover-color: #a8a9b2;
   --color-back: rgba(236, 236, 238, 0.5);
 
+  /* Colors for subject state */
+  --color-green: #22c55e;
+  --color-blue: #3b82f6;
+  --color-yellow: #eab308;
+
   --shadow-shadow-select: 0 0 0.8em #f15a5c;
   --shadow-shadow-box: 0 0 0.8em #dddde0;
 

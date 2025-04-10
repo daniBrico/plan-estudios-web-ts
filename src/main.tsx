@@ -3,11 +3,14 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { CareerProvider } from './context/CareerContext.tsx'
+import { BrowserRouter } from 'react-router-dom'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <CareerProvider>
-      <App />
-    </CareerProvider>
+    <BrowserRouter>
+      <CareerProvider>
+        <App />
+      </CareerProvider>
+    </BrowserRouter>
   </StrictMode>
 )

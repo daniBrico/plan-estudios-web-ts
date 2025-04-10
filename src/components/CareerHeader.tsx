@@ -11,7 +11,7 @@ export const CareerHeader: React.FC<Props> = ({ careerHeaderInfo }) => {
   return (
     <div
       className={
-        'order-1 flex flex-col justify-center md:flex-row md:gap-8 lg:items-center'
+        'order-1 flex flex-col justify-center px-4 md:flex-row md:gap-8 lg:items-center'
       }
     >
       <div>
