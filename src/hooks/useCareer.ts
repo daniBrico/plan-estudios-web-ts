@@ -74,7 +74,7 @@ const useCareer = ({ careerSelectedID }: useCareerProps): useCareerReturn => {
       setCareerIsLoading(false)
       setLocStorIsLoading(false)
       if (career) return
-      setCareer(careerLocalStorage as Career)
+      setCareer(careerLocalStorage)
     } else {
       initializeCareer()
     }

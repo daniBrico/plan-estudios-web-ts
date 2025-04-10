@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react'
 import careerApi from '../api/careerApiInstance'
 import { type CareerNames } from '../types/types'
+import {
+  getFromSessionStorage,
+  removeFromSessionStorage,
+  saveToSessionStorage
+} from '../utils/storage'
 
 interface useGetCareerNamesReturn {
   careerNames: CareerNames[]
@@ -10,31 +15,54 @@ interface useGetCareerNamesReturn {
 
 const useGetCareerNames = (): useGetCareerNamesReturn => {
   const [careerNames, setCareerNames] = useState<CareerNames[]>([])
-  const [careerNamesError, setError] = useState<Error | null>(null)
-  const [careerNamesIsLoading, setCareerNamesIsLoading] =
-    useState<boolean>(false)
+  const [error, setError] = useState<Error | null>(null)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
-    setCareerNamesIsLoading(false)
-  }, [careerNames])
+    // Clear sessionStorage after reloading the page
+    const handleBeforeUnload = (): void =>
+      removeFromSessionStorage('careerNames')
 
-  useEffect(() => {
-    setCareerNamesIsLoading(true)
+    window.addEventListener('beforeunload', handleBeforeUnload)
 
-    const setCareerFromApi = async (): Promise<void> => {
+    const fetchCareerNames = async (): Promise<void> => {
       try {
-        const careerNames = await careerApi.getCareerNames()
+        setIsLoading(true)
 
-        setCareerNames(careerNames)
+        // 1. First, we try to get it from sessionStorage
+        const cachedNames: CareerNames[] | null =
+          getFromSessionStorage('careerNames')
+
+        if (cachedNames) {
+          setCareerNames(cachedNames)
+          return
+        }
+
+        // 2. If it's not cached, we call the API
+        const apiNames = await careerApi.getCareerNames()
+
+        // 3. We save it in sessionStorage and in state
+        saveToSessionStorage('careerNames', apiNames)
+        setCareerNames(apiNames)
       } catch (err) {
         setError(err as Error)
+      } finally {
+        setIsLoading(false)
       }
     }
 
-    setCareerFromApi()
+    fetchCareerNames()
+
+    return (): void => {
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+    }
   }, [])
 
-  return { careerNames, careerNamesError, careerNamesIsLoading }
+  return {
+    careerNames,
+    careerNamesError: error,
+    careerNamesIsLoading: isLoading
+  }
 }
 
 export default useGetCareerNames
