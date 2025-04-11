@@ -10,8 +10,8 @@ export const Navbar = (): JSX.Element => {
       : 'bg-[#a43d3e] opacity-95 hover:opacity-90 py-0'
 
   return (
-    <div className="w-full">
-      <ul className="mx-auto flex max-w-4xl items-start text-sm md:text-base lg:text-lg">
+    <div className="relative mx-auto mb-8 w-full max-w-4xl">
+      <ul className="absolute mx-auto ml-4 flex items-start text-sm md:text-base lg:ml-0 lg:text-lg">
         <li
           className={`cursor-pointer rounded-bl-md border-white text-white ${stylesSwitchLocation('/')} transition-all duration-300 ease-in-out hover:underline`}
         >
