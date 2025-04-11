@@ -77,7 +77,7 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
     <>
       <div className="relative w-28 sm:w-3/4 md:w-full" ref={dropdownRef}>
         <div
-          className={`border-first-color absolute right-full z-[110] mr-1 h-8 w-8 cursor-pointer rounded-full border-2 border-solid p-1 transition-all duration-300 ${dropdownOp !== '' && isDropdownOpen ? 'z-[140] translate-x-0 opacity-100' : 'translate-x-8 opacity-0'} hover:bg-first-color hover:border-white`}
+          className={`border-first-color absolute right-full z-[110] mr-1 h-8 w-8 cursor-pointer rounded-full border-2 border-solid p-1 transition-all duration-300 ${dropdownOp !== '' && isDropdownOpen ? 'z-[140] translate-x-0 opacity-100' : 'translate-x-8 opacity-0'} hover:bg-first-color hover:border-white ${backgroundColor}`}
           onClick={() => setOption('')}
           onMouseEnter={() => setIsIconHovered(true)}
           onMouseLeave={() => setIsIconHovered(false)}

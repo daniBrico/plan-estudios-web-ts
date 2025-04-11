@@ -98,7 +98,8 @@ body {
   @apply font-onest;
   padding: 0;
   margin: 0;
-  /* overflow-y: scroll; */
+  width: 100vw;
+  overflow-x: hidden;
   background-color: var(--color-back);
   scroll-behavior: smooth;
   box-sizing: border-box;
