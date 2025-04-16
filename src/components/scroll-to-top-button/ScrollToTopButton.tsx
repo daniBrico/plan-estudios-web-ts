@@ -77,7 +77,7 @@ export const ScrollToTopButton = (): JSX.Element => {
         <Button
           children={arrowUpIcon()}
           handleClickCallback={handleButtonToTop}
-          cssClasses={`right-8 bottom-20 h-13 w-13 rounded-4xl hover:opacity-90 ${showButton ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
+          cssClasses={`right-8 bottom-20 h-13 w-13 rounded-4xl hover:opacity-90 hover:scale-110 transition-transform duration-300 ${showButton ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
         />
       )}
     </>
