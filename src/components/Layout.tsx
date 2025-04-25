@@ -20,7 +20,7 @@ export const Layout = (): JSX.Element => {
   return (
     <>
       <Header careerHeaderInfo={careerHeaderInfo} />
-      <main>
+      <main className="mb-36">
         <Outlet />
       </main>
       <ScrollToTopButton />
