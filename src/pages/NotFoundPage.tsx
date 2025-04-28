@@ -19,7 +19,7 @@ export const NotFoundPage = (): JSX.Element => {
             {/* <p className="opacity-40">
               The page you are looking for not avaible!
             </p> */}
-            <Link className="mt-auto flex" to={'/Inicio'}>
+            <Link className="mt-auto flex" to={'/inicio'}>
               <div className="group flex cursor-pointer gap-4">
                 <button className="hover:decoration-theme-text-color cursor-pointer text-start font-bold group-hover:underline">
                   VOLVER AL INICIO
