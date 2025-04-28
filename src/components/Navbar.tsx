@@ -20,7 +20,7 @@ const navItems: NavItem[] = [
 
 const BASE_STYLES =
   'cursor-pointer border-back text-white transition-all duration-300 ease-in-out hover:underline'
-const ACTIVE_STYLES = 'bg-first-color underline py-1 rounded-b-md'
+const ACTIVE_STYLES = 'bg-theme-first-color underline py-1 rounded-b-md'
 const INACTIVE_STYLES = 'bg-[#a43d3e] opacity-95 hover:bg-[#a43d3e]/90 py-0'
 
 export const Navbar = (): JSX.Element => {

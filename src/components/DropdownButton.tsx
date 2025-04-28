@@ -67,7 +67,7 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
     <li
       key={value}
       onClick={() => setOption(value)}
-      className={`hover:bg-first-color box-border cursor-pointer rounded-md px-0.5 py-1 transition duration-0 hover:text-white hover:shadow-sm`}
+      className={`hover:bg-theme-first-color box-border cursor-pointer rounded-md px-0.5 py-1 transition duration-0 hover:text-white hover:shadow-sm`}
     >
       {label}
     </li>
@@ -77,7 +77,7 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
     <>
       <div className="relative w-28 sm:w-3/4 md:w-full" ref={dropdownRef}>
         <div
-          className={`border-first-color absolute right-full z-[110] mr-1 h-8 w-8 cursor-pointer rounded-full border-2 border-solid p-1 transition-all duration-300 ${dropdownOp !== '' && isDropdownOpen ? 'z-[140] translate-x-0 opacity-100' : 'translate-x-8 opacity-0'} hover:bg-first-color hover:border-white ${backgroundColor}`}
+          className={`border-theme-first-color absolute right-full z-[110] mr-1 h-8 w-8 cursor-pointer rounded-full border-2 border-solid p-1 transition-all duration-300 ${dropdownOp !== '' && isDropdownOpen ? 'z-[140] translate-x-0 opacity-100' : 'translate-x-8 opacity-0'} hover:bg-theme-first-color hover:border-white ${backgroundColor}`}
           onClick={() => setOption('')}
           onMouseEnter={() => setIsIconHovered(true)}
           onMouseLeave={() => setIsIconHovered(false)}
@@ -85,24 +85,26 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
           <CancelIcon isIconHovered={isIconHovered} />
         </div>
         {/* Dropdown button */}
-        <div className={`bg-third-color relative z-[120] ${backgroundColor}`}>
+        <div
+          className={`bg-theme-third-color relative z-[120] ${backgroundColor}`}
+        >
           <div
             onClick={() => !isDisabled && setIsDropdownOpen((prev) => !prev)}
-            className={`select group border-first-color flex min-h-8 items-center justify-between rounded-sm border-2 border-solid px-2 text-white transition-shadow duration-300 ${isDropdownOpen ? 'border-[#f15a5c]' : ''} ${isDisabled ? 'cursor-default opacity-50' : 'hover:bg-first-color cursor-pointer hover:border-white'}`}
+            className={`select group border-theme-first-color flex min-h-8 items-center justify-between rounded-sm border-2 border-solid px-2 text-white transition-shadow duration-300 ${isDropdownOpen ? 'border-[#f15a5c]' : ''} ${isDisabled ? 'cursor-default opacity-50' : 'hover:bg-theme-first-color cursor-pointer hover:border-white'}`}
           >
             {/* Current selected option */}
-            <span className="selected text-first-color select-none group-hover:text-white">
+            <span className="selected text-theme-first-color select-none group-hover:text-white">
               {dropdownOp}
             </span>
             {/* Caret symbol */}
             <div
-              className={`border-t-first-color h-0 w-0 border-t-[6px] border-r-[5px] border-l-[5px] border-r-transparent border-l-transparent transition duration-300 ${isDropdownOpen ? 'rotate-180' : ''} ${!isDisabled ? 'group-hover:border-t-white' : ''}`}
+              className={`border-t-theme-first-color h-0 w-0 border-t-[6px] border-r-[5px] border-l-[5px] border-r-transparent border-l-transparent transition duration-300 ${isDropdownOpen ? 'rotate-180' : ''} ${!isDisabled ? 'group-hover:border-t-white' : ''}`}
             />
           </div>
         </div>
         {/* Dropdown list elements */}
         <ul
-          className={`text-first-color shadow-shadow-box bg-third-color absolute mt-1 flex w-28 flex-col gap-0.5 rounded-md border border-solid border-white px-2 py-2 text-center transition-opacity duration-300 ease-in-out sm:w-30 ${isDropdownOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'} z-[160]`}
+          className={`text-theme-first-color shadow-shadow-box bg-theme-third-color absolute mt-1 flex w-28 flex-col gap-0.5 rounded-md border border-solid border-white px-2 py-2 text-center transition-opacity duration-300 ease-in-out sm:w-30 ${isDropdownOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'} z-[160]`}
         >
           {options.map((option) => renderOption(option.label, option.value))}
         </ul>

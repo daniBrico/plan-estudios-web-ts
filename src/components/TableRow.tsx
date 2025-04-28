@@ -108,12 +108,12 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
   }, [showModal])
 
   const backgroundColor =
-    index % 2 === 0 ? 'md:bg-third-color' : 'md:bg-second-color'
+    index % 2 === 0 ? 'md:bg-theme-third-color' : 'md:bg-theme-second-color'
 
   return (
     <>
       <tr
-        className={`bg-third-color grid grid-cols-2 rounded-md p-1 md:table-row md:rounded-none ${backgroundColor} relative`}
+        className={`bg-theme-third-color text-theme-text-color grid grid-cols-2 rounded-md p-1 md:table-row md:rounded-none ${backgroundColor} relative`}
       >
         <td
           className={`text-sm transition md:p-2 md:text-center md:text-base ${isDropdownOpen ? 'underline' : ''} ${setClassForState(actualState)}`}
@@ -140,12 +140,12 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
           />
           {
             <div
-              className={`bg-second-color/40 fixed top-0 left-0 z-[1000] flex h-dvh w-dvw items-center justify-center transition-opacity duration-300 ease-in-out ${showModal ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}
+              className={`bg-theme-second-color/40 fixed top-0 left-0 z-[1000] flex h-dvh w-dvw items-center justify-center transition-opacity duration-300 ease-in-out ${showModal ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}
             >
               <div className="absolute h-full w-full" />
               <div
                 ref={modalRef}
-                className={`bg-first-color z-200 flex w-[75%] flex-col gap-2.5 rounded-lg border-2 border-white p-2 text-white shadow-lg shadow-black/40 duration-300 ease-in-out sm:w-[60%] md:w-[50%] lg:w-[40%] ${showModal ? 'animate-expand-element opacity-100' : 'animate-shrink-element opacity-0'}`}
+                className={`bg-theme-first-color z-200 flex w-[75%] flex-col gap-2.5 rounded-lg border-2 border-white p-2 text-white shadow-lg shadow-black/40 duration-300 ease-in-out sm:w-[60%] md:w-[50%] lg:w-[40%] ${showModal ? 'animate-expand-element opacity-100' : 'animate-shrink-element opacity-0'}`}
               >
                 <div className="relative flex items-center justify-center">
                   <p className="text-md py-0.5 font-bold sm:text-lg">
@@ -162,7 +162,7 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
                 {
                   <div
                     ref={correlativesContainerRef}
-                    className="bg-third-color flex max-h-64 flex-col gap-1 overflow-y-auto rounded-sm border-2 border-white px-1.5 py-1 lg:max-h-90"
+                    className="bg-theme-third-color flex max-h-64 flex-col gap-1 overflow-y-auto rounded-sm border-2 border-white px-1.5 py-1 lg:max-h-90"
                   >
                     {correlatives.map((correlative) => {
                       const subjectNameFromCode =

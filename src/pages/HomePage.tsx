@@ -3,9 +3,9 @@ import { type JSX } from 'react'
 function HomePage(): JSX.Element {
   return (
     <>
-      <div className="w-full">
+      <div className="text-theme-text-color w-full">
         <div className="mx-auto max-w-4xl p-4 text-sm sm:p-6 md:text-base lg:px-0">
-          <h1 className="text-first-color text-center text-lg font-semibold tracking-wide md:text-2xl lg:text-3xl">
+          <h1 className="text-theme-first-color mb-2 text-center text-lg font-semibold tracking-wide md:text-2xl lg:text-3xl">
             ¡Bienvenidos al Plan de Estudios Web!
           </h1>
           <p className="mt-2">
@@ -33,7 +33,7 @@ function HomePage(): JSX.Element {
             información utilizada es pública y podrá encontrarla en los sitios
             oficiales linkeados.
           </p>
-          <h2 className="text-first-color mt-2 text-lg font-semibold tracking-wide md:text-xl lg:text-2xl">
+          <h2 className="text-theme-first-color mt-2 text-lg font-semibold tracking-wide md:text-xl lg:mt-6 lg:mb-2 lg:text-2xl">
             Características
           </h2>
           <p>

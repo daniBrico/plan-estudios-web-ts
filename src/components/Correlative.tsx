@@ -5,7 +5,7 @@ import { useCareerContext } from '../hooks/useCareerContext'
 
 const ToolTip = (name: Name | undefined): JSX.Element => {
   return (
-    <span className="bg-first-color invisible absolute bottom-full left-1/2 z-[130] -translate-x-1/2 transform rounded-sm border-2 border-white px-1.5 py-1 text-center whitespace-nowrap text-white group-hover:visible">
+    <span className="bg-theme-first-color invisible absolute bottom-full left-1/2 z-[130] -translate-x-1/2 transform rounded-sm border-2 border-white px-1.5 py-1 text-center whitespace-nowrap text-white group-hover:visible">
       {name?.shortName || name?.longName}
     </span>
   )
@@ -60,7 +60,9 @@ export const ListOfCorrelatives: React.FC<ListOfCorrelativesProps> = ({
         onClick={handleClick}
       >
         {correlatives.length === 0 && (
-          <span className="text-first-color text-lg select-none">{'-'}</span>
+          <span className="text-theme-first-color text-lg select-none">
+            {'-'}
+          </span>
         )}
         {correlatives.length <= maxCorrelativesToShow &&
           correlatives
@@ -77,7 +79,7 @@ export const ListOfCorrelatives: React.FC<ListOfCorrelativesProps> = ({
               </Fragment>
             ))}
         {correlatives.length > maxCorrelativesToShow && (
-          <span className="text-first-color cursor-pointer text-lg select-none">
+          <span className="text-theme-first-color cursor-pointer text-lg select-none">
             {'...'}
           </span>
         )}

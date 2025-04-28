@@ -4,7 +4,7 @@ import { Layout } from './components/Layout'
 import HomePage from './pages/HomePage'
 import { PlanEstudiosPage } from './pages/PlanEstudiosPage'
 import { NotFoundPage } from './pages/NotFoundPage'
-import { StatsPage } from './pages/StatsPage'
+import WorkingOnIt from './components/WorkingOnIt'
 
 function App(): JSX.Element {
   return (
@@ -14,7 +14,7 @@ function App(): JSX.Element {
           <Route index element={<Navigate to="/inicio" replace />} />
           <Route path="inicio" element={<HomePage />} />
           <Route path="plan-de-estudios" element={<PlanEstudiosPage />} />
-          <Route path="estadisticas" element={<StatsPage />} />
+          <Route path="estadisticas" element={<WorkingOnIt />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

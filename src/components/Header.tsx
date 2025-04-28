@@ -11,7 +11,7 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ careerHeaderInfo }) => {
   return (
     <>
-      <header className="bg-first-color pt-2 pb-4 sm:px-6 lg:px-0">
+      <header className="bg-theme-first-color pt-2 pb-4 sm:px-6 lg:px-0">
         <div className="mx-auto flex max-w-4xl flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-16 lg:justify-between">
           <div className="order-0 mx-auto sm:mx-0">
             <a

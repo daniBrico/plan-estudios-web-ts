@@ -7,7 +7,7 @@ export const Footer = (): JSX.Element => {
 
   return (
     <>
-      <footer className="bg-first-color relative bottom-0 left-0 px-4 py-2 md:py-4 lg:px-0">
+      <footer className="bg-theme-first-color relative bottom-0 left-0 px-4 py-2 md:py-4 lg:px-0">
         <div className="mx-auto max-w-4xl">
           <div className="flex gap-3 text-sm font-light text-white md:text-base">
             <a

@@ -39,7 +39,7 @@ const ListOfTables: React.FC<ListOfTablesProps> = ({
 
   return (
     <div className="w-full">
-      <h2 className="bg-first-color md:text-first-color sticky top-2 z-[150] mt-4 rounded-tl-md rounded-tr-md py-0.5 text-center text-xl text-white md:invisible md:static md:mb-3 md:hidden md:w-full md:rounded-none md:bg-inherit md:text-2xl">
+      <h2 className="bg-theme-first-color md:text-theme-first-color sticky top-2 z-[150] mt-4 rounded-tl-md rounded-tr-md py-0.5 text-center text-xl text-white md:invisible md:static md:mb-3 md:hidden md:w-full md:rounded-none md:bg-inherit md:text-2xl">
         {`(${countOfSubjectsByYear}) ${tableTitle}`}
       </h2>
       <table
@@ -50,7 +50,7 @@ const ListOfTables: React.FC<ListOfTablesProps> = ({
           } as React.CSSProperties
         }
       >
-        <thead className="bg-first-color thead hidden w-full rounded-t-lg md:table-header-group">
+        <thead className="bg-theme-first-color thead hidden w-full rounded-t-lg md:table-header-group">
           <tr className="rounded-t-lg text-white">
             {titles.map((title) =>
               renderTableHeads(
@@ -79,8 +79,8 @@ export const CareerDetails: React.FC<CareerDetailsProps> = ({
 }) => {
   return (
     <>
-      <article className="relative m-auto w-full max-w-4xl gap-8 px-6 md:flex md:flex-col md:items-center lg:px-0">
-        <h2 className="text-first-color mx-auto mt-2 text-center text-2xl font-semibold md:mb-4 md:text-3xl">
+      <article className="relative container w-full gap-8 px-6 pb-36 md:flex md:flex-col md:items-center lg:px-0">
+        <h2 className="text-theme-first-color mx-auto mt-2 text-center text-2xl font-semibold md:mb-4 md:text-3xl">
           Plan de Estudios
         </h2>
         {subjectsByYear.map((subjectForYear) => (
