@@ -18,7 +18,7 @@ export interface SubjectsByYear {
   subjects: Subject[]
 }
 
-export type Code = string
+export type SubjectCode = string
 export type Correlatives = string[]
 export type Name = {
   longName: string

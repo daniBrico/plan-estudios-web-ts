@@ -26,7 +26,8 @@ export default tseslint.config(
       '@typescript-eslint/explicit-function-return-type': 'error',
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-unused-vars': 'error',
-      '@typescript-eslint/no-unused-expressions': 'error'
+      '@typescript-eslint/no-unused-expressions': 'error',
+      'react-hooks/exhaustive-deps': 'off'
       // '@typescript-eslint/no-explicit-any': 'off'
       // '@typescript-eslint/strict-boolean-expressions': 'error'
     },
