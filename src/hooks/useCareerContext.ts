@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react'
 import {
   type SubjectState,
-  type Code,
+  type SubjectCode,
   type State,
   type Correlatives,
   type Career,
@@ -14,8 +14,8 @@ interface CareerContextType {
   error: string | null
   careerIsLoading: boolean
   locStorIsLoading: boolean
-  changeSubjectState: (code: Code, state: State) => void
-  getSubjectState: (code: Code) => State | undefined
+  changeSubjectState: (code: SubjectCode, state: State) => void
+  getSubjectState: (code: SubjectCode) => State | undefined
   allSubjectsState: SubjectState[]
   areAllCorrelativesPassed: (correlatives: Correlatives) => boolean
   cleanValuesAndLocalStorage: () => void

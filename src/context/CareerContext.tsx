@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { CareerContext } from '../hooks/useCareerContext'
 import {
-  type Code,
+  type SubjectCode,
   type State,
   type SubjectState,
   type Correlatives,
@@ -35,7 +35,7 @@ export const CareerProvider: React.FC<{ children: React.ReactNode }> = ({
   const changeCareerSelected = (option: string | null): void =>
     setCareerSelected(option)
 
-  const changeSubjectState = (code: Code, state: State): void =>
+  const changeSubjectState = (code: SubjectCode, state: State): void =>
     setAllSubjectsState((prev) =>
       prev.map((subject) => {
         if (subject.code === code) return { ...subject, state: state }
@@ -44,7 +44,7 @@ export const CareerProvider: React.FC<{ children: React.ReactNode }> = ({
       })
     )
 
-  const getSubjectState = (code: Code): State | undefined =>
+  const getSubjectState = (code: SubjectCode): State | undefined =>
     allSubjectsState.find((subject) => subject.code === code)?.state
 
   const areAllCorrelativesPassed = (correlatives: Correlatives): boolean =>
