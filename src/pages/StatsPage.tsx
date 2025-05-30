@@ -18,8 +18,6 @@ export const StatsPage = (): JSX.Element => {
     setEnrolledSubjects(
       allSubjectsState.filter((subject) => subject.state === 'Cursando')
     )
-
-    console.log(allSubjectsState)
   }, [allSubjectsState])
 
   return (
