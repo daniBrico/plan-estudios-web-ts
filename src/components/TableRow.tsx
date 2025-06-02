@@ -1,10 +1,10 @@
-import { useCareerContext } from '../hooks/useCareerContext'
 import useSubjectState from '../hooks/useSubjectState'
 import { type DropdownOp, type State, type Subject } from '../types/types'
 import { ListOfCorrelatives } from './Correlative'
 import { DropdownButton } from './DropdownButton'
 import React, { useEffect, useRef, useState } from 'react'
-import { CorrelativeModal } from './CorrelativeModal'
+// import { CorrelativeModal } from './CorrelativeModal'
+import { useSubjectStateContext } from '../hooks/useSubjectContext'
 
 interface ListOfRowsProps extends Omit<Subject, 'state'> {
   index: number
@@ -17,77 +17,56 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
   correlatives,
   index
 }) => {
-  const {
-    changeSubjectState,
-    getSubjectState,
-    allSubjectsState,
-    areAllCorrelativesPassed
-  } = useCareerContext()
-  const { actualState, setClassForState } = useSubjectState(code)
+  // useState
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const [isDisabled, setIsDisabled] = useState(false)
-  const [dropdownOp, setDropdownOp] = useState<DropdownOp>('')
   const [showModal, setShowModal] = useState(false)
+  const [correlativesPassed, setCorrelativesPassed] = useState<
+    boolean | undefined
+  >(undefined)
+
+  // customHooks
+  const { setClassForState, subjectState } = useSubjectState(code)
+
+  // useRef
   const modalRef = useRef<HTMLDivElement>(null)
   const correlativesContainerRef = useRef<HTMLDivElement>(null)
 
-  const changeDropdownOp = (newOp: DropdownOp): void => setDropdownOp(newOp)
+  // useContext
+  const { changeSubjectState, areAllCorrelativesPassed } =
+    useSubjectStateContext()
+
+  // const changeDropdownOp = (newOp: DropdownOp): void => setDropdownOp(newOp)
 
   const changeShowModal = (newValue: boolean): void => {
     setShowModal(newValue)
-
     if (!newValue && correlativesContainerRef.current)
       correlativesContainerRef.current.scrollTop = 0
   }
 
-  const changeStateOpSelected = (option: DropdownOp): void => {
-    let newOp: State
+  const changeStateOpSelected = (stateOp: DropdownOp): void => {
+    let newStateOp: State
 
-    newOp =
-      option === ''
+    newStateOp =
+      stateOp === ''
         ? correlatives.length > 0
-          ? (newOp = 'Deshabilitada')
-          : (newOp = 'Habilitada')
-        : (newOp = option)
+          ? (newStateOp = 'Deshabilitada')
+          : (newStateOp = 'Habilitada')
+        : (newStateOp = stateOp)
 
-    changeSubjectState(code, newOp)
+    changeSubjectState(code, newStateOp)
   }
 
+  // useEffect and useLayoutEffect
+
   useEffect(() => {
-    const subjectState = getSubjectState(code)
-
-    if (!allSubjectsState || !subjectState) return
-
-    if (
-      subjectState === 'Aprobada' ||
-      subjectState === 'Cursando' ||
-      subjectState === 'Recursar' ||
-      subjectState === 'Regular'
-    )
-      setDropdownOp(subjectState)
-
-    if (correlatives.length === 0 && subjectState === actualState) return
-
-    const correlativesPassed = areAllCorrelativesPassed(correlatives)
+    setCorrelativesPassed(areAllCorrelativesPassed(correlatives))
 
     if (correlativesPassed && subjectState === 'Deshabilitada')
       changeSubjectState(code, 'Habilitada')
 
-    if (!correlativesPassed && subjectState !== 'Deshabilitada') {
+    if (!correlativesPassed && subjectState !== 'Deshabilitada')
       changeSubjectState(code, 'Deshabilitada')
-      changeDropdownOp('')
-    }
-
-    setIsDisabled(!correlativesPassed)
-  }, [
-    allSubjectsState,
-    code,
-    getSubjectState,
-    areAllCorrelativesPassed,
-    changeSubjectState,
-    correlatives,
-    actualState
-  ])
+  }, [subjectState])
 
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent): void => {
@@ -110,12 +89,12 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
         className={`bg-theme-third-color text-theme-text-color grid grid-cols-2 rounded-md p-1 md:table-row md:rounded-none ${backgroundColor} relative`}
       >
         <td
-          className={`text-sm transition md:p-2 md:text-center md:text-base ${isDropdownOpen ? 'underline' : ''} ${setClassForState(actualState)}`}
+          className={`text-sm transition md:p-2 md:text-center md:text-base ${isDropdownOpen ? 'underline' : ''} ${setClassForState(subjectState)}`}
         >
           {code}
         </td>
         <td
-          className={`order-first col-span-2 text-sm font-medium text-wrap transition md:p-2 md:text-base md:font-normal ${isDropdownOpen ? `${setClassForState(actualState)} underline` : ''}`}
+          className={`order-first col-span-2 text-sm font-medium text-wrap transition md:p-2 md:text-base md:font-normal ${isDropdownOpen ? `${setClassForState(subjectState)} underline` : ''}`}
         >
           <p className="invisible hidden md:visible md:inline">
             {name.longName}
@@ -134,13 +113,13 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
                 correlatives={correlatives}
                 changeShowModal={changeShowModal}
               />
-              <CorrelativeModal
+              {/* <CorrelativeModal
                 name={name}
                 correlatives={correlatives}
                 changeShowModal={changeShowModal}
                 showModal={showModal}
                 correlativesContainerRef={correlativesContainerRef}
-              />
+              /> */}
             </>
           ) : (
             '-'
@@ -151,11 +130,10 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
         >
           <DropdownButton
             isDropdownOpen={isDropdownOpen}
-            isDisabled={isDisabled}
             changeStateOpSelected={changeStateOpSelected}
-            changeDropdownOp={changeDropdownOp}
-            dropdownOp={dropdownOp}
+            subjectState={subjectState}
             setIsDropdownOpen={setIsDropdownOpen}
+            correlativesPassed={correlativesPassed}
             backgroundColor={backgroundColor}
           />
         </td>

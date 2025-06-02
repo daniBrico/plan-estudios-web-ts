@@ -1,14 +1,12 @@
 import React, { type JSX, useEffect, useRef, useState } from 'react'
-import { type DropdownOp } from '../types/types'
-import { CancelIcon } from './svg-components/CancelIcon'
+import { type State, type DropdownOp } from '../types/types'
 
 interface DropdownButtonProps {
   isDropdownOpen: boolean
   setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>
-  isDisabled: boolean
   changeStateOpSelected: (option: DropdownOp) => void
-  changeDropdownOp: (option: DropdownOp) => void
-  dropdownOp: DropdownOp
+  subjectState: State | undefined
+  correlativesPassed: boolean | undefined
   backgroundColor: string
 }
 
@@ -22,13 +20,16 @@ const options: { label: string; value: DropdownOp }[] = [
 export const DropdownButton: React.FC<DropdownButtonProps> = ({
   isDropdownOpen,
   setIsDropdownOpen,
-  isDisabled,
   changeStateOpSelected,
-  changeDropdownOp,
-  dropdownOp,
+  subjectState,
+  correlativesPassed,
   backgroundColor
 }) => {
-  const [isIconHovered, setIsIconHovered] = useState(false)
+  // useState
+  const [dropdownOp, setDropdownOp] = useState<DropdownOp>('')
+  const [isDisabled, setIsDisabled] = useState(false)
+
+  // useRef
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const setOption = (option: DropdownOp): void => {
@@ -36,10 +37,11 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
 
     if (option === dropdownOp) return
 
-    changeDropdownOp(option)
+    setDropdownOp(option)
     changeStateOpSelected(option)
   }
 
+  // useEffect
   useEffect(() => {
     const handleScroll = (): void => {
       if (isDropdownOpen) setIsDropdownOpen(false)
@@ -66,6 +68,21 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
       document.removeEventListener('mousedown', handleOutsideClick)
   }, [isDropdownOpen, isDisabled, setIsDropdownOpen])
 
+  useEffect(() => {
+    if (
+      subjectState === 'Aprobada' ||
+      subjectState === 'Cursando' ||
+      subjectState === 'Recursar' ||
+      subjectState === 'Regular'
+    )
+      setDropdownOp(subjectState)
+
+    if (!correlativesPassed && subjectState !== 'Deshabilitada')
+      setDropdownOp('')
+
+    if (correlativesPassed) setIsDisabled(correlativesPassed)
+  }, [subjectState])
+
   const renderOption = (label: string, value: DropdownOp): JSX.Element => (
     <li
       key={value}
@@ -82,11 +99,7 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
         <div
           className={`border-theme-first-color absolute right-full z-[110] mr-1 h-8 w-8 cursor-pointer rounded-full border-2 border-solid p-1 transition-all duration-300 ${dropdownOp !== '' && isDropdownOpen ? 'pointer-events-auto z-[140] translate-x-0 opacity-100' : 'pointer-events-none translate-x-8 opacity-0'} hover:bg-theme-first-color hover:border-white ${backgroundColor}`}
           onClick={() => setOption('')}
-          onMouseEnter={() => setIsIconHovered(true)}
-          onMouseLeave={() => setIsIconHovered(false)}
-        >
-          <CancelIcon isIconHovered={isIconHovered} />
-        </div>
+        ></div>
         {/* Dropdown button */}
         <div
           className={`bg-theme-third-color relative z-[120] ${backgroundColor}`}

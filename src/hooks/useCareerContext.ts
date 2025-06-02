@@ -1,12 +1,5 @@
 import { createContext, useContext } from 'react'
-import {
-  type SubjectState,
-  type SubjectCode,
-  type State,
-  type Correlatives,
-  type Career,
-  type Name
-} from '../types/types'
+import { type Career, type ID } from '../types/types'
 
 interface CareerContextType {
   changeCareerSelected: (option: string | null) => void
@@ -14,16 +7,8 @@ interface CareerContextType {
   error: string | null
   careerIsLoading: boolean
   locStorIsLoading: boolean
-  changeSubjectState: (code: SubjectCode, state: State) => void
-  getSubjectState: (code: SubjectCode) => State | undefined
-  allSubjectsState: SubjectState[]
-  areAllCorrelativesPassed: (correlatives: Correlatives) => boolean
   cleanValuesAndLocalStorage: () => void
-  numSubjectsPassed: number
-  numSubjectsRegular: number
-  numSubjectsCursando: number
-  getTotalNumOfSubjects: () => number
-  getSubjectNameFromCode: (code: string) => Name | undefined
+  careerSelectedID: ID | null
 }
 
 export const CareerContext = createContext<CareerContextType | undefined>(

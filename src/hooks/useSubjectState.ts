@@ -1,44 +1,42 @@
 import { useEffect, useState } from 'react'
-import { type State, type Code } from '../types/types'
-import { useCareerContext } from './useCareerContext'
+import { type State, type SubjectCode } from '../types/types'
+import { useSubjectStateContext } from './useSubjectContext'
 
 interface ReturnType {
-  actualState: State | ''
-  setClassForState: (actualState: State | '') => string
+  subjectState: State | undefined
+  setClassForState: (subjectState: State | undefined) => string
 }
 
-const useSubjectState = (code: Code): ReturnType => {
-  const { allSubjectsState, getSubjectState } = useCareerContext()
-  const [actualState, setActualState] = useState<State | ''>('')
+const useSubjectState = (code: SubjectCode): ReturnType => {
+  const { getSubjectState, allSubjectsState } = useSubjectStateContext()
+  const [subjectState, setSubjectState] = useState<State | undefined>(
+    getSubjectState(code)
+  )
 
   useEffect(() => {
-    if (!allSubjectsState) return
+    setSubjectState(getSubjectState(code))
+  }, [allSubjectsState])
 
-    const subjectState = getSubjectState(code)
+  const setClassForState = (subjectState: State | undefined): string => {
+    if (!subjectState) return ''
 
-    if (!subjectState) return
-
-    setActualState(subjectState)
-  }, [allSubjectsState, code, getSubjectState])
-
-  const setClassForState = (actualState: State | ''): string => {
     const stateClassMap = {
       Aprobada: 'text-theme-green',
       Habilitada: 'text-theme-blue',
       Cursando: 'text-theme-blue',
       Deshabilitada: 'text-theme-first-color',
       Recursar:
-        actualState === 'Recursar'
+        subjectState === 'Recursar'
           ? 'text-theme-blue'
           : 'text-theme-first-color',
       Regular: 'text-theme-yellow',
       '': ''
     }
 
-    return stateClassMap[actualState] || ''
+    return stateClassMap[subjectState] || ''
   }
 
-  return { actualState, setClassForState }
+  return { subjectState, setClassForState }
 }
 
 export default useSubjectState
