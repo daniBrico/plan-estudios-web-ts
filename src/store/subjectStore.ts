@@ -12,6 +12,7 @@ import {
   removeStoredValue,
   saveToLocalStorage
 } from '../utils/storage'
+import useCareerStore from './careerStore'
 
 interface SubjectStore {
   allSubjectsState: SubjectState[]
@@ -75,6 +76,10 @@ export const useSubjectStore = create<SubjectStore>((set, get) => ({
       ?.state
   },
   changeSubjectState: (code, state): void => {
+    const careerSelectedID = useCareerStore.getState().careerSelectedID
+
+    if (!careerSelectedID) return
+
     set((prev) => {
       const updatedSubjects = prev.allSubjectsState.map((subject) => {
         if (subject.code === code) {
@@ -83,6 +88,8 @@ export const useSubjectStore = create<SubjectStore>((set, get) => ({
 
         return subject
       })
+
+      saveToLocalStorage(careerSelectedID, updatedSubjects)
 
       return { allSubjectsState: updatedSubjects }
     })

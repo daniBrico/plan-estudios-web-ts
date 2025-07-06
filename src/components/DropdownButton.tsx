@@ -87,6 +87,14 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
 
     setCssForState(setClassForState(subjectState))
 
+    if (
+      subjectState === 'Aprobada' ||
+      subjectState === 'Cursando' ||
+      subjectState === 'Recursar' ||
+      subjectState === 'Regular'
+    )
+      setDropdownOp(subjectState)
+
     if (corrPassed) setIsDisabled(false)
 
     if (!corrPassed) {
