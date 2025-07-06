@@ -1,6 +1,6 @@
 import React, { Fragment, type JSX } from 'react'
 import { type Name, type Correlatives } from '../types/types'
-// import useSubjectState from '../hooks/useSubjectState'
+import useSubjectState from '../hooks/useSubjectState'
 import { useSubjectStore } from '../store/subjectStore'
 
 const ToolTip = (name: Name | undefined): JSX.Element => {
@@ -19,15 +19,16 @@ interface CorrelativeProps {
 
 export const Correlative: React.FC<CorrelativeProps> = React.memo(
   ({ correlative, tooltip, cssClasess }) => {
-    // const { setClassForState, subjectState } = useSubjectState(correlative)
+    const { setClassForState, subjectState } = useSubjectState({
+      code: correlative
+    })
     const { getSubjectNameFromCode } = useSubjectStore()
     const name = getSubjectNameFromCode(correlative)
 
     return (
       <>
         <div className={`group relative inline-block text-left ${cssClasess}`}>
-          <span /* className={`${setClassForState(subjectState)} cursor-pointer`} */
-          >
+          <span className={`${setClassForState(subjectState)} cursor-pointer`}>
             {correlative}
           </span>
           {tooltip && ToolTip(name)}

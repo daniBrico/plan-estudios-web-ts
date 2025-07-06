@@ -8,10 +8,15 @@ interface ReturnType {
   corrPassed: boolean | undefined
 }
 
-const useSubjectState = (
-  code: SubjectCode,
-  correlatives: Correlatives
-): ReturnType => {
+interface useSubjectStateProps {
+  code: SubjectCode
+  correlatives?: Correlatives
+}
+
+const useSubjectState = ({
+  code,
+  correlatives
+}: useSubjectStateProps): ReturnType => {
   const {
     getSubjectState,
     allSubjectsState,
@@ -24,8 +29,15 @@ const useSubjectState = (
   useEffect(() => {
     if (!allSubjectsState.length) return
 
-    const areCorrPassed = areAllCorrelativesPassed(correlatives)
     const currentSubjectState = getSubjectState(code)
+
+    if (correlatives === undefined) {
+      setSubjectState(currentSubjectState)
+
+      return
+    }
+
+    const areCorrPassed = areAllCorrelativesPassed(correlatives)
 
     if (areCorrPassed && currentSubjectState === 'Deshabilitada')
       changeSubjectState(code, 'Habilitada')
@@ -40,15 +52,12 @@ const useSubjectState = (
   const setClassForState = (subjectState: State | undefined): string => {
     if (!subjectState) return ''
 
-    const stateClassMap = {
+    const stateClassMap: Record<State | '', string> = {
       Aprobada: 'text-theme-green',
       Habilitada: 'text-theme-blue',
       Cursando: 'text-theme-blue',
       Deshabilitada: 'text-theme-first-color',
-      Recursar:
-        subjectState === 'Recursar'
-          ? 'text-theme-blue'
-          : 'text-theme-first-color',
+      Recursar: 'text-theme-blue',
       Regular: 'text-theme-yellow',
       '': ''
     }

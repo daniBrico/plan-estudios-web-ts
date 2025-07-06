@@ -37,10 +37,10 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
   const [isDisabled, setIsDisabled] = useState(false)
 
   // customHooks
-  const { setClassForState, subjectState, corrPassed } = useSubjectState(
+  const { setClassForState, subjectState, corrPassed } = useSubjectState({
     code,
     correlatives
-  )
+  })
 
   // useRef
   const dropdownRef = useRef<HTMLDivElement>(null)
