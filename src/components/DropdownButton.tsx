@@ -5,6 +5,7 @@ import {
   type Correlatives
 } from '../types/types'
 import useSubjectState from '../hooks/useSubjectState'
+import { CancelIcon } from './svg-components/CancelIcon'
 
 interface DropdownButtonProps {
   isDropdownOpen: boolean
@@ -108,9 +109,11 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
     <>
       <div className="relative w-28 sm:w-3/4 md:w-full" ref={dropdownRef}>
         <div
-          className={`border-theme-first-color absolute right-full z-[110] mr-1 h-8 w-8 cursor-pointer rounded-full border-2 border-solid p-1 transition-all duration-300 ${dropdownOp !== '' && isDropdownOpen ? 'pointer-events-auto z-[140] translate-x-0 opacity-100' : 'pointer-events-none translate-x-8 opacity-0'} hover:bg-theme-first-color hover:border-white ${backgroundColor}`}
+          className={`border-theme-first-color group absolute right-full z-[110] mr-1 h-8 w-8 cursor-pointer rounded-full border-2 border-solid p-1 transition-all duration-300 ${dropdownOp !== '' && isDropdownOpen ? 'pointer-events-auto z-[140] translate-x-0 opacity-100' : 'pointer-events-none translate-x-8 opacity-0'} hover:bg-theme-first-color hover:border-white ${backgroundColor}`}
           onClick={() => setOption('')}
-        ></div>
+        >
+          <CancelIcon />
+        </div>
         {/* Dropdown button */}
         <div
           className={`bg-theme-third-color relative z-[120] ${backgroundColor}`}
