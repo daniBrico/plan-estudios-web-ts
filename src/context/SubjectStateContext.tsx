@@ -1,5 +1,5 @@
 // SubjectStateContext.tsx - Contexto específico para estados
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 import {
   type SubjectCode,
   type State,
@@ -7,8 +7,8 @@ import {
   type Name
 } from '../types/types'
 import { SubjectStateContext } from '../hooks/useSubjectContext'
-import { useCareerContext } from '../hooks/useCareerContext'
-import { getFromLocalStorage, saveToLocalStorage } from '../utils/storage'
+// import { getFromLocalStorage } from '../utils/storage'
+// import useCareerStore from '../store/careerStore'
 
 export const SubjectStateProvider: React.FC<{ children: React.ReactNode }> = ({
   children
@@ -17,7 +17,6 @@ export const SubjectStateProvider: React.FC<{ children: React.ReactNode }> = ({
   const [allSubjectsState, setAllSubjectsState] = useState<SubjectState[]>([])
 
   // useContext
-  const { careerSelectedID, career } = useCareerContext()
 
   // useCallback
   const getSubjectState = (code: SubjectCode): State | undefined => {
@@ -57,32 +56,32 @@ export const SubjectStateProvider: React.FC<{ children: React.ReactNode }> = ({
   // useEffect
 
   // load allSubjectsState from API or localStorage
-  useEffect(() => {
-    if (!careerSelectedID || !career) return
+  // useEffect(() => {
+  //   if (!careerSelectedID || !career) return
 
-    try {
-      const item = getFromLocalStorage(careerSelectedID)
+  //   try {
+  //     const item = getFromLocalStorage(careerSelectedID)
 
-      if (!item) {
-        const subjectsStateStored = career.subjectsByYear.flatMap(
-          (subjectsByYear) =>
-            subjectsByYear.subjects.map((subject) => ({
-              code: subject.code,
-              name: subject.name,
-              state:
-                subject.correlatives.length > 0 ? 'Deshabilitada' : 'Habilitada'
-            }))
-        ) as SubjectState[]
+  //     if (!item) {
+  //       const subjectsStateStored = career.subjectsByYear.flatMap(
+  //         (subjectsByYear) =>
+  //           subjectsByYear.subjects.map((subject) => ({
+  //             code: subject.code,
+  //             name: subject.name,
+  //             state:
+  //               subject.correlatives.length > 0 ? 'Deshabilitada' : 'Habilitada'
+  //           }))
+  //       ) as SubjectState[]
 
-        setAllSubjectsState(subjectsStateStored)
-        saveToLocalStorage(careerSelectedID, subjectsStateStored)
-      } else {
-        setAllSubjectsState(item as SubjectState[])
-      }
-    } catch (error) {
-      console.error('Error parsing career data from localStorage', error)
-    }
-  }, [career])
+  //       setAllSubjectsState(subjectsStateStored)
+  //       // saveToLocalStorage(careerSelectedID, subjectsStateStored)
+  //     } else {
+  //       setAllSubjectsState(item as SubjectState[])
+  //     }
+  //   } catch (error) {
+  //     console.error('Error parsing career data from localStorage', error)
+  //   }
+  // }, [career])
 
   // Event handlers and functions
   const getSubjectNameFromCode = (code: string): Name | undefined =>

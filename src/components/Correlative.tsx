@@ -1,7 +1,7 @@
 import React, { Fragment, type JSX } from 'react'
 import { type Name, type Correlatives } from '../types/types'
-import useSubjectState from '../hooks/useSubjectState'
-import { useSubjectStateContext } from '../hooks/useSubjectContext'
+// import useSubjectState from '../hooks/useSubjectState'
+import { useSubjectStore } from '../store/subjectStore'
 
 const ToolTip = (name: Name | undefined): JSX.Element => {
   return (
@@ -19,14 +19,15 @@ interface CorrelativeProps {
 
 export const Correlative: React.FC<CorrelativeProps> = React.memo(
   ({ correlative, tooltip, cssClasess }) => {
-    const { setClassForState, subjectState } = useSubjectState(correlative)
-    const { getSubjectNameFromCode } = useSubjectStateContext()
+    // const { setClassForState, subjectState } = useSubjectState(correlative)
+    const { getSubjectNameFromCode } = useSubjectStore()
     const name = getSubjectNameFromCode(correlative)
 
     return (
       <>
         <div className={`group relative inline-block text-left ${cssClasess}`}>
-          <span className={`${setClassForState(subjectState)} cursor-pointer`}>
+          <span /* className={`${setClassForState(subjectState)} cursor-pointer`} */
+          >
             {correlative}
           </span>
           {tooltip && ToolTip(name)}
@@ -42,7 +43,7 @@ interface ListOfCorrelativesProps {
 }
 
 export const ListOfCorrelatives: React.FC<ListOfCorrelativesProps> = React.memo(
-  ({ correlatives, changeShowModal }) => {
+  ({ correlatives /* changeShowModal */ }) => {
     const maxCorrelativesToShow = 3
 
     const handleClick = (): void => {

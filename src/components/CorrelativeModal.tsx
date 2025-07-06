@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { CancelIcon } from './svg-components/CancelIcon'
 import { type Correlatives, type Name } from '../types/types'
 import { Correlative } from './Correlative'
-import { useSubjectStateContext } from '../hooks/useSubjectContext'
+import { useSubjectStore } from '../store/subjectStore'
 
 interface CorrelativeModalProps {
   name: Name
@@ -22,7 +22,7 @@ export const CorrelativeModal: React.FC<CorrelativeModalProps> = React.memo(
   }) => {
     const modalRef = useRef<HTMLDivElement>(null)
 
-    const { getSubjectNameFromCode } = useSubjectStateContext()
+    const { getSubjectNameFromCode } = useSubjectStore()
 
     useEffect(() => {
       const handleOutsideClick = (e: MouseEvent): void => {

@@ -1,13 +1,19 @@
 import React, { type JSX, useEffect, useRef, useState } from 'react'
-import { type State, type DropdownOp } from '../types/types'
+import {
+  type DropdownOp,
+  type SubjectCode,
+  type Correlatives
+} from '../types/types'
+import useSubjectState from '../hooks/useSubjectState'
 
 interface DropdownButtonProps {
   isDropdownOpen: boolean
   setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>
   changeStateOpSelected: (option: DropdownOp) => void
-  subjectState: State | undefined
-  correlativesPassed: boolean | undefined
   backgroundColor: string
+  code: SubjectCode
+  correlatives: Correlatives
+  setCssForState: React.Dispatch<React.SetStateAction<string>>
 }
 
 const options: { label: string; value: DropdownOp }[] = [
@@ -21,13 +27,20 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
   isDropdownOpen,
   setIsDropdownOpen,
   changeStateOpSelected,
-  subjectState,
-  correlativesPassed,
-  backgroundColor
+  backgroundColor,
+  code,
+  correlatives,
+  setCssForState
 }) => {
   // useState
   const [dropdownOp, setDropdownOp] = useState<DropdownOp>('')
   const [isDisabled, setIsDisabled] = useState(false)
+
+  // customHooks
+  const { setClassForState, subjectState, corrPassed } = useSubjectState(
+    code,
+    correlatives
+  )
 
   // useRef
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -69,18 +82,16 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
   }, [isDropdownOpen, isDisabled, setIsDropdownOpen])
 
   useEffect(() => {
-    if (
-      subjectState === 'Aprobada' ||
-      subjectState === 'Cursando' ||
-      subjectState === 'Recursar' ||
-      subjectState === 'Regular'
-    )
-      setDropdownOp(subjectState)
+    if (subjectState === undefined) return
 
-    if (!correlativesPassed && subjectState !== 'Deshabilitada')
+    setCssForState(setClassForState(subjectState))
+
+    if (corrPassed) setIsDisabled(false)
+
+    if (!corrPassed) {
       setDropdownOp('')
-
-    if (correlativesPassed) setIsDisabled(correlativesPassed)
+      setIsDisabled(true)
+    }
   }, [subjectState])
 
   const renderOption = (label: string, value: DropdownOp): JSX.Element => (

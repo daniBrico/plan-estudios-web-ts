@@ -16,7 +16,6 @@ interface useCareerReturn {
   error: string | null
   careerIsLoading: boolean
   locStorIsLoading: boolean
-  changeCareerValue: (value: Career | null) => void
   removeCareerLocalStorage: () => void
   changeCareerLocalStorageValue: (value: Career | null) => void
 }
@@ -29,8 +28,6 @@ const useCareer = ({ careerSelectedID }: useCareerProps): useCareerReturn => {
   )
   const [locStorIsLoading, setLocStorIsLoading] = useState<boolean>(false)
   const [careerIsLoading, setCareerIsLoading] = useState(false)
-
-  const changeCareerValue = (value: Career | null): void => setCareer(value)
 
   const changeCareerLocalStorageValue = (value: Career | null): void =>
     setCareerLocalStorage(value)
@@ -70,6 +67,7 @@ const useCareer = ({ careerSelectedID }: useCareerProps): useCareerReturn => {
       }
     }
 
+    // Is it in the Local Storage?
     if (careerLocalStorage) {
       setCareerIsLoading(false)
       setLocStorIsLoading(false)
@@ -85,7 +83,6 @@ const useCareer = ({ careerSelectedID }: useCareerProps): useCareerReturn => {
     error,
     careerIsLoading,
     locStorIsLoading,
-    changeCareerValue,
     removeCareerLocalStorage,
     changeCareerLocalStorageValue
   }

@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState, type JSX } from 'react'
 import Select from 'react-select'
 import useGetCareerNames from '../hooks/useGetCareerNames'
-import { useCareerContext } from '../hooks/useCareerContext'
 import {
   getFromLocalStorage,
   removeStoredValue,
@@ -10,24 +9,35 @@ import {
 import { LoadingSpinner } from '../components/LoadingSpinner'
 import { CareerDetails } from '../components/CareerDetails'
 import { type ID } from '../types/types'
+import useCareerStore from '../store/careerStore'
+import { useSubjectStore } from '../store/subjectStore'
 
 export const PlanEstudiosPage = (): JSX.Element => {
+  // useState
   const [initialSelectedOp, setInitialSelectedOp] = useState<{
     value: string
     label: string
   } | null>(null)
 
+  // customHooks
   const { careerNames: careerNamesApi, careerNamesIsLoading } =
     useGetCareerNames()
 
+  // contextApi, zustand
   const {
-    changeCareerSelected,
-    cleanValuesAndLocalStorage,
+    setCareerSelectedID,
+    cleanCareerStore,
     careerIsLoading,
-    locStorIsLoading,
+    localStorageIsLoading,
     error,
+    careerSelectedID,
     career
-  } = useCareerContext()
+  } = useCareerStore()
+
+  const { createAllSubjectStateDefault, cleanSubjectStore, allSubjectsState } =
+    useSubjectStore()
+
+  // functions and events handlers
 
   const handleSelectNames = (
     selectedOption: {
@@ -36,12 +46,14 @@ export const PlanEstudiosPage = (): JSX.Element => {
     } | null
   ): void => {
     if (selectedOption) {
-      changeCareerSelected(selectedOption.value)
+      setCareerSelectedID(selectedOption.value)
       saveToLocalStorage('career-selected-id', selectedOption.value)
+      setInitialSelectedOp(selectedOption)
     } else {
-      changeCareerSelected(null)
-      cleanValuesAndLocalStorage()
+      setCareerSelectedID(null)
+      cleanCareerStore()
       removeStoredValue('career-selected-id')
+      cleanSubjectStore(careerSelectedID)
       setInitialSelectedOp(null)
     }
   }
@@ -71,8 +83,20 @@ export const PlanEstudiosPage = (): JSX.Element => {
       }
     }
 
-    changeCareerSelected(opFromLocalStorage)
-  }, [careerNamesApi, changeCareerSelected])
+    setCareerSelectedID(opFromLocalStorage)
+  }, [careerNamesApi])
+
+  useEffect(() => {
+    if (!career) return
+
+    createAllSubjectStateDefault(careerSelectedID, career)
+  }, [career])
+
+  // useEffect(() => {
+  //   if (!allSubjectsState.length) return
+
+  //   console.log('🚀 ~ useEffect ~ allSubjectsState: ', allSubjectsState)
+  // }, [allSubjectsState])
 
   return (
     <>
@@ -88,7 +112,7 @@ export const PlanEstudiosPage = (): JSX.Element => {
           loadingMessage={() => 'Cargando carreras disponibles..'}
         />
       </div>
-      {(careerIsLoading || locStorIsLoading) && (
+      {(careerIsLoading || localStorageIsLoading) && (
         <LoadingSpinner message="Cargando Plan de Estudios" />
       )}
       {error && <div className="text-center text-red-500">{error}</div>}

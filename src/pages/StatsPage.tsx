@@ -1,16 +1,16 @@
 import { useEffect, useState, type JSX } from 'react'
-import { useCareerContext } from '../hooks/useCareerContext'
+// import { useCareerContext } from '../hooks/useCareerContext'
 import { type SubjectState } from '../types/types'
 
 export const StatsPage = (): JSX.Element => {
   const [enrolledSubjects, setEnrolledSubjects] = useState<SubjectState[]>([])
-  const {
-    getTotalNumOfSubjects,
-    numSubjectsPassed,
-    numSubjectsRegular,
-    numSubjectsCursando,
-    allSubjectsState
-  } = useCareerContext()
+  // const {
+  //   getTotalNumOfSubjects,
+  //   numSubjectsPassed,
+  //   numSubjectsRegular,
+  //   numSubjectsCursando,
+  //   allSubjectsState
+  // } = useCareerContext()
 
   useEffect(() => {
     if (!allSubjectsState.length) return
