@@ -25,6 +25,13 @@ interface SubjectStore {
   changeSubjectState: (code: SubjectCode, state: State) => void
   areAllCorrelativesPassed: (correlatives: SubjectCode[]) => boolean
   getSubjectNameFromCode: (code: string) => Name | undefined
+  getTotalNumOfSubjects: () => number
+  getAllSubjectsStateInfo: () => {
+    numSubjectsPassed: number
+    numSubjectsCursando: number
+    numSubjectsRegular: number
+    totalNumOfSubjects: number
+  }
 }
 
 export const useSubjectStore = create<SubjectStore>((set, get) => ({
@@ -92,5 +99,33 @@ export const useSubjectStore = create<SubjectStore>((set, get) => ({
     )
   },
   getSubjectNameFromCode: (code): Name | undefined =>
-    get().allSubjectsState.find((subject) => subject.code === code)?.name
+    get().allSubjectsState.find((subject) => subject.code === code)?.name,
+  getTotalNumOfSubjects: (): number => get().allSubjectsState.length,
+  getAllSubjectsStateInfo: (): {
+    numSubjectsPassed: number
+    numSubjectsCursando: number
+    numSubjectsRegular: number
+    totalNumOfSubjects: number
+  } => {
+    let numSubjectsPassed = 0,
+      numSubjectsCursando = 0,
+      numSubjectsRegular = 0
+
+    const totalNumOfSubjects = get().allSubjectsState.length
+
+    get().allSubjectsState.forEach((subject) => {
+      if (subject.state === 'Aprobada') numSubjectsPassed++
+
+      if (subject.state === 'Cursando') numSubjectsCursando++
+
+      if (subject.state === 'Regular') numSubjectsRegular++
+    })
+
+    return {
+      numSubjectsPassed,
+      numSubjectsCursando,
+      numSubjectsRegular,
+      totalNumOfSubjects
+    }
+  }
 }))

@@ -1,16 +1,13 @@
 import { useEffect, useState, type JSX } from 'react'
-// import { useCareerContext } from '../hooks/useCareerContext'
 import { type SubjectState } from '../types/types'
+import { useSubjectStore } from '../store/subjectStore'
 
 export const StatsPage = (): JSX.Element => {
+  // useState
   const [enrolledSubjects, setEnrolledSubjects] = useState<SubjectState[]>([])
-  // const {
-  //   getTotalNumOfSubjects,
-  //   numSubjectsPassed,
-  //   numSubjectsRegular,
-  //   numSubjectsCursando,
-  //   allSubjectsState
-  // } = useCareerContext()
+
+  // context
+  const { allSubjectsState, getAllSubjectsStateInfo } = useSubjectStore()
 
   useEffect(() => {
     if (!allSubjectsState.length) return
@@ -19,6 +16,13 @@ export const StatsPage = (): JSX.Element => {
       allSubjectsState.filter((subject) => subject.state === 'Cursando')
     )
   }, [allSubjectsState])
+
+  const {
+    numSubjectsPassed,
+    numSubjectsCursando,
+    numSubjectsRegular,
+    totalNumOfSubjects
+  } = getAllSubjectsStateInfo()
 
   return (
     <section className="container p-4 md:p-1">
@@ -55,7 +59,7 @@ export const StatsPage = (): JSX.Element => {
                 Total de Materias
               </td>
               <td className="rounded-tr-lg pr-1 text-center text-sm md:text-base">
-                {getTotalNumOfSubjects()}
+                {totalNumOfSubjects}
               </td>
             </tr>
             <tr className={`bg-theme-third-color`}>
