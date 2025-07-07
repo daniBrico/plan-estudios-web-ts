@@ -10,7 +10,7 @@ import careerApi from '../api/careerApiInstance'
 interface CareerStore {
   careerSelectedID: ID | null
   career: Career | null
-  error: string | null
+  careerApiError: string | null
   careerIsLoading: boolean
   localStorageIsLoading: boolean
 
@@ -19,29 +19,29 @@ interface CareerStore {
   removeCareerLocalStorage: () => void
   cleanCareerStore: () => void
   fetchCareer: (id: ID) => Promise<void>
-  // changeCareerLocalStorageValue: (value: Career | null) => void
 }
 
 const useCareerStore = create<CareerStore>((set, get) => ({
   careerSelectedID: null,
   career: null,
-  error: null,
+  careerApiError: null,
   careerIsLoading: false,
   localStorageIsLoading: false,
 
   // actions
   setCareerSelectedID: (id: ID | null): void => {
+    if (get().careerSelectedID === id) return
+
     set({ careerSelectedID: id })
 
     if (id) get().fetchCareer(id)
-    else set({ career: null })
   },
   removeCareerLocalStorage: (): void => {},
   cleanCareerStore: (): void => {
     set({
       careerSelectedID: null,
       career: null,
-      error: null,
+      careerApiError: null,
       careerIsLoading: false,
       localStorageIsLoading: false
     })
@@ -52,30 +52,31 @@ const useCareerStore = create<CareerStore>((set, get) => ({
   },
   fetchCareer: async (id: ID): Promise<void> => {
     set({ careerIsLoading: true })
-    const careerFromLS = getFromLocalStorage<Career>('career')
 
-    if (careerFromLS?._id === id) {
-      set({
-        career: careerFromLS,
-        localStorageIsLoading: false,
-        careerIsLoading: false
-      })
-      return
-    }
+    setTimeout(async () => {
+      const careerFromLS = getFromLocalStorage<Career>('career')
 
-    try {
-      const career = await careerApi.getCareer(id)
-      saveToLocalStorage('career', career)
-      set({ career, error: null, careerIsLoading: false })
-    } catch (err) {
-      console.error('Error fetching career:', err)
-      set({
-        error: 'Error al cargar los datos de la carrera',
-        careerIsLoading: false
-      })
-    }
+      if (careerFromLS?._id === id) {
+        set({
+          career: careerFromLS,
+          careerIsLoading: false
+        })
+        return
+      }
+
+      try {
+        const career = await careerApi.getCareer(id)
+        saveToLocalStorage('career', career)
+        set({ career, careerIsLoading: false })
+      } catch (err) {
+        console.error('Error fetching career:', err)
+        set({
+          careerApiError: 'Error al cargar los datos de la carrera',
+          careerIsLoading: false
+        })
+      }
+    }, 3000)
   }
-  // changeCareerLocalStorageValue: (value: Career | null) => void
 }))
 
 export default useCareerStore
