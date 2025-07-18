@@ -1,15 +1,13 @@
-import { type DropdownOp, type State, type Subject } from '../types/types'
-import { ListOfCorrelatives } from './Correlative'
-import { DropdownButton } from './DropdownButton'
 import React, { useEffect, useRef, useState } from 'react'
-// import { CorrelativeModal } from './CorrelativeModal'
-import { useSubjectStore } from '../store/subjectStore'
+import { type Subject } from '../../types/types'
+import { ListOfCorrelatives } from '../Correlative'
+import DropdownButton from '../DropdownButton'
 
 interface ListOfRowsProps extends Omit<Subject, 'state'> {
   index: number
 }
 
-const ListOfRows: React.FC<ListOfRowsProps> = ({
+const TableRow: React.FC<ListOfRowsProps> = ({
   code,
   name,
   offering,
@@ -25,26 +23,10 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
   const modalRef = useRef<HTMLDivElement>(null)
   const correlativesContainerRef = useRef<HTMLDivElement>(null)
 
-  // useContext
-  const { changeSubjectState } = useSubjectStore()
-
   const changeShowModal = (newValue: boolean): void => {
     setShowModal(newValue)
     if (!newValue && correlativesContainerRef.current)
       correlativesContainerRef.current.scrollTop = 0
-  }
-
-  const changeStateOpSelected = (stateOp: DropdownOp): void => {
-    let newStateOp: State
-
-    newStateOp =
-      stateOp === ''
-        ? correlatives.length > 0
-          ? (newStateOp = 'Deshabilitada')
-          : (newStateOp = 'Habilitada')
-        : (newStateOp = stateOp)
-
-    changeSubjectState(code, newStateOp)
   }
 
   useEffect(() => {
@@ -72,7 +54,6 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
         >
           {code}
         </td>
-
         <td
           className={`order-first col-span-2 text-sm font-medium text-wrap transition md:p-2 md:text-base md:font-normal ${isDropdownOpen ? `${cssForState} underline` : ''}`}
         >
@@ -110,7 +91,6 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
         >
           <DropdownButton
             isDropdownOpen={isDropdownOpen}
-            changeStateOpSelected={changeStateOpSelected}
             setIsDropdownOpen={setIsDropdownOpen}
             backgroundColor={backgroundColor}
             code={code}
@@ -123,19 +103,4 @@ const ListOfRows: React.FC<ListOfRowsProps> = ({
   )
 }
 
-interface TableRowsProps {
-  subjects: Subject[]
-}
-
-export const TableRows: React.FC<TableRowsProps> = ({ subjects }) => {
-  return subjects.map((subject, index) => (
-    <ListOfRows
-      key={subject.code}
-      code={subject.code}
-      name={subject.name}
-      offering={subject.offering}
-      correlatives={subject.correlatives}
-      index={index}
-    />
-  ))
-}
+export default TableRow

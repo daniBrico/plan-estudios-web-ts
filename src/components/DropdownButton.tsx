@@ -2,15 +2,16 @@ import React, { type JSX, useEffect, useRef, useState } from 'react'
 import {
   type DropdownOp,
   type SubjectCode,
-  type Correlatives
+  type Correlatives,
+  type State
 } from '../types/types'
 import useSubjectState from '../hooks/useSubjectState'
 import { CancelIcon } from './svg-components/CancelIcon'
+import { useSubjectStore } from '../store/subjectStore'
 
 interface DropdownButtonProps {
   isDropdownOpen: boolean
   setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>
-  changeStateOpSelected: (option: DropdownOp) => void
   backgroundColor: string
   code: SubjectCode
   correlatives: Correlatives
@@ -24,10 +25,9 @@ const options: { label: string; value: DropdownOp }[] = [
   { label: 'Recursar', value: 'Recursar' }
 ]
 
-export const DropdownButton: React.FC<DropdownButtonProps> = ({
+const DropdownButton: React.FC<DropdownButtonProps> = ({
   isDropdownOpen,
   setIsDropdownOpen,
-  changeStateOpSelected,
   backgroundColor,
   code,
   correlatives,
@@ -54,6 +54,9 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
     setDropdownOp(option)
     changeStateOpSelected(option)
   }
+
+  // useContext
+  const { changeSubjectState } = useSubjectStore()
 
   // useEffect
   useEffect(() => {
@@ -103,6 +106,7 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
     }
   }, [subjectState])
 
+  // Functions
   const renderOption = (label: string, value: DropdownOp): JSX.Element => (
     <li
       key={value}
@@ -112,6 +116,19 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
       {label}
     </li>
   )
+
+  const changeStateOpSelected = (stateOp: DropdownOp): void => {
+    let newStateOp: State
+
+    newStateOp =
+      stateOp === ''
+        ? correlatives.length > 0
+          ? (newStateOp = 'Deshabilitada')
+          : (newStateOp = 'Habilitada')
+        : (newStateOp = stateOp)
+
+    changeSubjectState(code, newStateOp)
+  }
 
   return (
     <>
@@ -150,3 +167,5 @@ export const DropdownButton: React.FC<DropdownButtonProps> = ({
     </>
   )
 }
+
+export default DropdownButton

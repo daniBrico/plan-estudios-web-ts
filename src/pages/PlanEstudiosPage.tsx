@@ -1,13 +1,9 @@
 import { type JSX } from 'react'
 import { LoadingSpinner } from '../components/LoadingSpinner'
-import { CareerDetails } from '../components/CareerDetails'
+import CareerDetails from '../components/CareerDetails'
 import CareerSelect from '../components/CareerSelect'
 
 export const PlanEstudiosPage = (): JSX.Element => {
-  // contextApi, zustand
-
-  console.log('Renderiza PlanEstudiosPage')
-
   return (
     <>
       <div className="absolute top-0 right-0 w-full">
