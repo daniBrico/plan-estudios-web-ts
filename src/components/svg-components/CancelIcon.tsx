@@ -1,10 +1,4 @@
-interface CancelIconProps {
-  isIconHovered?: boolean
-}
-
-export const CancelIcon: React.FC<CancelIconProps> = ({
-  isIconHovered = false
-}) => {
+const CancelIcon: React.FC = () => {
   return (
     <>
       <svg
@@ -12,7 +6,6 @@ export const CancelIcon: React.FC<CancelIconProps> = ({
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         fill="#000000"
-        className="cancelIconSVG"
       >
         <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
         <g
@@ -31,8 +24,8 @@ export const CancelIcon: React.FC<CancelIconProps> = ({
           >
             <g
               id="work-case"
-              fill={isIconHovered ? '#fff' : '#f15a5c'}
               transform="translate(91.520000, 91.520000)"
+              className="fill-theme-first-color group-hover:fill-white"
             >
               <polygon
                 id="Close"
@@ -45,3 +38,5 @@ export const CancelIcon: React.FC<CancelIconProps> = ({
     </>
   )
 }
+
+export default CancelIcon

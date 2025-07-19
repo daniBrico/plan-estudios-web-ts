@@ -1,44 +1,39 @@
-import { useEffect, useState } from 'react'
-import { type State, type Code } from '../types/types'
-import { useCareerContext } from './useCareerContext'
+import { type State, type SubjectCode } from '../types/types'
+import { useSubjectStore } from '../store/subjectStore'
 
 interface ReturnType {
-  actualState: State | ''
-  setClassForState: (actualState: State | '') => string
+  // subjectState: State | undefined
+  getStyleForState: () => string
 }
 
-const useSubjectState = (code: Code): ReturnType => {
-  const { allSubjectsState, getSubjectState } = useCareerContext()
-  const [actualState, setActualState] = useState<State | ''>('')
+// interface useSubjectStateProps {
+//   code: SubjectCode
+// }
 
-  useEffect(() => {
-    if (!allSubjectsState) return
+const useSubjectState = (code: SubjectCode): ReturnType => {
+  // subjectStore
+  const subjectState = useSubjectStore(
+    (state) =>
+      state.allSubjectsState.find((subject) => subject.code === code)?.state
+  )
 
-    const subjectState = getSubjectState(code)
+  const getStyleForState = (): string => {
+    if (!subjectState) return ''
 
-    if (!subjectState) return
-
-    setActualState(subjectState)
-  }, [allSubjectsState, code, getSubjectState])
-
-  const setClassForState = (actualState: State | ''): string => {
-    const stateClassMap = {
+    const stateClassMap: Record<State | '', string> = {
       Aprobada: 'text-theme-green',
       Habilitada: 'text-theme-blue',
       Cursando: 'text-theme-blue',
       Deshabilitada: 'text-theme-first-color',
-      Recursar:
-        actualState === 'Recursar'
-          ? 'text-theme-blue'
-          : 'text-theme-first-color',
+      Recursar: 'text-theme-blue',
       Regular: 'text-theme-yellow',
       '': ''
     }
 
-    return stateClassMap[actualState] || ''
+    return stateClassMap[subjectState] || ''
   }
 
-  return { actualState, setClassForState }
+  return { getStyleForState }
 }
 
 export default useSubjectState

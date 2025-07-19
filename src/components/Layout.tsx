@@ -3,10 +3,12 @@ import { Outlet } from 'react-router-dom'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { ScrollToTopButton } from './scroll-to-top-button/ScrollToTopButton'
-import { useCareerContext } from '../hooks/useCareerContext'
+import useCareerStore from '../store/careerStore'
 
 export const Layout = (): JSX.Element => {
-  const { career } = useCareerContext()
+  // context
+  // careerStore
+  const career = useCareerStore((state) => state.career)
 
   const careerHeaderInfo = career
     ? {
@@ -20,7 +22,7 @@ export const Layout = (): JSX.Element => {
   return (
     <>
       <Header careerHeaderInfo={careerHeaderInfo} />
-      <main className="flex flex-col items-center">
+      <main className="relative flex h-full flex-col items-center justify-center">
         <Outlet />
       </main>
       <ScrollToTopButton />
