@@ -6,7 +6,12 @@ interface LoadingSpinnerProps {
 }
 
 export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ message }) => {
-  const { careerIsLoading, localStorageIsLoading } = useCareerStore()
+  // context
+  // careerStore
+  const careerIsLoading = useCareerStore((state) => state.careerIsLoading)
+  const localStorageIsLoading = useCareerStore(
+    (state) => state.localStorageIsLoading
+  )
 
   return (
     <>

@@ -1,13 +1,19 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import useCareerStore from '../store/careerStore'
 import { useSubjectStore } from '../store/subjectStore'
 import Table from './table/Table'
 
 const CareerDetails: React.FC = () => {
-  const { careerSelectedID, career } = useCareerStore()
+  // context
+  // careerStore
+  const career = useCareerStore((state) => state.career)
+  const careerSelectedID = useCareerStore((state) => state.careerSelectedID)
+  // subjectStore
+  const createAllSubjectStateDefault = useSubjectStore(
+    (state) => state.createAllSubjectStateDefault
+  )
 
-  const { createAllSubjectStateDefault } = useSubjectStore()
-
+  // useEffect
   useEffect(() => {
     if (!career) return
 

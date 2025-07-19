@@ -1,6 +1,4 @@
-import React from 'react'
-
-export const CancelIcon: React.FC = React.memo(() => {
+const CancelIcon: React.FC = () => {
   return (
     <>
       <svg
@@ -39,4 +37,6 @@ export const CancelIcon: React.FC = React.memo(() => {
       </svg>
     </>
   )
-})
+}
+
+export default CancelIcon

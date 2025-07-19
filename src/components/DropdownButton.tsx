@@ -5,17 +5,12 @@ import {
   type Correlatives,
   type State
 } from '../types/types'
-import useSubjectState from '../hooks/useSubjectState'
-import { CancelIcon } from './svg-components/CancelIcon'
+import CancelIcon from './svg-components/CancelIcon'
 import { useSubjectStore } from '../store/subjectStore'
 
 interface DropdownButtonProps {
-  isDropdownOpen: boolean
-  setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>
-  backgroundColor: string
   code: SubjectCode
   correlatives: Correlatives
-  setCssForState: React.Dispatch<React.SetStateAction<string>>
 }
 
 const options: { label: string; value: DropdownOp }[] = [
@@ -26,22 +21,13 @@ const options: { label: string; value: DropdownOp }[] = [
 ]
 
 const DropdownButton: React.FC<DropdownButtonProps> = ({
-  isDropdownOpen,
-  setIsDropdownOpen,
-  backgroundColor,
   code,
-  correlatives,
-  setCssForState
+  correlatives
 }) => {
   // useState
   const [dropdownOp, setDropdownOp] = useState<DropdownOp>('')
   const [isDisabled, setIsDisabled] = useState(false)
-
-  // customHooks
-  const { setClassForState, subjectState, corrPassed } = useSubjectState({
-    code,
-    correlatives
-  })
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
   // useRef
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -55,8 +41,17 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
     changeStateOpSelected(option)
   }
 
-  // useContext
-  const { changeSubjectState } = useSubjectStore()
+  // subjectStore
+  const changeSubjectState = useSubjectStore(
+    (state) => state.changeSubjectState
+  )
+  const subjectState = useSubjectStore(
+    (state) =>
+      state.allSubjectsState.find((subject) => subject.code === code)?.state
+  )
+  const corrPassed = useSubjectStore((state) =>
+    state.areAllCorrelativesPassed(correlatives)
+  )
 
   // useEffect
   useEffect(() => {
@@ -67,7 +62,7 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
     window.addEventListener('scroll', handleScroll)
 
     return (): void => window.removeEventListener('scroll', handleScroll)
-  }, [isDropdownOpen, setIsDropdownOpen])
+  }, [isDropdownOpen])
 
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent): void => {
@@ -88,8 +83,6 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
   useEffect(() => {
     if (subjectState === undefined) return
 
-    setCssForState(setClassForState(subjectState))
-
     if (
       subjectState === 'Aprobada' ||
       subjectState === 'Cursando' ||
@@ -97,14 +90,16 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
       subjectState === 'Regular'
     )
       setDropdownOp(subjectState)
+  }, [subjectState])
 
+  useEffect(() => {
     if (corrPassed) setIsDisabled(false)
 
     if (!corrPassed) {
       setDropdownOp('')
       setIsDisabled(true)
     }
-  }, [subjectState])
+  }, [corrPassed])
 
   // Functions
   const renderOption = (label: string, value: DropdownOp): JSX.Element => (
@@ -134,15 +129,13 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
     <>
       <div className="relative w-28 sm:w-3/4 md:w-full" ref={dropdownRef}>
         <div
-          className={`border-theme-first-color group absolute right-full z-[110] mr-1 h-8 w-8 cursor-pointer rounded-full border-2 border-solid p-1 transition-all duration-300 ${dropdownOp !== '' && isDropdownOpen ? 'pointer-events-auto z-[140] translate-x-0 opacity-100' : 'pointer-events-none translate-x-8 opacity-0'} hover:bg-theme-first-color hover:border-white ${backgroundColor}`}
+          className={`border-theme-first-color group absolute right-full z-[110] mr-1 h-8 w-8 cursor-pointer rounded-full border-2 border-solid p-1 transition-all duration-300 ${dropdownOp !== '' && isDropdownOpen ? 'pointer-events-auto z-[140] translate-x-0 opacity-100' : 'pointer-events-none translate-x-8 opacity-0'} hover:bg-theme-first-color hover:border-white`}
           onClick={() => setOption('')}
         >
           <CancelIcon />
         </div>
         {/* Dropdown button */}
-        <div
-          className={`bg-theme-third-color relative z-[120] ${backgroundColor}`}
-        >
+        <div className={`bg-theme-third-color relative z-[120]`}>
           <div
             onClick={() => !isDisabled && setIsDropdownOpen((prev) => !prev)}
             className={`select group border-theme-first-color flex min-h-8 items-center justify-between rounded-sm border-2 border-solid px-2 text-white transition-shadow duration-300 ${isDropdownOpen ? 'border-[#f15a5c]' : ''} ${isDisabled ? 'cursor-default opacity-50' : 'hover:bg-theme-first-color cursor-pointer hover:border-white'}`}

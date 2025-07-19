@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { CancelIcon } from './svg-components/CancelIcon'
 import { type Correlatives, type Name } from '../types/types'
-import { Correlative } from './Correlative'
+import { Correlative } from './correlative/Correlative'
 import { useSubjectStore } from '../store/subjectStore'
 
 interface CorrelativeModalProps {

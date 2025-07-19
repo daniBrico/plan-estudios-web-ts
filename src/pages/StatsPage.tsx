@@ -6,8 +6,11 @@ export const StatsPage = (): JSX.Element => {
   // useState
   const [enrolledSubjects, setEnrolledSubjects] = useState<SubjectState[]>([])
 
-  // context
-  const { allSubjectsState, getAllSubjectsStateInfo } = useSubjectStore()
+  // context - subjectStore
+  const allSubjectsState = useSubjectStore((state) => state.allSubjectsState)
+  const getAllSubjectsStateInfo = useSubjectStore(
+    (state) => state.getAllSubjectsStateInfo
+  )
 
   useEffect(() => {
     if (!allSubjectsState.length) return

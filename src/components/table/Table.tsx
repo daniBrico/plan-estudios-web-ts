@@ -1,6 +1,6 @@
 import React, { type JSX } from 'react'
 import { type Subject } from '../../types/types'
-import ListOfRows from '../table-row/ListOfRows'
+import ListOfRows from './table-row/ListOfRows'
 // import { TableRows } from './TableRow'
 
 interface TableProps {

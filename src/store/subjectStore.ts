@@ -35,7 +35,7 @@ interface SubjectStore {
   }
 }
 
-export const useSubjectStore = create<SubjectStore>((set, get) => ({
+export const useSubjectStore = create<SubjectStore>()((set, get) => ({
   allSubjectsState: [],
   setAllSubjectsState: (subjectsState): void => {
     set({ allSubjectsState: subjectsState })

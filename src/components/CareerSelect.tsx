@@ -23,9 +23,14 @@ const CareerSelect: React.FC = () => {
     useGetCareerNames()
 
   // context
-  const { setCareerSelectedID, cleanCareerStore, careerSelectedID } =
-    useCareerStore()
-  const { cleanSubjectStore } = useSubjectStore()
+  // careerStore
+  const setCareerSelectedID = useCareerStore(
+    (state) => state.setCareerSelectedID
+  )
+  const cleanCareerStore = useCareerStore((state) => state.cleanCareerStore)
+  const careerSelectedID = useCareerStore((state) => state.careerSelectedID)
+  // subjectStore
+  const cleanSubjectStore = useSubjectStore((state) => state.cleanSubjectStore)
 
   const careerNames = useMemo(() => {
     if (careerNamesApi.length === 0) return

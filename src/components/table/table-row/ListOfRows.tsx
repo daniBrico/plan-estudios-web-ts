@@ -1,4 +1,4 @@
-import { type Subject } from '../../types/types'
+import { type Subject } from '../../../types/types'
 import TableRow from './TableRow'
 
 interface TableRowsProps {

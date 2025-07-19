@@ -6,7 +6,9 @@ import { ScrollToTopButton } from './scroll-to-top-button/ScrollToTopButton'
 import useCareerStore from '../store/careerStore'
 
 export const Layout = (): JSX.Element => {
-  const { career } = useCareerStore()
+  // context
+  // careerStore
+  const career = useCareerStore((state) => state.career)
 
   const careerHeaderInfo = career
     ? {
