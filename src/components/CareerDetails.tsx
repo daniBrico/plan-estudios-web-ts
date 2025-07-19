@@ -22,7 +22,7 @@ const CareerDetails: React.FC = () => {
 
   return (
     <>
-      <article className="relative top-20 container w-full gap-8 px-6 pb-36 md:flex md:flex-col md:items-center lg:px-0">
+      <article className="container w-full gap-8 px-6 pb-36 md:flex md:flex-col md:items-center lg:px-0">
         {career && career.subjectsByYear
           ? career.subjectsByYear.map((subjectForYear) => (
               <Table
