@@ -1,6 +1,7 @@
 import React, { type JSX } from 'react'
-import { type State, type Name } from '../../types/types'
+import { type Name } from '../../types/types'
 import { useSubjectStore } from '../../store/subjectStore'
+import useSubjectState from '../../hooks/useSubjectState'
 
 const ToolTip = (name: Name | undefined): JSX.Element => {
   return (
@@ -21,38 +22,20 @@ const Correlative: React.FC<CorrelativeProps> = ({
   tooltip,
   cssClasess
 }) => {
+  // customHooks
+  const { getStyleForState } = useSubjectState(correlative)
+
   // subjectStore
   const getSubjectNameFromCode = useSubjectStore(
     (state) => state.getSubjectNameFromCode
   )
-  const subjectState = useSubjectStore(
-    (state) =>
-      state.allSubjectsState.find((subject) => subject.code === correlative)
-        ?.state
-  )
 
-  // Functions
+  // functions
   const name = getSubjectNameFromCode(correlative)
-
-  const setClassForState = (subjectState: State | undefined): string => {
-    if (!subjectState) return ''
-
-    const stateClassMap: Record<State | '', string> = {
-      Aprobada: 'text-theme-green',
-      Habilitada: 'text-theme-blue',
-      Cursando: 'text-theme-blue',
-      Deshabilitada: 'text-theme-first-color',
-      Recursar: 'text-theme-blue',
-      Regular: 'text-theme-yellow',
-      '': ''
-    }
-
-    return stateClassMap[subjectState] || ''
-  }
 
   return (
     <div className={`group relative inline-block text-left ${cssClasess}`}>
-      <span className={`${setClassForState(subjectState)} cursor-pointer`}>
+      <span className={`${getStyleForState()} cursor-pointer`}>
         {correlative}
       </span>
       {tooltip && ToolTip(name)}
