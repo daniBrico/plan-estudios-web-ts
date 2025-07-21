@@ -53,29 +53,27 @@ const useCareerStore = create<CareerStore>((set, get) => ({
   fetchCareer: async (id: ID): Promise<void> => {
     set({ careerIsLoading: true })
 
-    setTimeout(async () => {
-      const careerFromLS = getFromLocalStorage<Career>('career')
+    const careerFromLS = getFromLocalStorage<Career>('career')
 
-      if (careerFromLS?._id === id) {
-        set({
-          career: careerFromLS,
-          careerIsLoading: false
-        })
-        return
-      }
+    if (careerFromLS?._id === id) {
+      set({
+        career: careerFromLS,
+        careerIsLoading: false
+      })
+      return
+    }
 
-      try {
-        const career = await careerApi.getCareer(id)
-        saveToLocalStorage('career', career)
-        set({ career, careerIsLoading: false })
-      } catch (err) {
-        console.error('Error fetching career:', err)
-        set({
-          careerApiError: 'Error al cargar los datos de la carrera',
-          careerIsLoading: false
-        })
-      }
-    }, 2000)
+    try {
+      const career = await careerApi.getCareer(id)
+      saveToLocalStorage('career', career)
+      set({ career, careerIsLoading: false })
+    } catch (err) {
+      console.error('Error fetching career:', err)
+      set({
+        careerApiError: 'Error al cargar los datos de la carrera',
+        careerIsLoading: false
+      })
+    }
   }
 }))
 

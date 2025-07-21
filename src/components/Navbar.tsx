@@ -1,5 +1,5 @@
 import { type JSX } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const NAV_PATHS = {
   HOME: '/inicio',
@@ -19,15 +19,20 @@ const navItems: NavItem[] = [
 ]
 
 const BASE_STYLES =
-  'cursor-pointer border-back text-white transition-all duration-300 ease-in-out hover:underline'
+  'border-back text-white transition-all duration-300 ease-in-out hover:underline'
 const ACTIVE_STYLES = 'bg-theme-first-color underline py-1 rounded-b-md'
 const INACTIVE_STYLES = 'bg-[#a43d3e] opacity-95 hover:bg-[#a43d3e]/90 py-0'
 
 export const Navbar = (): JSX.Element => {
   const currentLocation = useLocation()
+  const navigate = useNavigate()
 
   const getNavItemsStyles = (path: string): string =>
     `${BASE_STYLES} ${currentLocation.pathname === path ? ACTIVE_STYLES : INACTIVE_STYLES}`
+
+  const handleClickNavigate = (path: string): void => {
+    if (currentLocation.pathname !== path) navigate(path)
+  }
 
   return (
     <nav className="relative mx-auto mb-8 w-full max-w-4xl">
@@ -37,9 +42,12 @@ export const Navbar = (): JSX.Element => {
             key={item.path}
             className={`${getNavItemsStyles(item.path)} ${index === 0 ? 'rounded-bl-md' : index === navItems.length - 1 ? 'rounded-br-md' : 'border-r border-l'}`}
           >
-            <Link to={item.path} className="block h-full w-full px-2">
+            <button
+              className="block h-full w-full cursor-pointer px-2"
+              onClick={() => handleClickNavigate(item.path)}
+            >
               {item.label}
-            </Link>
+            </button>
           </li>
         ))}
       </ul>
