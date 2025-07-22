@@ -1,4 +1,4 @@
-import { useState, useEffect, type JSX, useCallback } from 'react'
+import React, { useState, useEffect, type JSX, useCallback } from 'react'
 import useMobileDetection from '../../hooks/useMobileDetection'
 import { Button } from './Button'
 
@@ -17,7 +17,7 @@ const ArrowLeftIcon = (): JSX.Element => (
   </div>
 )
 
-export const ScrollToTopButton = (): JSX.Element => {
+const ScrollToTopButton = (): JSX.Element => {
   const [showButton, setShowButton] = useState(false)
   const [arrowUpIsOpen, setArrowUpIsOpen] = useState(false)
   const isMobile = useMobileDetection()
@@ -83,3 +83,5 @@ export const ScrollToTopButton = (): JSX.Element => {
     </>
   )
 }
+
+export default ScrollToTopButton

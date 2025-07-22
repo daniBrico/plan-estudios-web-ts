@@ -18,7 +18,7 @@ interface SubjectStore {
   allSubjectsState: SubjectState[]
   createAllSubjectStateDefault: (
     careerSelectedID: ID | null,
-    career: Career
+    career: Career | null
   ) => void
   setAllSubjectsState: (subjectsState: SubjectState[]) => void
   cleanSubjectStore: (careerSelectedID: ID | null) => void
@@ -41,13 +41,13 @@ export const useSubjectStore = create<SubjectStore>()((set, get) => ({
     set({ allSubjectsState: subjectsState })
   },
   createAllSubjectStateDefault: (careerSelectedID, career): void => {
-    if (!careerSelectedID) return
+    if (careerSelectedID === null || career === null) return
 
     try {
       const allSubjectsStateInStorage: SubjectState[] | null =
         getFromLocalStorage(careerSelectedID)
 
-      if (!allSubjectsStateInStorage) {
+      if (allSubjectsStateInStorage === null) {
         // LS: Local Storage
         const subjectsStateLS: SubjectState[] = career.subjectsByYear.flatMap(
           (subjectsByYear) =>

@@ -84,7 +84,7 @@ const CareerSelect: React.FC = () => {
     }
 
     setCareerSelectedID(opFromLocalStorage)
-  }, [careerNamesApi, initialSelectedOp])
+  }, [careerNamesApi])
 
   return (
     <Select

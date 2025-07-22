@@ -1,31 +1,75 @@
 import { useEffect, useState, type JSX } from 'react'
-import { type SubjectState } from '../types/types'
+import { type Career, type ID, type SubjectState } from '../types/types'
 import { useSubjectStore } from '../store/subjectStore'
+import { getFromLocalStorage } from '../utils/storage'
+import useCareerStore from '../store/careerStore'
+
+interface allSubjectsStateInfoType {
+  numSubjectsPassed: number
+  numSubjectsCursando: number
+  numSubjectsRegular: number
+  totalNumOfSubjects: number
+}
 
 export const StatsPage = (): JSX.Element => {
-  // useState
-  const [enrolledSubjects, setEnrolledSubjects] = useState<SubjectState[]>([])
-
-  // context - subjectStore
+  // context
+  // subjectStore
   const allSubjectsState = useSubjectStore((state) => state.allSubjectsState)
   const getAllSubjectsStateInfo = useSubjectStore(
     (state) => state.getAllSubjectsStateInfo
   )
+  const createAllSubjectStateDefault = useSubjectStore(
+    (state) => state.createAllSubjectStateDefault
+  )
+  // careerStore
+  const setCareerSelectedID = useCareerStore(
+    (state) => state.setCareerSelectedID
+  )
 
+  // useState
+  const [enrolledSubjects, setEnrolledSubjects] = useState<SubjectState[]>([])
+  const [allSubjectsStateInfo, setAllSubjectsStateInfo] =
+    useState<allSubjectsStateInfoType>(getAllSubjectsStateInfo())
+
+  // useEffect
   useEffect(() => {
-    if (!allSubjectsState.length) return
+    if (allSubjectsState.length === 0) return
 
     setEnrolledSubjects(
       allSubjectsState.filter((subject) => subject.state === 'Cursando')
     )
+
+    setAllSubjectsStateInfo(getAllSubjectsStateInfo)
   }, [allSubjectsState])
+
+  useEffect(() => {
+    const careerIDFromLS: ID | null = getFromLocalStorage('career-selected-id')
+    const career: Career | null = getFromLocalStorage('career')
+
+    console.log('🚀 ~ useEffect ~ careerIDFromLS: ', careerIDFromLS)
+
+    if (careerIDFromLS === null) {
+      setEnrolledSubjects([])
+      setAllSubjectsStateInfo({
+        numSubjectsPassed: 0,
+        numSubjectsCursando: 0,
+        numSubjectsRegular: 0,
+        totalNumOfSubjects: 0
+      })
+
+      return
+    }
+
+    setCareerSelectedID(careerIDFromLS)
+    createAllSubjectStateDefault(careerIDFromLS, career)
+  }, [])
 
   const {
     numSubjectsPassed,
     numSubjectsCursando,
     numSubjectsRegular,
     totalNumOfSubjects
-  } = getAllSubjectsStateInfo()
+  } = allSubjectsStateInfo
 
   return (
     <section className="container p-4 md:p-1">

@@ -1,14 +1,46 @@
-import React from 'react'
-import { type CareerHeaderInfo } from '../types/types'
+import React, { useEffect, useState } from 'react'
 import { CareerHeader } from './CareerHeader'
 import logoUNO from '../assets/logoUNO.svg'
 import Navbar from './Navbar'
+import useCareerStore from '../store/careerStore'
+import { type ID, type CareerHeaderInfo } from '../types/types'
+import { getFromLocalStorage } from '../utils/storage'
 
-interface HeaderProps {
-  careerHeaderInfo?: CareerHeaderInfo | null
-}
+const Header: React.FC = () => {
+  // useState
+  const [careerHeaderInfo, setCareerHeaderInfo] =
+    useState<null | CareerHeaderInfo>(null)
 
-export const Header: React.FC<HeaderProps> = ({ careerHeaderInfo }) => {
+  // cotext
+  // careerStore
+  const career = useCareerStore((state) => state.career)
+  const setCareerSelectedID = useCareerStore(
+    (state) => state.setCareerSelectedID
+  )
+
+  useEffect(() => {
+    if (career === null) {
+      setCareerHeaderInfo(null)
+
+      return
+    }
+
+    setCareerHeaderInfo({
+      name: career.name,
+      duration: career.duration,
+      intermediateDegree: career.intermediateDegree,
+      intermediateDegreeDuration: career.intermediateDegreeDuration
+    })
+  }, [career])
+
+  useEffect(() => {
+    const careerIDFromLS: ID | null = getFromLocalStorage('career-selected-id')
+
+    if (careerIDFromLS === null) return
+
+    setCareerSelectedID(careerIDFromLS)
+  }, [])
+
   return (
     <>
       <header className="bg-theme-first-color pt-2 pb-4 sm:px-6 lg:px-0">
@@ -38,3 +70,5 @@ export const Header: React.FC<HeaderProps> = ({ careerHeaderInfo }) => {
     </>
   )
 }
+
+export default Header

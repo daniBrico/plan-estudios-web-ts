@@ -2,7 +2,7 @@ import { type JSX } from 'react'
 import { GithubCatIconSvg } from './svg-components/GithubCatIconSvg'
 import { PortfolioIconSvg } from './svg-components/PortfolioIconSvg'
 
-export const Footer = (): JSX.Element => {
+const Footer = (): JSX.Element => {
   const white = '#fff'
 
   return (
@@ -42,3 +42,5 @@ export const Footer = (): JSX.Element => {
     </>
   )
 }
+
+export default Footer

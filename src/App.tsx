@@ -11,7 +11,7 @@ function App(): JSX.Element {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route element={<Layout />}>
           <Route index element={<Navigate to="/inicio" replace />} />
           <Route path="inicio" element={<HomePage />} />
           <Route path="plan-de-estudios" element={<PlanEstudiosPage />} />
