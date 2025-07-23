@@ -21,7 +21,7 @@ interface CareerStore {
   fetchCareer: (id: ID) => Promise<void>
 }
 
-const useCareerStore = create<CareerStore>((set, get) => ({
+const useCareerStore = create<CareerStore>()((set, get) => ({
   careerSelectedID: null,
   career: null,
   careerApiError: null,

@@ -1,10 +1,11 @@
+import React from 'react'
 import { type CareerHeaderInfo } from '../types/types'
 
 interface Props {
   careerHeaderInfo: CareerHeaderInfo
 }
 
-export const CareerHeader: React.FC<Props> = ({ careerHeaderInfo }) => {
+const CareerHeader: React.FC<Props> = ({ careerHeaderInfo }) => {
   const { name, duration, intermediateDegree, intermediateDegreeDuration } =
     careerHeaderInfo
 
@@ -42,3 +43,9 @@ export const CareerHeader: React.FC<Props> = ({ careerHeaderInfo }) => {
     </div>
   )
 }
+
+export default React.memo(
+  CareerHeader,
+  (prevProps, nextProps) =>
+    prevProps.careerHeaderInfo.name === nextProps.careerHeaderInfo.name
+)

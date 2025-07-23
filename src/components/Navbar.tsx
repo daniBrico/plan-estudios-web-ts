@@ -1,4 +1,4 @@
-import React, { type JSX } from 'react'
+import { type JSX } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const NAV_PATHS = {

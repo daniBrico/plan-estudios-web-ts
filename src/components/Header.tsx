@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { CareerHeader } from './CareerHeader'
+import CareerHeader from './CareerHeader'
 import logoUNO from '../assets/logoUNO.svg'
 import Navbar from './Navbar'
 import useCareerStore from '../store/careerStore'

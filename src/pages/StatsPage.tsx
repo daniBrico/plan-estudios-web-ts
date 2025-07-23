@@ -46,8 +46,6 @@ export const StatsPage = (): JSX.Element => {
     const careerIDFromLS: ID | null = getFromLocalStorage('career-selected-id')
     const career: Career | null = getFromLocalStorage('career')
 
-    console.log('🚀 ~ useEffect ~ careerIDFromLS: ', careerIDFromLS)
-
     if (careerIDFromLS === null) {
       setEnrolledSubjects([])
       setAllSubjectsStateInfo({
