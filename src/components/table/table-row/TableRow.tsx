@@ -15,10 +15,6 @@ const TableRow: React.FC<ListOfRowsProps> = ({
   correlatives,
   index
 }) => {
-  // useState
-  // const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  // const [showModal, setShowModal] = useState(false)
-
   // useRef
   // const modalRef = useRef<HTMLDivElement>(null)
   // const correlativesContainerRef = useRef<HTMLDivElement>(null)
@@ -50,7 +46,6 @@ const TableRow: React.FC<ListOfRowsProps> = ({
         className={`bg-theme-third-color text-theme-text-color grid grid-cols-2 rounded-md p-1 md:table-row md:rounded-none ${backgroundColor} relative`}
       >
         <TableDataCode code={code} />
-
         <td
           className={`order-first col-span-2 text-sm font-medium text-wrap transition md:p-2 md:text-base md:font-normal`}
         >
@@ -83,12 +78,7 @@ const TableRow: React.FC<ListOfRowsProps> = ({
         <td
           className={`flex items-end justify-end md:table-cell md:px-1 md:py-2`}
         >
-          <DropdownButton
-            // isDropdownOpen={isDropdownOpen}
-            // setIsDropdownOpen={setIsDropdownOpen}
-            code={code}
-            correlatives={correlatives}
-          />
+          <DropdownButton code={code} correlatives={correlatives} />
         </td>
       </tr>
     </>

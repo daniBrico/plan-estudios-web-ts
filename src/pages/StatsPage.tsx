@@ -70,7 +70,7 @@ export const StatsPage = (): JSX.Element => {
   } = allSubjectsStateInfo
 
   return (
-    <section className="container p-4 md:p-1">
+    <section className="container p-4 lg:p-1">
       <h2 className="text-theme-first-color mb-4 text-lg font-semibold tracking-wide md:text-2xl lg:text-3xl">
         Cursando
       </h2>
@@ -79,11 +79,11 @@ export const StatsPage = (): JSX.Element => {
           enrolledSubjects.map((subject) => (
             <div
               key={subject.code}
-              className="bg-theme-third-color text-theme-text-color flex gap-4 rounded-md p-2"
+              className="bg-theme-third-color text-theme-text-color flex rounded-md p-2"
             >
               <p className="w-14">{subject.code}</p>
               <p>-</p>
-              <p>{subject.name.longName}</p>
+              <p className="ml-2">{subject.name.longName}</p>
             </div>
           ))
         ) : (
