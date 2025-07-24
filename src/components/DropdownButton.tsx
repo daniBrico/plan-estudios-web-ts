@@ -11,6 +11,8 @@ import { useSubjectStore } from '../store/subjectStore'
 interface DropdownButtonProps {
   code: SubjectCode
   correlatives: Correlatives
+  isDropdownOpen: boolean
+  setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const options: { label: string; value: DropdownOp }[] = [
@@ -22,12 +24,14 @@ const options: { label: string; value: DropdownOp }[] = [
 
 const DropdownButton: React.FC<DropdownButtonProps> = ({
   code,
-  correlatives
+  correlatives,
+  isDropdownOpen,
+  setIsDropdownOpen
 }) => {
   // useState
   const [dropdownOp, setDropdownOp] = useState<DropdownOp>('')
   const [isDisabled, setIsDisabled] = useState(false)
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  // const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
   // useRef
   const dropdownRef = useRef<HTMLDivElement>(null)

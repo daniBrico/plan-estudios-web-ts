@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { type Subject } from '../../../types/types'
 import ListOfCorrelatives from '../../correlative/ListOfCorrelatives'
 import DropdownButton from '../../DropdownButton'
 import TableDataCode from './TableDataCode'
+import TableDataName from './TableDataName'
 
 interface ListOfRowsProps extends Omit<Subject, 'state'> {
   index: number
@@ -15,6 +16,9 @@ const TableRow: React.FC<ListOfRowsProps> = ({
   correlatives,
   index
 }) => {
+  // useState
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+
   // useRef
   // const modalRef = useRef<HTMLDivElement>(null)
   // const correlativesContainerRef = useRef<HTMLDivElement>(null)
@@ -45,20 +49,12 @@ const TableRow: React.FC<ListOfRowsProps> = ({
       <tr
         className={`bg-theme-third-color text-theme-text-color grid grid-cols-2 rounded-md p-1 md:table-row md:rounded-none ${backgroundColor} relative`}
       >
-        <TableDataCode code={code} />
-        <td
-          className={`order-first col-span-2 text-sm font-medium text-wrap transition md:p-2 md:text-base md:font-normal`}
-        >
-          {/* <td
-          className={`order-first col-span-2 text-sm font-medium text-wrap transition md:p-2 md:text-base md:font-normal ${isDropdownOpen ? `${cssForState} underline` : ''}`}
-        > */}
-          <p className="invisible hidden md:visible md:inline">
-            {name.longName}
-          </p>
-          <p className="md:invisible md:hidden">
-            {name.shortName || name.longName}
-          </p>
-        </td>
+        <TableDataCode code={code} isDropdownOpen={isDropdownOpen} />
+        <TableDataName
+          code={code}
+          name={name}
+          isDropdownOpen={isDropdownOpen}
+        />
         <td className="text-right text-sm md:p-2 md:text-center md:text-base">
           {offering}
         </td>
@@ -78,7 +74,12 @@ const TableRow: React.FC<ListOfRowsProps> = ({
         <td
           className={`flex items-end justify-end md:table-cell md:px-1 md:py-2`}
         >
-          <DropdownButton code={code} correlatives={correlatives} />
+          <DropdownButton
+            code={code}
+            correlatives={correlatives}
+            isDropdownOpen={isDropdownOpen}
+            setIsDropdownOpen={setIsDropdownOpen}
+          />
         </td>
       </tr>
     </>

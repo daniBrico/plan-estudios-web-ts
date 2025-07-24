@@ -2,13 +2,8 @@ import { type State, type SubjectCode } from '../types/types'
 import { useSubjectStore } from '../store/subjectStore'
 
 interface ReturnType {
-  // subjectState: State | undefined
   getStyleForState: () => string
 }
-
-// interface useSubjectStateProps {
-//   code: SubjectCode
-// }
 
 const useSubjectState = (code: SubjectCode): ReturnType => {
   // subjectStore
