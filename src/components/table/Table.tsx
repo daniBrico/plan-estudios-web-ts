@@ -67,4 +67,4 @@ const Table: React.FC<TableProps> = ({ tableTitle, subjects }) => {
   )
 }
 
-export default React.memo(Table)
+export default Table

@@ -16,12 +16,6 @@ const ListOfCorrelatives: React.FC<ListOfCorrelativesProps> = ({
     // if (correlatives.length > 0) changeShowModal(true)
   }
 
-  // console.log('render ListOfCorrelatives', correlatives)
-
-  // useEffect(() => {
-  //   console.log('correlatives changed', correlatives)
-  // }, [correlatives])
-
   return (
     <>
       <div
@@ -48,5 +42,13 @@ const ListOfCorrelatives: React.FC<ListOfCorrelativesProps> = ({
   )
 }
 
-export default ListOfCorrelatives
-// export default React.memo(ListOfCorrelatives)
+export default React.memo(ListOfCorrelatives, (prevProps, nextProps) => {
+  if (prevProps.correlatives.length === 0) return true
+
+  const prev = prevProps.correlatives
+  const next = nextProps.correlatives
+
+  const equals = prev.every((val, idx) => val === next[idx])
+
+  return equals
+})

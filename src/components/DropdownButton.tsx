@@ -93,12 +93,13 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
   }, [subjectState])
 
   useEffect(() => {
-    if (corrPassed) setIsDisabled(false)
-
-    if (!corrPassed) {
-      setDropdownOp('')
-      setIsDisabled(true)
+    if (corrPassed) {
+      setIsDisabled(false)
+      return
     }
+
+    setDropdownOp('')
+    setIsDisabled(true)
   }, [corrPassed])
 
   // Functions
