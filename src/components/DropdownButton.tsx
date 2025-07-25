@@ -7,6 +7,7 @@ import {
 } from '../types/types'
 import CancelIcon from './svg-components/CancelIcon'
 import { useSubjectStore } from '../store/subjectStore'
+import useCloseOnScrollOrClickOutside from '../hooks/useCloseOnScrollOrClickOutside'
 
 interface DropdownButtonProps {
   code: SubjectCode
@@ -31,7 +32,6 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
   // useState
   const [dropdownOp, setDropdownOp] = useState<DropdownOp>('')
   const [isDisabled, setIsDisabled] = useState(false)
-  // const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
   // useRef
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -57,33 +57,14 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
     state.areAllCorrelativesPassed(correlatives)
   )
 
+  // Hooks
+  useCloseOnScrollOrClickOutside({
+    isOpen: isDropdownOpen,
+    onClose: () => setIsDropdownOpen(false),
+    ref: dropdownRef
+  })
+
   // useEffect
-  useEffect(() => {
-    // Closes the dropdown when a scroll event occurs while the dropdown is open
-    const handleScroll = (): void => {
-      if (isDropdownOpen) setIsDropdownOpen(false)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-
-    // Closes the dropdown when clicking outside of it, if it's open
-    const handleOutsideClick = (e: MouseEvent): void => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      )
-        setIsDropdownOpen(false)
-    }
-
-    if (isDropdownOpen)
-      document.addEventListener('mousedown', handleOutsideClick)
-
-    return (): void => {
-      window.removeEventListener('scroll', handleScroll)
-      document.removeEventListener('mousedown', handleOutsideClick)
-    }
-  }, [isDropdownOpen])
-
   useEffect(() => {
     if (subjectState === undefined) return
 

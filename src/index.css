@@ -7,10 +7,7 @@
   --color-theme-second-color: #dddde0;
   --color-theme-third-color: #ececee;
   --color-theme-back: #fff;
-  /* text-gray-800 */
   --color-theme-text-color: #1e2939;
-  /* --color-theme-hover-color: #a8a9b2; */
-  /* --color-theme-back-opacity: rgba(236, 236, 238, 0.5); */
 
   /* Colors for subject state */
   --color-theme-green: #22c55e;
@@ -114,18 +111,18 @@ body {
 }
 
 header {
-  flex-shrink: 0; /* Evita que el header se encoja */
+  flex-shrink: 0;
 }
 
 main {
-  flex: 1; /* Ocupa todo el espacio disponible */
+  flex: 1;
 }
 
 footer {
-  flex-shrink: 0; /* Evita que el footer se encoja */
+  flex-shrink: 0;
 }
 
-/* Career Year */
+/* Career year banner */
 .custom-content::before {
   content: var(--dynamic-content);
   position: absolute;
@@ -153,7 +150,6 @@ footer {
   }
 }
 
-/* Container */
 .container {
   max-width: 56rem;
   margin: 1rem auto;
