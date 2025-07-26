@@ -1,8 +1,9 @@
 import { createContext, useContext } from 'react'
+import { type ThemeType } from '../types/types'
 
 interface ThemeContextType {
-  theme: 'light' | 'dark'
-  toggleTheme: () => void
+  theme: ThemeType
+  changeTheme: (newValue: ThemeType) => void
 }
 
 export const ThemeContext = createContext<ThemeContextType | null>(null)

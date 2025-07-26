@@ -56,3 +56,7 @@ export type DropdownOp = 'Aprobada' | 'Cursando' | 'Regular' | 'Recursar' | ''
 export interface HttpClient {
   get<T>(url: string): Promise<T>
 }
+
+// Theme
+
+type ThemeType = 'light' | 'dark' | 'system'
