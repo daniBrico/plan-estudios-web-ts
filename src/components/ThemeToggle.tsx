@@ -42,7 +42,7 @@ const ThemeToggle = (): JSX.Element => {
   }
 
   return (
-    <div ref={dropdownRef}>
+    <div className="sm:relative" ref={dropdownRef}>
       <button
         className="bg-theme-first-color flex w-10 cursor-pointer rounded-sm border p-1 shadow-md transition-colors duration-300 ease-in-out hover:bg-[#dc2628]/30"
         onClick={handleOpenClose}
@@ -50,15 +50,21 @@ const ThemeToggle = (): JSX.Element => {
         {themeIconMap[theme]}
       </button>
       <ul
-        className={`bg-theme-first-color absolute z-50 mt-2 flex h-28 w-10 transform flex-col justify-around rounded-sm border border-solid border-white shadow-lg transition-all duration-300 ease-in-out ${isDropdownOpen ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'}`}
+        className={`bg-theme-first-color absolute z-50 mt-2 flex h-28 w-10 transform flex-col justify-around rounded-sm border border-solid border-white shadow-lg transition-all duration-300 ease-in-out sm:right-0 sm:h-34 sm:w-30 sm:p-1.5 ${isDropdownOpen ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'}`}
       >
         {themeOptions.map((option) => (
-          <li key={option} className="flex items-center justify-center">
+          <li
+            key={option}
+            className="flex items-center justify-center sm:block"
+          >
             <button
-              className="w-7 cursor-pointer rounded-sm transition-colors duration-300 ease-in-out hover:border hover:border-white hover:bg-[#dc2628]/30"
+              className="cursor-pointer rounded-sm border border-transparent transition-colors duration-300 ease-in-out hover:border hover:border-white hover:bg-[#dc2628]/30 sm:flex sm:w-full sm:items-center sm:justify-between sm:p-1"
               onClick={() => handleSelectOp(option)}
             >
-              {themeIconMap[option]}
+              <span className="hidden text-white sm:inline">
+                {option.charAt(0).toUpperCase() + option.slice(1)}
+              </span>
+              <div className="w-7">{themeIconMap[option]}</div>
             </button>
           </li>
         ))}
