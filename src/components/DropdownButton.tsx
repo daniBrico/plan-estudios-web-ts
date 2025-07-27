@@ -137,7 +137,7 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
       </div>
       {/* Dropdown list elements */}
       <ul
-        className={`text-theme-first-color shadow-shadow-box bg-theme-third-color absolute mt-1 flex w-28 flex-col gap-0.5 rounded-md border border-solid border-white px-2 py-2 text-center transition-opacity duration-300 ease-in-out sm:w-30 ${isDropdownOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'} z-[160]`}
+        className={`text-theme-first-color bg-theme-third-color absolute mt-1 flex w-28 flex-col gap-0.5 rounded-md border-2 border-solid border-white px-2 py-2 text-center shadow-sm transition-opacity duration-300 ease-in-out sm:w-30 ${isDropdownOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'} z-[160]`}
       >
         {options.map((option) => renderOption(option.label, option.value))}
       </ul>

@@ -44,9 +44,9 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <header className="bg-theme-first-color py-5 sm:px-6 lg:px-0">
-        <div className="mx-auto flex max-w-4xl flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-16 lg:justify-between">
-          <div className="relative order-0 flex w-full items-center justify-center sm:mx-0">
+      <header className="bg-theme-first-color py-5 shadow-lg sm:px-6 lg:px-0">
+        <div className="mx-auto flex max-w-4xl flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-around sm:gap-16 md:justify-between md:gap-2">
+          <div className="relative order-0 flex w-full items-center justify-center sm:static sm:mx-0 sm:w-auto md:w-auto">
             <a
               href="https://www.uno.edu.ar/"
               target="_blank"
@@ -61,11 +61,16 @@ const Header: React.FC = () => {
                 UNO
               </span>
             </a>
-            <ThemeToggle />
+            <div className="absolute right-0 mr-4 sm:hidden">
+              <ThemeToggle />
+            </div>
           </div>
           {careerHeaderInfo && (
             <CareerHeader careerHeaderInfo={careerHeaderInfo} />
           )}
+          <div className="order-1 hidden sm:block">
+            <ThemeToggle />
+          </div>
         </div>
       </header>
       <Navbar />

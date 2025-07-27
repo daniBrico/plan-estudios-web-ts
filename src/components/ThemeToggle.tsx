@@ -6,12 +6,20 @@ import useCloseOnScrollOrClickOutside from '../hooks/useCloseOnScrollOrClickOuts
 import { useThemeContext } from '../hooks/useThemeContext'
 import { type ThemeType } from '../types/types'
 
+const themeIconMap = {
+  light: <BulbSvg />,
+  dark: <MoonSvg />,
+  system: <DeviceDesktop />
+}
+
+const themeOptions: ThemeType[] = ['light', 'dark', 'system']
+
 const ThemeToggle = (): JSX.Element => {
   // useState
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
   // context
-  const { changeTheme } = useThemeContext()
+  const { changeTheme, theme } = useThemeContext()
 
   // useRef
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -34,40 +42,26 @@ const ThemeToggle = (): JSX.Element => {
   }
 
   return (
-    <div className="absolute right-0 mr-4" ref={dropdownRef}>
+    <div ref={dropdownRef}>
       <button
-        className="flex w-10 rounded-sm border p-1"
+        className="bg-theme-first-color flex w-10 cursor-pointer rounded-sm border p-1 shadow-md transition-colors duration-300 ease-in-out hover:bg-[#dc2628]/30"
         onClick={handleOpenClose}
       >
-        <DeviceDesktop />
+        {themeIconMap[theme]}
       </button>
       <ul
-        className={`bg-theme-first-color absolute z-50 mt-2 flex h-28 w-10 flex-col justify-around rounded-sm border border-solid border-white transition-opacity duration-300 dark:bg-gray-800 ${isDropdownOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}
+        className={`bg-theme-first-color absolute z-50 mt-2 flex h-28 w-10 transform flex-col justify-around rounded-sm border border-solid border-white shadow-lg transition-all duration-300 ease-in-out ${isDropdownOpen ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'}`}
       >
-        <li
-          className="flex items-center justify-center"
-          onClick={() => handleSelectOp('light')}
-        >
-          <button className="w-8">
-            <BulbSvg />
-          </button>
-        </li>
-        <li
-          className="flex items-center justify-center"
-          onClick={() => handleSelectOp('dark')}
-        >
-          <button className="w-8">
-            <MoonSvg />
-          </button>
-        </li>
-        <li
-          className="flex items-center justify-center"
-          onClick={() => handleSelectOp('system')}
-        >
-          <button className="w-8">
-            <DeviceDesktop />
-          </button>
-        </li>
+        {themeOptions.map((option) => (
+          <li key={option} className="flex items-center justify-center">
+            <button
+              className="w-7 cursor-pointer rounded-sm transition-colors duration-300 ease-in-out hover:border hover:border-white hover:bg-[#dc2628]/30"
+              onClick={() => handleSelectOp(option)}
+            >
+              {themeIconMap[option]}
+            </button>
+          </li>
+        ))}
       </ul>
     </div>
   )
