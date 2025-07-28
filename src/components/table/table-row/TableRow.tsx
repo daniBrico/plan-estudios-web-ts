@@ -49,7 +49,7 @@ const TableRow: React.FC<ListOfRowsProps> = ({
   return (
     <>
       <tr
-        className={`bg-theme-third-color text-theme-text-color grid grid-cols-2 rounded-md p-1 md:table-row ${backgroundColor} relative`}
+        className={`bg-theme-third-color text-theme-second-text-color grid grid-cols-2 rounded-md p-1 md:table-row ${backgroundColor} relative`}
       >
         <TableDataCode
           code={code}

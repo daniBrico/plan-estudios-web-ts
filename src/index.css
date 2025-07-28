@@ -9,7 +9,9 @@
   --color-theme-second-color: #dddde0;
   --color-theme-third-color: #ececee;
   --color-theme-back: #e6e4d0;
-  --color-theme-text-color: #1e2939;
+  --color-theme-text-color: #000;
+  --color-theme-second-text-color: #1e2939;
+  /* --color-theme-text-color: #1e2939; */
 
   /* Colors for subject state */
   --color-theme-green: #22c55e;

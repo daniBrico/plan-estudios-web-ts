@@ -14,18 +14,28 @@ function App(): JSX.Element {
   return (
     <>
       <ThemeProvider>
-        <Header />
-        <main className="h-full">
-          <Routes>
-            <Route index element={<Navigate to="/inicio" replace />} />
-            <Route path="inicio" element={<HomePage />} />
-            <Route path="plan-de-estudios" element={<PlanEstudiosPage />} />
-            <Route path="estadisticas" element={<StatsPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </main>
-        <ScrollToTopButton />
-        <Footer />
+        <div className="relative flex min-h-screen w-full flex-col text-gray-900">
+          <div
+            className="pointer-events-none absolute inset-0 -z-1 bg-[#fafafa]"
+            style={{
+              backgroundImage: `repeating-linear-gradient(45deg, rgba(255, 0, 100, 0.1) 0, rgba(255, 0, 100, 0.1) 1px, transparent 1px, transparent 20px),
+              repeating-linear-gradient(-45deg, rgba(255, 0, 100, 0.1) 0, rgba(255, 0, 100, 0.1) 1px, transparent 1px, transparent 20px)`,
+              backgroundSize: '40px 40px'
+            }}
+          />
+          <Header />
+          <main className="grow-1">
+            <Routes>
+              <Route index element={<Navigate to="/inicio" replace />} />
+              <Route path="inicio" element={<HomePage />} />
+              <Route path="plan-de-estudios" element={<PlanEstudiosPage />} />
+              <Route path="estadisticas" element={<StatsPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </main>
+          <ScrollToTopButton />
+          <Footer />
+        </div>
       </ThemeProvider>
     </>
   )

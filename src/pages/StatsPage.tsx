@@ -74,12 +74,12 @@ export const StatsPage = (): JSX.Element => {
       <h2 className="text-theme-first-color mb-4 text-lg font-semibold tracking-wide md:text-2xl lg:text-3xl">
         Cursando
       </h2>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 rounded-md shadow-md">
         {enrolledSubjects.length ? (
           enrolledSubjects.map((subject) => (
             <div
               key={subject.code}
-              className="bg-theme-third-color text-theme-text-color flex rounded-md p-2"
+              className="bg-theme-third-color text-theme-second-text-color flex rounded-md p-2"
             >
               <p className="w-14">{subject.code}</p>
               <p>-</p>
@@ -87,7 +87,9 @@ export const StatsPage = (): JSX.Element => {
             </div>
           ))
         ) : (
-          <p className="opacity-60">No hay materias cursando actualmente</p>
+          <div className="bg-theme-third-color text-theme-second-text-color flex rounded-md p-2">
+            <p className="opacity-60">No hay materias cursando actualmente</p>
+          </div>
         )}
       </div>
 
@@ -97,8 +99,8 @@ export const StatsPage = (): JSX.Element => {
         <h2 className="text-theme-first-color mt-2 text-center text-2xl font-semibold sm:mt-8 md:mt-0 md:text-3xl">
           Información adicional
         </h2>
-        <table className="mx-auto mt-2 mb-8 w-full rounded-md sm:mt-4 md:mt-8">
-          <tbody className="text-theme-text-color">
+        <table className="bg-theme-third-color mx-auto mt-2 mb-8 w-full border-separate border-spacing-0 overflow-hidden rounded-md shadow-md sm:mt-4 md:mt-8">
+          <tbody className="text-theme-second-text-color">
             <tr className={`bg-theme-third-color`}>
               <td className="rounded-tl-lg px-2 py-1 text-sm font-medium tracking-[0.01em] md:text-base">
                 Total de Materias

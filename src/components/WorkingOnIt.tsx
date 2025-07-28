@@ -1,5 +1,4 @@
 import { type JSX } from 'react'
-// import codeThinking from '../assets/code-thinking.svg'
 import CodeThinkingSvg from './svg-components/CodeThinkingSvg'
 
 export const WorkingOnIt = (): JSX.Element => {

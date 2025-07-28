@@ -40,7 +40,7 @@ const Table: React.FC<TableProps> = ({ tableTitle, subjects }) => {
         {`(${countOfSubjectsByYear}) ${tableTitle}`}
       </h2>
       <table
-        className="custom-content relative mx-auto w-full rounded-lg"
+        className="custom-content relative mx-auto w-full border-separate border-spacing-0 rounded-lg md:overflow-hidden"
         style={
           {
             '--dynamic-content': `'${tableTitle}'`
