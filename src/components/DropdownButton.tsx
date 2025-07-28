@@ -29,9 +29,24 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
   isDropdownOpen,
   setIsDropdownOpen
 }) => {
+  const subjectState = useSubjectStore(
+    (state) =>
+      state.allSubjectsState.find((subject) => subject.code === code)?.state
+  )
+  const corrPassed = useSubjectStore((state) =>
+    state.areAllCorrelativesPassed(correlatives)
+  )
+
   // useState
-  const [dropdownOp, setDropdownOp] = useState<DropdownOp>('')
-  const [isDisabled, setIsDisabled] = useState(false)
+  const [dropdownOp, setDropdownOp] = useState<DropdownOp>(
+    subjectState === 'Aprobada' ||
+      subjectState === 'Cursando' ||
+      subjectState === 'Recursar' ||
+      subjectState === 'Regular'
+      ? subjectState
+      : ''
+  )
+  const [isDisabled, setIsDisabled] = useState(corrPassed)
 
   // useRef
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -45,16 +60,8 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
     changeStateOpSelected(option)
   }
 
-  // subjectStore
   const changeSubjectState = useSubjectStore(
     (state) => state.changeSubjectState
-  )
-  const subjectState = useSubjectStore(
-    (state) =>
-      state.allSubjectsState.find((subject) => subject.code === code)?.state
-  )
-  const corrPassed = useSubjectStore((state) =>
-    state.areAllCorrelativesPassed(correlatives)
   )
 
   // Hooks
@@ -69,12 +76,19 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
     if (subjectState === undefined) return
 
     if (
-      subjectState === 'Aprobada' ||
-      subjectState === 'Cursando' ||
-      subjectState === 'Recursar' ||
-      subjectState === 'Regular'
+      (subjectState === 'Habilitada' || subjectState === 'Deshabilitada') &&
+      dropdownOp === ''
     )
-      setDropdownOp(subjectState)
+      return
+
+    setDropdownOp(
+      subjectState === 'Aprobada' ||
+        subjectState === 'Cursando' ||
+        subjectState === 'Recursar' ||
+        subjectState === 'Regular'
+        ? subjectState
+        : ''
+    )
   }, [subjectState])
 
   useEffect(() => {
