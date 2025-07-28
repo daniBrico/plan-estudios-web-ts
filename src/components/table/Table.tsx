@@ -35,12 +35,12 @@ const Table: React.FC<TableProps> = ({ tableTitle, subjects }) => {
   const countOfSubjectsByYear = subjects.length
 
   return (
-    <div className="w-full">
+    <div className="w-full md:rounded-lg md:shadow-xl">
       <h2 className="bg-theme-first-color md:text-theme-first-color sticky top-2 z-[150] mt-4 rounded-tl-md rounded-tr-md py-0.5 text-center text-xl text-white md:invisible md:static md:mb-3 md:hidden md:w-full md:rounded-none md:bg-inherit md:text-2xl">
         {`(${countOfSubjectsByYear}) ${tableTitle}`}
       </h2>
       <table
-        className="custom-content md:shadow-shadow-box relative mx-auto w-full rounded-lg"
+        className="custom-content relative mx-auto w-full rounded-lg"
         style={
           {
             '--dynamic-content': `'${tableTitle}'`

@@ -7,6 +7,7 @@ import TableDataName from './TableDataName'
 
 interface ListOfRowsProps extends Omit<Subject, 'state'> {
   index: number
+  subjectsLength: number
 }
 
 const TableRow: React.FC<ListOfRowsProps> = ({
@@ -14,7 +15,8 @@ const TableRow: React.FC<ListOfRowsProps> = ({
   name,
   offering,
   correlatives,
-  index
+  index,
+  subjectsLength
 }) => {
   // useState
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
@@ -47,9 +49,14 @@ const TableRow: React.FC<ListOfRowsProps> = ({
   return (
     <>
       <tr
-        className={`bg-theme-third-color text-theme-text-color grid grid-cols-2 rounded-md p-1 md:table-row md:rounded-none ${backgroundColor} relative`}
+        className={`bg-theme-third-color text-theme-text-color grid grid-cols-2 rounded-md p-1 md:table-row ${backgroundColor} relative`}
       >
-        <TableDataCode code={code} isDropdownOpen={isDropdownOpen} />
+        <TableDataCode
+          code={code}
+          isDropdownOpen={isDropdownOpen}
+          index={index}
+          subjectsLength={subjectsLength}
+        />
         <TableDataName
           code={code}
           name={name}
@@ -72,7 +79,7 @@ const TableRow: React.FC<ListOfRowsProps> = ({
               /> */}
         </td>
         <td
-          className={`flex items-end justify-end md:table-cell md:px-1 md:py-2`}
+          className={`flex items-end justify-end md:table-cell md:px-1 md:py-2 ${index === subjectsLength - 1 ? 'rounded-br-lg' : ''}`}
         >
           <DropdownButton
             code={code}

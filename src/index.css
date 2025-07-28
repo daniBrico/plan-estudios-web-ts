@@ -8,15 +8,13 @@
   --color-theme-first-color: #f15a5c;
   --color-theme-second-color: #dddde0;
   --color-theme-third-color: #ececee;
-  --color-theme-back: #fff;
+  --color-theme-back: #e6e4d0;
   --color-theme-text-color: #1e2939;
 
   /* Colors for subject state */
   --color-theme-green: #22c55e;
   --color-theme-blue: #3b82f6;
   --color-theme-yellow: #eab308;
-
-  --shadow-shadow-box: 0 0 0.8em #dddde0;
 
   --animate-loading-spinner: loading-spinner 0.9s linear infinite;
 

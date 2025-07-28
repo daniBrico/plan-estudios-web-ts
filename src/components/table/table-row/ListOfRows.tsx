@@ -14,6 +14,7 @@ const ListOfRows: React.FC<TableRowsProps> = ({ subjects }) => {
       offering={subject.offering}
       correlatives={subject.correlatives}
       index={index}
+      subjectsLength={subjects.length}
     />
   ))
 }

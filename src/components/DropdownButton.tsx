@@ -134,7 +134,7 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
         <CancelIcon />
       </div>
       {/* Dropdown button */}
-      <div className={`bg-theme-third-color relative z-[120]`}>
+      <div className={`bg-theme-third-color relative z-[120] rounded-sm`}>
         <div
           onClick={() => !isDisabled && setIsDropdownOpen((prev) => !prev)}
           className={`select group border-theme-first-color flex min-h-8 items-center justify-between rounded-sm border-2 border-solid px-2 text-white transition-shadow duration-300 ${isDropdownOpen ? 'border-[#f15a5c]' : ''} ${isDisabled ? 'cursor-default opacity-50' : 'hover:bg-theme-first-color cursor-pointer hover:border-white'}`}
