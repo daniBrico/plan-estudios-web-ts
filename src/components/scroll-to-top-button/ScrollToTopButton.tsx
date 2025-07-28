@@ -1,15 +1,5 @@
-import React, { useState, useEffect, type JSX, useCallback } from 'react'
-import useMobileDetection from '../../hooks/useMobileDetection'
-import { Button } from './Button'
-
-const arrowUpIcon = (): JSX.Element => (
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M12 7C12.2652 7 12.5196 7.10536 12.7071 7.29289L19.7071 14.2929C20.0976 14.6834 20.0976 15.3166 19.7071 15.7071C19.3166 16.0976 18.6834 16.0976 18.2929 15.7071L12 9.41421L5.70711 15.7071C5.31658 16.0976 4.68342 16.0976 4.29289 15.7071C3.90237 15.3166 3.90237 14.6834 4.29289 14.2929L11.2929 7.29289C11.4804 7.10536 11.7348 7 12 7Z"
-      fill="#fff"
-    />
-  </svg>
-)
+import { useState, useEffect, type JSX, useCallback, useRef } from 'react'
+import ArrowUpIconSvg from '../svg-components/ArrowUpIconSvg'
 
 const ArrowLeftIcon = (): JSX.Element => (
   <div className="flex items-center justify-center p-1">
@@ -17,10 +7,16 @@ const ArrowLeftIcon = (): JSX.Element => (
   </div>
 )
 
+const defaultClasses =
+  'bg-theme-first-color fixed z-[200] cursor-pointer items-center justify-center text-white shadow-xl duration-300 select-none'
+
+const mobileDefaultClasses =
+  'right-0 bottom-26 flex h-16 rounded-tl-lg rounded-bl-lg sm:hidden'
+
 const ScrollToTopButton = (): JSX.Element => {
   const [showButton, setShowButton] = useState(false)
   const [arrowUpIsOpen, setArrowUpIsOpen] = useState(false)
-  const isMobile = useMobileDetection()
+  const timeoutRef = useRef<number | null>(null)
 
   useEffect(() => {
     const handleScroll = (): void => {
@@ -47,7 +43,9 @@ const ScrollToTopButton = (): JSX.Element => {
   const handleOpenArrowUp = useCallback((): void => {
     setArrowUpIsOpen(true)
 
-    setTimeout(() => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+
+    timeoutRef.current = setTimeout(() => {
       setArrowUpIsOpen(false)
     }, 2000)
   }, [])
@@ -56,30 +54,33 @@ const ScrollToTopButton = (): JSX.Element => {
     if (!showButton) setArrowUpIsOpen(false)
   }, [showButton])
 
+  useEffect(() => {
+    return (): void => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    }
+  }, [])
+
   return (
     <>
-      {isMobile ? (
-        <>
-          <Button
-            children={ArrowLeftIcon()}
-            handleClickCallback={handleOpenArrowUp}
-            cssClasses={`right-0 bottom-26 h-16 rounded-tl-lg rounded-bl-lg ${showButton ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
-          />
-          {
-            <Button
-              children={<div className="w-12">{arrowUpIcon()}</div>}
-              handleClickCallback={handleButtonToTop}
-              cssClasses={`right-0 bottom-26 h-16 w-18 rounded-tl-lg rounded-bl-lg ease-in transition-transform ${arrowUpIsOpen ? 'translate-x-0' : 'translate-x-full'}`}
-            />
-          }
-        </>
-      ) : (
-        <Button
-          children={arrowUpIcon()}
-          handleClickCallback={handleButtonToTop}
-          cssClasses={`right-8 bottom-20 h-13 w-13 rounded-4xl hover:bg-theme-first-color/90 hover:scale-110 transition-transform duration-300 ${showButton ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
-        />
-      )}
+      <button
+        className={`${defaultClasses} ${mobileDefaultClasses} transition-opacity ${showButton ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
+        onClick={handleOpenArrowUp}
+      >
+        {ArrowLeftIcon()}
+      </button>
+      <button
+        className={`${defaultClasses} ${mobileDefaultClasses} w-12 transition-transform ease-in ${arrowUpIsOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        onClick={handleButtonToTop}
+      >
+        <ArrowUpIconSvg />
+      </button>
+
+      <button
+        className={`${defaultClasses} right-8 bottom-20 hidden h-13 w-13 rounded-4xl border border-white transition-transform hover:scale-110 sm:flex ${showButton ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
+        onClick={handleButtonToTop}
+      >
+        <ArrowUpIconSvg />
+      </button>
     </>
   )
 }
