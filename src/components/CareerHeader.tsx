@@ -15,28 +15,25 @@ const CareerHeader: React.FC<Props> = ({ careerHeaderInfo }) => {
         'order-1 flex flex-col justify-center px-4 sm:px-0 md:flex-row md:gap-4 lg:items-center'
       }
     >
-      <div>
+      <div className="text-white dark:text-stone-200">
         <h1
-          className="mt-1 text-xl font-extrabold tracking-wide text-pretty text-white sm:mt-0 lg:text-2xl"
+          className="mt-1 text-xl font-extrabold tracking-wide text-pretty sm:mt-0 lg:text-2xl"
           id="titleCareer"
         >
           {name}
         </h1>
-        <p className="text-sm text-white" id="duration">
+        <p className="text-sm" id="duration">
           {`DURACIÓN: ${duration} AÑOS`}
         </p>
       </div>
-      <div>
+      <div className="text-white dark:text-stone-200">
         <h2
-          className="mt-0.5 text-xl font-extrabold tracking-wide text-white sm:mt-0 lg:text-2xl"
+          className="mt-0.5 text-xl font-extrabold tracking-wide sm:mt-0 lg:text-2xl"
           id="subCareer"
         >
           {intermediateDegree}
         </h2>
-        <p
-          className="lg:text-md text-sm text-white"
-          id="intermediateDegreeDuration"
-        >
+        <p className="lg:text-md text-sm" id="intermediateDegreeDuration">
           {`DURACIÓN: ${intermediateDegreeDuration} AÑOS`}
         </p>
       </div>

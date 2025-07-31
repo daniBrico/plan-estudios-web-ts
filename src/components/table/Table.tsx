@@ -24,7 +24,7 @@ const renderTableHeads = (
   return (
     <th
       key={key}
-      className={`border-back border-b-2 text-base font-bold tracking-wide ${clasess} ${key === 'code' ? 'px-2 py-2 whitespace-nowrap' : 'p-2'}`}
+      className={`text-base font-bold tracking-wide ${clasess} ${key === 'code' ? 'px-2 py-2 whitespace-nowrap' : 'p-2'}`}
     >
       {key === 'code' ? `(${countOfSubjectsByYear}) ${value}` : value}
     </th>
@@ -35,23 +35,23 @@ const Table: React.FC<TableProps> = ({ tableTitle, subjects }) => {
   const countOfSubjectsByYear = subjects.length
 
   return (
-    <div className="mb-4 w-full md:mb-0 md:rounded-lg md:shadow-xl">
+    <div className="mb-4 w-full md:mb-0 md:rounded-lg md:shadow-xl md:dark:shadow-stone-700/40">
       <div className="relative h-full pt-8 md:pt-0">
         <div className="pointer-events-none absolute top-0 right-0 h-full w-full pb-21 md:invisible md:hidden">
-          <h2 className="bg-theme-first-color md:text-theme-first-color sticky top-2 z-[150] rounded-tl-md rounded-tr-md py-0.5 text-center text-xl text-white md:invisible md:static md:mb-3 md:hidden md:w-full md:rounded-none md:bg-inherit md:text-2xl">
+          <h2 className="bg-primary md:text-primary sticky top-2 z-[150] rounded-tl-md rounded-tr-md py-0.5 text-center text-xl text-white md:invisible md:static md:mb-3 md:hidden md:w-full md:rounded-none md:bg-inherit md:text-2xl dark:bg-stone-800 dark:text-stone-300">
             {`(${countOfSubjectsByYear}) ${tableTitle}`}
           </h2>
         </div>
         <table
-          className="custom-content relative mx-auto w-full border-separate border-spacing-0 rounded-lg"
+          className="custom-content text-primary relative mx-auto w-full border-separate border-spacing-0 rounded-lg dark:text-stone-950"
           style={
             {
               '--dynamic-content': `'${tableTitle}'`
             } as React.CSSProperties
           }
         >
-          <thead className="bg-theme-first-color thead hidden w-full rounded-t-lg md:table-header-group">
-            <tr className="rounded-t-lg text-white">
+          <thead className="bg-primary thead hidden w-full rounded-t-lg md:table-header-group dark:bg-stone-900">
+            <tr className="rounded-t-lg text-white dark:text-stone-200">
               {titles.map((title) =>
                 renderTableHeads(
                   title.key,

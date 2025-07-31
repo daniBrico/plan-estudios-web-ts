@@ -10,7 +10,7 @@ const BulbSvg = (): JSX.Element => {
       strokeWidth="1"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="text-white"
+      className="text-white dark:text-stone-200"
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M3 12h1m8 -9v1m8 8h1m-15.4 -6.4l.7 .7m12.1 -.7l-.7 .7" />

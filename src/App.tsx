@@ -16,7 +16,7 @@ function App(): JSX.Element {
       <ThemeProvider>
         <div className="relative flex min-h-screen w-full flex-col text-gray-900">
           <div
-            className="pointer-events-none absolute inset-0 -z-1 bg-[#fafafa]"
+            className="bg-background pointer-events-none absolute inset-0 -z-1 dark:bg-zinc-900"
             style={{
               backgroundImage: `repeating-linear-gradient(45deg, rgba(255, 0, 100, 0.1) 0, rgba(255, 0, 100, 0.1) 1px, transparent 1px, transparent 20px),
               repeating-linear-gradient(-45deg, rgba(255, 0, 100, 0.1) 0, rgba(255, 0, 100, 0.1) 1px, transparent 1px, transparent 20px)`,

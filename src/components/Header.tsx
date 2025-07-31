@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import CareerHeader from './CareerHeader'
-import logoUNO from '../assets/logoUNO.svg'
 import Navbar from './Navbar'
 import useCareerStore from '../store/careerStore'
 import { type ID, type CareerHeaderInfo } from '../types/types'
 import { getFromLocalStorage } from '../utils/storage'
 import ThemeToggle from './ThemeToggle'
+import LogoUNOSvg from './svg-components/LogoUNOSvg'
 
 const Header: React.FC = () => {
   // useState
@@ -44,7 +44,7 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <header className="bg-theme-first-color py-5 shadow-lg sm:px-6 lg:px-0">
+      <header className="bg-primary py-5 shadow-lg sm:px-6 lg:px-0 dark:bg-stone-900 dark:shadow-stone-700/40">
         <div className="mx-auto flex max-w-4xl flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-around sm:gap-16 md:justify-between md:gap-2">
           <div className="relative order-0 flex w-full items-center justify-center sm:static sm:mx-0 sm:w-auto md:w-auto">
             <a
@@ -52,12 +52,10 @@ const Header: React.FC = () => {
               target="_blank"
               rel="noreferrer noopener"
             >
-              <img
-                className="hidden w-28 sm:block sm:w-24"
-                src={logoUNO}
-                alt="Logo de la Universidad Nacional del Oeste"
-              />
-              <span className="w-full border-y-2 text-center text-3xl font-extrabold tracking-wide text-white sm:hidden">
+              <div className="hidden w-28 sm:block sm:w-26">
+                <LogoUNOSvg />
+              </div>
+              <span className="w-full border-y-2 text-center text-3xl font-extrabold tracking-wide text-white sm:hidden dark:border-stone-300 dark:text-stone-300">
                 UNO
               </span>
             </a>

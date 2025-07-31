@@ -8,7 +8,7 @@ const ArrowLeftIcon = (): JSX.Element => (
 )
 
 const defaultClasses =
-  'bg-theme-first-color fixed z-[200] cursor-pointer items-center justify-center text-white shadow-xl duration-300 select-none'
+  'bg-primary dark:bg-stone-800 fixed z-[200] cursor-pointer items-center justify-center text-white dark:text-stone-400 shadow-xl duration-300 select-none'
 
 const mobileDefaultClasses =
   'right-0 bottom-26 flex h-16 rounded-tl-lg rounded-bl-lg sm:hidden'

@@ -5,18 +5,14 @@
 @theme {
   --font-onest: Onest Variable, sans-serif;
 
-  --color-theme-first-color: #f15a5c;
-  --color-theme-second-color: #dddde0;
-  --color-theme-third-color: #ececee;
-  --color-theme-back: #e6e4d0;
-  --color-theme-text-color: #000;
-  --color-theme-second-text-color: #1e2939;
-  /* --color-theme-text-color: #1e2939; */
-
-  /* Colors for subject state */
-  --color-theme-green: #22c55e;
-  --color-theme-blue: #3b82f6;
-  --color-theme-yellow: #eab308;
+  --color-primary: #f15a5c;
+  --color-secondary: #dddde0;
+  --color-third: #ececee;
+  --color-background: #fafafa;
+  --color-text-primary: #000;
+  --color-text-secondary: #1e2939;
+  --color-inactive-navbar: #a43d3e;
+  --color-hover-navbar: #dc2628;
 
   --animate-loading-spinner: loading-spinner 0.9s linear infinite;
 
@@ -100,7 +96,7 @@ body {
   margin: 0;
   width: 100vw;
   overflow-x: hidden;
-  background-color: var(--color-theme-back);
+  background-color: var(--color-background);
   scroll-behavior: smooth;
   box-sizing: border-box;
 }
@@ -134,7 +130,6 @@ footer {
   font-size: 4rem;
   font-weight: 700;
   opacity: 0.3;
-  color: var(--color-theme-first-color);
   width: 100%;
   display: flex;
   justify-content: center;

@@ -19,9 +19,11 @@ const navItems: NavItem[] = [
 ]
 
 const BASE_STYLES =
-  'border-back text-white transition-all duration-300 ease-in-out hover:underline'
-const ACTIVE_STYLES = 'bg-theme-first-color underline py-1 rounded-b-md'
-const INACTIVE_STYLES = 'bg-[#a43d3e] opacity-95 hover:bg-[#a43d3e]/90 py-0'
+  'text-white transition-all duration-300 ease-in-out hover:underline'
+const ACTIVE_STYLES =
+  'bg-primary dark:bg-stone-900 dark:text-stone-300 shadow shadow-md dark:shadow-stone-700/40 py-1 underline rounded-b-md'
+const INACTIVE_STYLES =
+  'bg-inactive-navbar dark:text-stone-400 dark:bg-stone-800 opacity-95 hover:bg-inactive-navbar/90 dark:hover:bg-stone-700/90 py-0'
 
 export const Navbar = (): JSX.Element => {
   const currentLocation = useLocation()
@@ -40,7 +42,7 @@ export const Navbar = (): JSX.Element => {
         {navItems.map((item, index) => (
           <li
             key={item.path}
-            className={`${getNavItemsStyles(item.path)} ${index === 0 ? 'rounded-bl-md' : index === navItems.length - 1 ? 'rounded-br-md' : 'border-r border-l'}`}
+            className={`${getNavItemsStyles(item.path)} ${index === 0 ? 'rounded-bl-md' : index === navItems.length - 1 ? 'rounded-br-md' : ''}`}
           >
             <button
               className="block h-full w-full cursor-pointer px-2"

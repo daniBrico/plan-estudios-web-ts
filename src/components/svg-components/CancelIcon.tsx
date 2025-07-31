@@ -4,7 +4,7 @@ const CancelIcon: React.FC = () => {
       viewBox="0 0 512 512"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      fill="#000000"
+      // fill="#000000"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
@@ -24,7 +24,7 @@ const CancelIcon: React.FC = () => {
           <g
             id="work-case"
             transform="translate(91.520000, 91.520000)"
-            className="fill-theme-first-color group-hover:fill-white"
+            className="fill-primary group-hover:fill-white dark:fill-stone-500 dark:group-hover:fill-stone-300"
           >
             <polygon
               id="Close"

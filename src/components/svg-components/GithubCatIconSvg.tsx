@@ -3,7 +3,8 @@ const GithubCatIconSvg: React.FC = () => {
     <svg
       viewBox="0 -0.5 24 24"
       id="meteor-icon-kit__regular-github"
-      fill="white"
+      // fill=""
+      className="fill-white dark:fill-stone-300"
       xmlns="http://www.w3.org/2000/svg"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>

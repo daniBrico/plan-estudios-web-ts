@@ -15,14 +15,13 @@ const useSubjectState = (code: SubjectCode): ReturnType => {
   const getStyleForState = (): string => {
     if (!subjectState) return ''
 
-    const stateClassMap: Record<State | '', string> = {
-      Aprobada: 'text-theme-green',
-      Habilitada: 'text-theme-blue',
-      Cursando: 'text-theme-blue',
-      Deshabilitada: 'text-theme-first-color',
-      Recursar: 'text-theme-blue',
-      Regular: 'text-theme-yellow',
-      '': ''
+    const stateClassMap: Record<State, string> = {
+      Aprobada: 'dark:text-green-600 text-green-500',
+      Habilitada: 'text-sky-500 dark:text-sky-600',
+      Cursando: 'text-sky-500 dark:text-sky-600',
+      Deshabilitada: 'text-primary',
+      Recursar: 'text-sky-500 dark:text-sky-600',
+      Regular: 'text-yellow-500 dark:text-yellow-600'
     }
 
     return stateClassMap[subjectState] || ''

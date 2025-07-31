@@ -44,13 +44,13 @@ const ThemeToggle = (): JSX.Element => {
   return (
     <div className="sm:relative" ref={dropdownRef}>
       <button
-        className="bg-theme-first-color flex w-10 cursor-pointer rounded-sm border p-1 shadow-md transition-colors duration-300 ease-in-out hover:bg-[#dc2628]/30"
+        className="bg-primary hover:bg-hover-navbar/30 flex w-10 cursor-pointer rounded-sm border p-1 shadow-md transition-all duration-300 ease-in-out hover:scale-110 dark:bg-stone-900 dark:shadow-stone-700 dark:hover:bg-stone-700/50"
         onClick={handleOpenClose}
       >
         {themeIconMap[theme]}
       </button>
       <ul
-        className={`bg-theme-first-color absolute z-50 mt-2 flex h-28 w-10 transform flex-col justify-around rounded-sm border border-solid border-white shadow-lg transition-all duration-300 ease-in-out sm:right-0 sm:h-34 sm:w-30 sm:p-1.5 ${isDropdownOpen ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'}`}
+        className={`bg-primary absolute z-50 mt-2 flex h-28 w-10 transform flex-col justify-around rounded-sm border border-solid border-white shadow-lg transition-all duration-300 ease-in-out sm:right-0 sm:h-34 sm:w-30 sm:p-1.5 dark:border-stone-200 dark:bg-stone-900 ${isDropdownOpen ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'}`}
       >
         {themeOptions.map((option) => (
           <li
@@ -58,13 +58,15 @@ const ThemeToggle = (): JSX.Element => {
             className="flex items-center justify-center sm:block"
           >
             <button
-              className="cursor-pointer rounded-sm border border-transparent transition-colors duration-300 ease-in-out hover:border hover:border-white hover:bg-[#dc2628]/30 sm:flex sm:w-full sm:items-center sm:justify-between sm:p-1"
+              className="hover:bg-hover-navbar/30 group cursor-pointer rounded-sm border border-transparent transition-colors duration-300 ease-in-out hover:border hover:border-stone-200 sm:flex sm:w-full sm:items-center sm:justify-between sm:p-1 dark:hover:bg-stone-700/50"
               onClick={() => handleSelectOp(option)}
             >
-              <span className="hidden text-white sm:inline">
+              <span className="hidden text-white sm:inline dark:text-stone-200">
                 {option.charAt(0).toUpperCase() + option.slice(1)}
               </span>
-              <div className="w-7">{themeIconMap[option]}</div>
+              <div className="w-7 transition-transform duration-300 ease-in-out group-hover:scale-110">
+                {themeIconMap[option]}
+              </div>
             </button>
           </li>
         ))}

@@ -44,12 +44,14 @@ const TableRow: React.FC<ListOfRowsProps> = ({
   // }, [showModal])
 
   const backgroundColor =
-    index % 2 === 0 ? 'md:bg-theme-third-color' : 'md:bg-theme-second-color'
+    index % 2 === 0
+      ? 'md:bg-third dark:bg-stone-700'
+      : 'md:bg-secondary dark:bg-stone-800'
 
   return (
     <>
       <tr
-        className={`bg-theme-third-color text-theme-second-text-color grid grid-cols-2 rounded-md p-1 md:table-row ${backgroundColor} relative`}
+        className={`text-text-secondary bg-third grid grid-cols-2 rounded-md p-1 md:table-row dark:text-stone-400 ${backgroundColor} relative`}
       >
         <TableDataCode
           code={code}
