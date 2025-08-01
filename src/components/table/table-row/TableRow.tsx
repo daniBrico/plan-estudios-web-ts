@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { type Subject } from '../../../types/types'
 import ListOfCorrelatives from '../../correlative/ListOfCorrelatives'
-import DropdownButton from '../../DropdownButton'
+import DropdownButton from './DropdownButton'
 import TableDataCode from './TableDataCode'
 import TableDataName from './TableDataName'
 
@@ -45,13 +45,13 @@ const TableRow: React.FC<ListOfRowsProps> = ({
 
   const backgroundColor =
     index % 2 === 0
-      ? 'md:bg-third dark:bg-stone-700'
-      : 'md:bg-secondary dark:bg-stone-800'
+      ? 'md:bg-third md:dark:bg-stone-800/85'
+      : 'md:bg-secondary md:dark:bg-stone-800'
 
   return (
     <>
       <tr
-        className={`text-text-secondary bg-third grid grid-cols-2 rounded-md p-1 md:table-row dark:text-stone-400 ${backgroundColor} relative`}
+        className={`bg-third grid grid-cols-2 rounded-md p-1 text-gray-800 md:table-row dark:bg-stone-800 dark:text-stone-400 ${backgroundColor} relative`}
       >
         <TableDataCode
           code={code}

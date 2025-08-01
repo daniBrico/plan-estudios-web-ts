@@ -44,7 +44,7 @@ const ThemeToggle = (): JSX.Element => {
   return (
     <div className="sm:relative" ref={dropdownRef}>
       <button
-        className="bg-primary hover:bg-hover-navbar/30 flex w-10 cursor-pointer rounded-sm border p-1 shadow-md transition-all duration-300 ease-in-out hover:scale-110 dark:bg-stone-900 dark:shadow-stone-700 dark:hover:bg-stone-700/50"
+        className="bg-primary hover:bg-hover-navbar/30 flex w-10 cursor-pointer rounded-sm border p-1 shadow-md transition-all duration-300 ease-in-out hover:scale-110 dark:bg-stone-900 dark:shadow-stone-950/90 dark:hover:bg-stone-800/90"
         onClick={handleOpenClose}
       >
         {themeIconMap[theme]}

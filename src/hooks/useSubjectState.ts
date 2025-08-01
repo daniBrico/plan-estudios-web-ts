@@ -15,13 +15,15 @@ const useSubjectState = (code: SubjectCode): ReturnType => {
   const getStyleForState = (): string => {
     if (!subjectState) return ''
 
+    const skyStyle = 'text-sky-500 dark:text-sky-700'
+
     const stateClassMap: Record<State, string> = {
-      Aprobada: 'dark:text-green-600 text-green-500',
-      Habilitada: 'text-sky-500 dark:text-sky-600',
-      Cursando: 'text-sky-500 dark:text-sky-600',
-      Deshabilitada: 'text-primary',
-      Recursar: 'text-sky-500 dark:text-sky-600',
-      Regular: 'text-yellow-500 dark:text-yellow-600'
+      Aprobada: 'dark:text-green-700 text-green-500',
+      Habilitada: skyStyle,
+      Cursando: skyStyle,
+      Deshabilitada: 'text-red-500 dark:text-red-900',
+      Recursar: skyStyle,
+      Regular: 'text-yellow-500 dark:text-yellow-700'
     }
 
     return stateClassMap[subjectState] || ''

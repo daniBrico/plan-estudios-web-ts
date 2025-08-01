@@ -8,7 +8,7 @@ export interface Career {
   subjectsByYear: SubjectsByYear[]
 }
 
-export type CareerNames = Pick<Career, '_id' | 'name'>
+export type CareerNamesAndID = Pick<Career, '_id' | 'name'>
 export type CareerHeaderInfo = Omit<Career, '_id' | 'subjectsByYear'>
 export type ID = string
 

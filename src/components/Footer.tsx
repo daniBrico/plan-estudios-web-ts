@@ -5,7 +5,7 @@ import BriefcaseSvg from './svg-components/BriefcaseSvg'
 const Footer = (): JSX.Element => {
   return (
     <>
-      <footer className="bg-primary relative bottom-0 left-0 px-4 py-2 md:py-4 lg:px-0 dark:bg-stone-900">
+      <footer className="bg-primary relative bottom-0 left-0 px-4 py-2 shadow-[0_-4px_10px_rgba(0,0,0,0.2)] md:py-4 lg:px-0 dark:bg-stone-900">
         <div className="mx-auto max-w-4xl">
           <div className="flex gap-3 text-sm font-light text-white md:text-base">
             <a

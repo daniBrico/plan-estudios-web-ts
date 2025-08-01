@@ -74,12 +74,12 @@ export const StatsPage = (): JSX.Element => {
       <h2 className="text-primary mb-4 text-lg font-semibold tracking-wide md:text-2xl lg:text-3xl dark:text-stone-200">
         Cursando
       </h2>
-      <div className="flex flex-col gap-2 rounded-md shadow-md">
+      <div className="flex flex-col gap-2 rounded-md">
         {enrolledSubjects.length ? (
           enrolledSubjects.map((subject) => (
             <div
               key={subject.code}
-              className="bg-third text-text-secondary flex rounded-md p-2 dark:bg-stone-700 dark:text-stone-300"
+              className="bg-third text-text-secondary flex rounded-md p-2 shadow-md dark:bg-stone-800 dark:text-stone-300 dark:shadow-stone-950/30"
             >
               <p className="w-14">{subject.code}</p>
               <p>-</p>
@@ -87,7 +87,7 @@ export const StatsPage = (): JSX.Element => {
             </div>
           ))
         ) : (
-          <div className="bg-third text-text-secondary flex rounded-md p-2 dark:bg-stone-700 dark:text-stone-300">
+          <div className="bg-third text-text-secondary flex rounded-md p-2 shadow-md dark:bg-stone-800 dark:text-stone-300 dark:shadow-stone-950/30">
             <p className="opacity-60">No hay materias cursando actualmente</p>
           </div>
         )}
@@ -99,7 +99,7 @@ export const StatsPage = (): JSX.Element => {
         <h2 className="text-primary mt-2 text-center text-2xl font-semibold sm:mt-8 md:mt-0 md:text-3xl dark:text-stone-200">
           Información adicional
         </h2>
-        <table className="bg-third text-text-secondary mx-auto mt-2 mb-8 w-full border-separate border-spacing-0 overflow-hidden rounded-md shadow-md sm:mt-4 md:mt-8 dark:bg-stone-700 dark:text-stone-300">
+        <table className="bg-third text-text-secondary mx-auto mt-2 mb-8 w-full border-separate border-spacing-0 overflow-hidden rounded-md shadow-md sm:mt-4 md:mt-8 dark:bg-stone-800 dark:text-stone-300 dark:shadow-stone-950/30">
           <tbody>
             <tr>
               <td className="rounded-tl-lg px-2 py-1 text-sm font-medium tracking-[0.01em] md:text-base">

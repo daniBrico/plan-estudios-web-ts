@@ -4,10 +4,12 @@ import {
   type SubjectCode,
   type Correlatives,
   type State
-} from '../types/types'
-import CancelIcon from './svg-components/CancelIcon'
-import { useSubjectStore } from '../store/subjectStore'
-import useCloseOnScrollOrClickOutside from '../hooks/useCloseOnScrollOrClickOutside'
+} from '../../../types/types'
+import CancelIcon from '../../svg-components/CancelIcon'
+import { useSubjectStore } from '../../../store/subjectStore'
+import useCloseOnScrollOrClickOutside from '../../../hooks/useCloseOnScrollOrClickOutside'
+import CaretSymbol from '../../CaretSymbol'
+import classNames from 'classnames'
 
 interface DropdownButtonProps {
   code: SubjectCode
@@ -29,23 +31,8 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
   isDropdownOpen,
   setIsDropdownOpen
 }) => {
-  const subjectState = useSubjectStore(
-    (state) =>
-      state.allSubjectsState.find((subject) => subject.code === code)?.state
-  )
-  const corrPassed = useSubjectStore((state) =>
-    state.areAllCorrelativesPassed(correlatives)
-  )
-
   // useState
-  const [dropdownOp, setDropdownOp] = useState<DropdownOp>(
-    subjectState === 'Aprobada' ||
-      subjectState === 'Cursando' ||
-      subjectState === 'Recursar' ||
-      subjectState === 'Regular'
-      ? subjectState
-      : ''
-  )
+  const [dropdownOp, setDropdownOp] = useState<DropdownOp>('')
 
   // useRef
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -55,10 +42,18 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
 
     if (option === dropdownOp) return
 
+    // Acá debería modificar el estado de aquellas materias que dependan de esta, si es que todas sus correlativas están habilitadas
     setDropdownOp(option)
     changeStateOpSelected(option)
   }
 
+  const subjectState = useSubjectStore(
+    (state) =>
+      state.allSubjectsState.find((subject) => subject.code === code)?.state
+  )
+  const corrPassed = useSubjectStore((state) =>
+    state.areAllCorrelativesPassed(correlatives)
+  )
   const changeSubjectState = useSubjectStore(
     (state) => state.changeSubjectState
   )
@@ -72,6 +67,11 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
 
   // useEffect
   useEffect(() => {
+    // if (code === '07071') {
+    //   console.log('🚀 ~ DropdownButton ~ subjectState: ', subjectState)
+    //   console.log('🚀 ~ DropdownButton ~ dropdownOp: ', dropdownOp)
+    // }
+
     if (subjectState === undefined) return
 
     if (
@@ -140,8 +140,17 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
           </span>
           {/* Caret symbol */}
           <div
+            className={classNames('transition duration-300', {
+              'rotate-180': isDropdownOpen,
+              'group-hover:border-t-white dark:group-hover:border-t-stone-300':
+                corrPassed
+            })}
+          >
+            <CaretSymbol />
+          </div>
+          {/* <div
             className={`border-t-primary h-0 w-0 border-t-[6px] border-r-[5px] border-l-[5px] border-r-transparent border-l-transparent transition duration-300 dark:border-t-stone-500 ${isDropdownOpen ? 'rotate-180' : ''} ${corrPassed ? 'group-hover:border-t-white dark:group-hover:border-t-stone-300' : ''}`}
-          />
+          /> */}
         </div>
       </div>
       {/* Dropdown list elements */}

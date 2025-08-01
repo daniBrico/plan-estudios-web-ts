@@ -21,7 +21,7 @@ const navItems: NavItem[] = [
 const BASE_STYLES =
   'text-white transition-all duration-300 ease-in-out hover:underline'
 const ACTIVE_STYLES =
-  'bg-primary dark:bg-stone-900 dark:text-stone-300 shadow shadow-md dark:shadow-stone-700/40 py-1 underline rounded-b-md'
+  'bg-primary dark:bg-stone-900 dark:text-stone-300 shadow shadow-md dark:shadow-stone-950/30 py-1 underline rounded-b-md'
 const INACTIVE_STYLES =
   'bg-inactive-navbar dark:text-stone-400 dark:bg-stone-800 opacity-95 hover:bg-inactive-navbar/90 dark:hover:bg-stone-700/90 py-0'
 

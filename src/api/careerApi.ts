@@ -1,8 +1,12 @@
-import { type Career, type CareerNames, type HttpClient } from '../types/types'
+import {
+  type Career,
+  type CareerNamesAndID,
+  type HttpClient
+} from '../types/types'
 
 interface createCareerApiReturn {
   getCareer: (id: string) => Promise<Career>
-  getCareerNames: () => Promise<CareerNames[]>
+  getCareerNames: () => Promise<CareerNamesAndID[]>
 }
 
 export const createCareerApi = (
@@ -11,6 +15,6 @@ export const createCareerApi = (
   getCareer: async (id: string): Promise<Career> =>
     await httpClient.get(`career/${id}`),
 
-  getCareerNames: async (): Promise<CareerNames[]> =>
+  getCareerNames: async (): Promise<CareerNamesAndID[]> =>
     await httpClient.get('career/names')
 })
