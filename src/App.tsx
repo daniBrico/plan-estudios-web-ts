@@ -29,7 +29,7 @@ function App(): JSX.Element {
               <Route index element={<Navigate to="/inicio" replace />} />
               <Route path="inicio" element={<HomePage />} />
               <Route path="plan-de-estudios" element={<PlanEstudiosPage />} />
-              <Route path="estadisticas" element={<StatsPage />} />
+              <Route path="info-academica" element={<StatsPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>

@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 const NAV_PATHS = {
   HOME: '/inicio',
   STUDY_PLAN: '/plan-de-estudios',
-  STATS: '/estadisticas'
+  STATS: '/info-academica'
 }
 
 type NavItem = {
@@ -15,7 +15,7 @@ type NavItem = {
 const navItems: NavItem[] = [
   { path: NAV_PATHS.HOME, label: 'Inicio' },
   { path: NAV_PATHS.STUDY_PLAN, label: 'Plan de Estudios' },
-  { path: NAV_PATHS.STATS, label: 'Estadísticas' }
+  { path: NAV_PATHS.STATS, label: 'Info. Académica' }
 ]
 
 const BASE_STYLES =

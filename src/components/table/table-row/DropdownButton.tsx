@@ -8,7 +8,6 @@ import {
 import CancelIcon from '../../svg-components/CancelIcon'
 import { useSubjectStore } from '../../../store/subjectStore'
 import useCloseOnScrollOrClickOutside from '../../../hooks/useCloseOnScrollOrClickOutside'
-import CaretSymbol from '../../CaretSymbol'
 import classNames from 'classnames'
 
 interface DropdownButtonProps {
@@ -140,17 +139,15 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
           </span>
           {/* Caret symbol */}
           <div
-            className={classNames('transition duration-300', {
-              'rotate-180': isDropdownOpen,
-              'group-hover:border-t-white dark:group-hover:border-t-stone-300':
-                corrPassed
-            })}
-          >
-            <CaretSymbol />
-          </div>
-          {/* <div
-            className={`border-t-primary h-0 w-0 border-t-[6px] border-r-[5px] border-l-[5px] border-r-transparent border-l-transparent transition duration-300 dark:border-t-stone-500 ${isDropdownOpen ? 'rotate-180' : ''} ${corrPassed ? 'group-hover:border-t-white dark:group-hover:border-t-stone-300' : ''}`}
-          /> */}
+            className={classNames(
+              'border-t-primary h-0 w-0 border-t-[6px] border-r-[5px] border-l-[5px] border-r-transparent border-l-transparent transition duration-300 dark:border-t-stone-500',
+              {
+                'rotate-180': isDropdownOpen,
+                'group-hover:border-t-white dark:group-hover:border-t-stone-300':
+                  corrPassed
+              }
+            )}
+          />
         </div>
       </div>
       {/* Dropdown list elements */}

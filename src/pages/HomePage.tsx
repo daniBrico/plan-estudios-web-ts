@@ -23,9 +23,9 @@ function HomePage(): JSX.Element {
           </p>
           <br />
           <p>
-            Además de tener al alcance la información del documento, permite
+            Además de tener al alcance el contenido del documento, permite
             interactuar de cierta forma con él, modificando el estado de las
-            materias y obteniendo algunas estadísticas (en desarrollo).
+            materias y obteniendo información acádemica (en desarrollo).
           </p>
           <br />
           <p>

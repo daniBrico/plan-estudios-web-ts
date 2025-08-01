@@ -7,7 +7,6 @@ export const RightArrowSvg = (): JSX.Element => {
       id="right-arrow"
       data-name="Flat Line"
       xmlns="http://www.w3.org/2000/svg"
-      className="icon flat-line fill-gray-800"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
@@ -28,7 +27,6 @@ export const RightArrowSvg = (): JSX.Element => {
             strokeLinejoin: 'round',
             strokeWidth: '2'
           }}
-          className="stroke-gray-800"
         ></line>
         <polyline
           id="primary-2"
@@ -40,7 +38,6 @@ export const RightArrowSvg = (): JSX.Element => {
             strokeLinejoin: 'round',
             strokeWidth: '2'
           }}
-          className="stroke-gray-800"
         ></polyline>
       </g>
     </svg>
