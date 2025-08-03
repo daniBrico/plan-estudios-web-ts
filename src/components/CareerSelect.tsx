@@ -53,8 +53,6 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
   const handleCancelClick = (e: React.MouseEvent): void => {
     e.stopPropagation()
 
-    // if (isModalConfirmOpened) return
-
     setIsSelectorOpened(false)
 
     handleCancelDropdown()

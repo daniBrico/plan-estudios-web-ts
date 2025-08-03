@@ -1,8 +1,7 @@
-import React, { useEffect, useRef } from 'react'
-import { CancelIcon } from './svg-components/CancelIcon'
+import React, { useRef } from 'react'
 import { type Correlatives, type Name } from '../types/types'
-import { Correlative } from './correlative/Correlative'
 import { useSubjectStore } from '../store/subjectStore'
+import CancelIcon from './svg-components/CancelIcon'
 
 interface CorrelativeModalProps {
   name: Name
@@ -23,18 +22,6 @@ export const CorrelativeModal: React.FC<CorrelativeModalProps> = React.memo(
     const modalRef = useRef<HTMLDivElement>(null)
 
     const { getSubjectNameFromCode } = useSubjectStore()
-
-    useEffect(() => {
-      const handleOutsideClick = (e: MouseEvent): void => {
-        if (modalRef.current && !modalRef.current.contains(e.target as Node))
-          if (showModal) changeShowModal(false)
-      }
-
-      if (showModal) document.addEventListener('mousedown', handleOutsideClick)
-
-      return (): void =>
-        document.removeEventListener('mousedown', handleOutsideClick)
-    }, [showModal, changeShowModal])
 
     return (
       <div
@@ -73,11 +60,11 @@ export const CorrelativeModal: React.FC<CorrelativeModalProps> = React.memo(
                 return (
                   <div key={correlative}>
                     <div className="flex items-center gap-2">
-                      <Correlative
+                      {/* <Correlative
                         correlative={correlative}
                         tooltip={false}
                         cssClasess="font-light min-w-12"
-                      />
+                      /> */}
                       <p className="grow-2 text-left text-black">{`${subjectName}`}</p>
                     </div>
                   </div>

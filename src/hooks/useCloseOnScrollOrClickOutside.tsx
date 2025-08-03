@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 
 interface UseProps {
   isOpen: boolean
@@ -11,17 +11,10 @@ const useCloseOnScrollOrClickOutside = ({
   onClose,
   ref
 }: UseProps): void => {
-  const scrollCount = useRef(0)
-
   useEffect(() => {
     if (!isOpen) return
 
-    const handleScroll = (): void => {
-      scrollCount.current += 1
-      console.log(`Scroll handler ejecutado ${scrollCount.current} veces`)
-
-      onClose()
-    }
+    const handleScroll = (): void => onClose()
 
     const handleOutsideClick = (e: MouseEvent): void => {
       if (ref?.current && !ref?.current.contains(e.target as Node)) {

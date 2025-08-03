@@ -76,7 +76,7 @@ const ScrollToTopButton = (): JSX.Element => {
       </button>
 
       <button
-        className={`${defaultClasses} right-8 bottom-20 hidden h-13 w-13 rounded-4xl transition-transform hover:scale-110 sm:flex ${showButton ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
+        className={`${defaultClasses} right-8 bottom-20 hidden h-13 w-13 rounded-4xl shadow-sm transition-transform hover:scale-110 sm:flex dark:shadow-stone-950/80 ${showButton ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
         onClick={handleButtonToTop}
       >
         <ArrowUpIconSvg />
