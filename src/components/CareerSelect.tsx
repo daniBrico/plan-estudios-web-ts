@@ -7,6 +7,7 @@ import ArrowDownSvg from './svg-components/ArrowDownSvg'
 import { type ID, type CareerNamesAndID } from '../types/types'
 import { getFromLocalStorage } from '../utils/storage'
 import useCloseOnScrollOrClickOutside from '../hooks/useCloseOnScrollOrClickOutside'
+import ConfirmModal from './ConfirmModal'
 
 interface SelectCareersProps {
   onCareerChange: (careerAndID: CareerNamesAndID | null) => void
@@ -16,11 +17,14 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
   const [selectedCareerAndID, setSelectedCareerAndID] =
     useState<CareerNamesAndID | null>(null)
   const [isSelectorOpened, setIsSelectorOpened] = useState<boolean>(false)
+  const [isModalConfirmOpened, setIsModalConfirmOpened] =
+    useState<boolean>(false)
   const [inputValue, setInputValue] = useState('')
 
   const selectorRef = useRef<HTMLDivElement>(null)
 
   const { careerNamesAndIDFromAPI } = useGetCareerNames()
+
   useCloseOnScrollOrClickOutside({
     isOpen: isSelectorOpened,
     onClose: () => setIsSelectorOpened(false),
@@ -28,14 +32,31 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
   })
 
   const handleOptionSelected = (careerNameAndID: CareerNamesAndID): void => {
+    if (careerNameAndID._id === selectedCareerAndID?._id) return
+
     setSelectedCareerAndID(careerNameAndID)
     setInputValue('')
-    setIsSelectorOpened(false)
     onCareerChange(careerNameAndID)
   }
 
   const handleCancelDropdown = (): void => {
     if (selectedCareerAndID === null) return
+
+    setIsModalConfirmOpened(true)
+  }
+
+  const handleCancelClick = (e: React.MouseEvent): void => {
+    e.stopPropagation()
+
+    setIsSelectorOpened(false)
+
+    handleCancelDropdown()
+  }
+
+  const handleModalConfirm = (value: 'confirm' | 'cancel'): void => {
+    setIsModalConfirmOpened(false)
+
+    if (value === 'cancel') return
 
     setSelectedCareerAndID(null)
     setIsSelectorOpened(false)
@@ -62,6 +83,7 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
 
   return (
     <div className="relative w-full font-medium select-none" ref={selectorRef}>
+      {/* Select Careers */}
       <div
         className="flex w-full items-center justify-between rounded-sm border border-gray-800/40 bg-white p-2 dark:border-gray-400/40 dark:bg-stone-900"
         onClick={() => setIsSelectorOpened(!isSelectorOpened)}
@@ -70,7 +92,7 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
           className={classNames(
             'w-full rounded-tl-sm rounded-bl-sm bg-gray-300/20 px-1.5 py-0.5 font-normal text-gray-800 dark:bg-stone-800/80 dark:text-gray-300',
             {
-              '0 text-gray-800/70 dark:text-gray-500/80': !selectedCareerAndID
+              'text-gray-800/70 dark:text-gray-500/80': !selectedCareerAndID
             }
           )}
         >
@@ -79,10 +101,7 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
         <div className="flex items-center justify-center gap-1 rounded-tr-sm rounded-br-sm bg-gray-300/20 stroke-gray-800/40 stroke-2 px-1.5 py-0.5 dark:bg-stone-800/90 dark:stroke-gray-500/80">
           <div
             className="w-6 cursor-pointer transition-transform duration-300 ease-in-out hover:scale-115"
-            onClick={(e) => {
-              e.stopPropagation()
-              handleCancelDropdown()
-            }}
+            onClick={(e) => handleCancelClick(e)}
           >
             <XmarkSvg />
           </div>
@@ -101,9 +120,16 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
           </div>
         </div>
       </div>
+      {/* Modal Confirm */}
+      <ConfirmModal
+        isModalConfirmOpened={isModalConfirmOpened}
+        handleModalConfirm={handleModalConfirm}
+        setIsModalConfirmOpened={setIsModalConfirmOpened}
+      />
+      {/* Select Careers Options */}
       <ul
         className={classNames(
-          'absolute z-500 mt-1 max-h-60 w-full overflow-y-auto rounded-sm border border-gray-800/40 bg-white opacity-0 transition-all duration-300 ease-in-out dark:border-gray-400/40 dark:bg-stone-900',
+          'absolute z-500 max-h-60 w-full overflow-y-auto rounded-sm border border-gray-800/40 bg-white opacity-0 transition-all duration-300 ease-in-out dark:border-gray-400/40 dark:bg-stone-900',
           {
             'translate-y-2 opacity-100': isSelectorOpened,
             'pointer-events-none': !isSelectorOpened
