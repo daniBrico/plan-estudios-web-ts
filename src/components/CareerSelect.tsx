@@ -22,6 +22,7 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
   const [inputValue, setInputValue] = useState('')
 
   const selectorRef = useRef<HTMLDivElement>(null)
+  const cancelCareerRef = useRef<HTMLDivElement>(null)
 
   const { careerNamesAndIDFromAPI } = useGetCareerNames()
 
@@ -32,6 +33,8 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
   })
 
   const handleOptionSelected = (careerNameAndID: CareerNamesAndID): void => {
+    setIsSelectorOpened(false)
+
     if (careerNameAndID._id === selectedCareerAndID?._id) return
 
     setSelectedCareerAndID(careerNameAndID)
@@ -42,11 +45,15 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
   const handleCancelDropdown = (): void => {
     if (selectedCareerAndID === null) return
 
+    if (isModalConfirmOpened) return
+
     setIsModalConfirmOpened(true)
   }
 
   const handleCancelClick = (e: React.MouseEvent): void => {
     e.stopPropagation()
+
+    // if (isModalConfirmOpened) return
 
     setIsSelectorOpened(false)
 
@@ -86,7 +93,11 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
       {/* Select Careers */}
       <div
         className="flex w-full items-center justify-between rounded-sm border border-gray-800/40 bg-white p-2 dark:border-gray-400/40 dark:bg-stone-900"
-        onClick={() => setIsSelectorOpened(!isSelectorOpened)}
+        onClick={() => {
+          if (isModalConfirmOpened) setIsModalConfirmOpened(false)
+
+          setIsSelectorOpened(!isSelectorOpened)
+        }}
       >
         <span
           className={classNames(
@@ -102,6 +113,7 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
           <div
             className="w-6 cursor-pointer transition-transform duration-300 ease-in-out hover:scale-115"
             onClick={(e) => handleCancelClick(e)}
+            ref={cancelCareerRef}
           >
             <XmarkSvg />
           </div>
@@ -125,6 +137,7 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
         isModalConfirmOpened={isModalConfirmOpened}
         handleModalConfirm={handleModalConfirm}
         setIsModalConfirmOpened={setIsModalConfirmOpened}
+        cancelCareerRef={cancelCareerRef}
       />
       {/* Select Careers Options */}
       <ul

@@ -8,18 +8,29 @@ interface ConfirmModalProps {
   isModalConfirmOpened: boolean
   handleModalConfirm: (value: 'confirm' | 'cancel') => void
   setIsModalConfirmOpened: React.Dispatch<React.SetStateAction<boolean>>
+  cancelCareerRef: React.RefObject<HTMLDivElement | null>
 }
 
 const ConfirmModal: React.FC<ConfirmModalProps> = ({
   isModalConfirmOpened,
   handleModalConfirm,
-  setIsModalConfirmOpened
+  setIsModalConfirmOpened,
+  cancelCareerRef
 }) => {
   const modalConfirmRef = useRef<HTMLDivElement>(null)
 
+  const handleOnClose = (currentTarget: Node): void => {
+    const isClickInsideCancel =
+      currentTarget && cancelCareerRef.current?.contains(currentTarget)
+
+    if (isClickInsideCancel) return
+
+    setIsModalConfirmOpened(false)
+  }
+
   useCloseOnScrollOrClickOutside({
     isOpen: isModalConfirmOpened,
-    onClose: () => setIsModalConfirmOpened(false),
+    onClose: (currentTarget) => handleOnClose(currentTarget as Node),
     ref: modalConfirmRef
   })
 
