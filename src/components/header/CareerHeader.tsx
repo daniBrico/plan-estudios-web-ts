@@ -1,5 +1,5 @@
 import React from 'react'
-import { type CareerHeaderInfo } from '../types/types'
+import { type CareerHeaderInfo } from '../../types/types'
 
 interface Props {
   careerHeaderInfo: CareerHeaderInfo

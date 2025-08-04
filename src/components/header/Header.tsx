@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import CareerHeader from './CareerHeader'
 import Navbar from './Navbar'
-import useCareerStore from '../store/careerStore'
-import { type ID, type CareerHeaderInfo } from '../types/types'
-import { getFromLocalStorage } from '../utils/storage'
+import useCareerStore from '../../store/careerStore'
+import { type ID, type CareerHeaderInfo } from '../../types/types'
+import { getFromLocalStorage } from '../../utils/storage'
+import LogoUNOSvg from '../svg-components/LogoUNOSvg'
 import ThemeToggle from './ThemeToggle'
-import LogoUNOSvg from './svg-components/LogoUNOSvg'
 
 const Header: React.FC = () => {
   // useState

@@ -5,7 +5,8 @@ import {
   type ID,
   type SubjectState,
   type SubjectCode,
-  type Name
+  type Name,
+  type Subject
 } from '../types/types'
 import {
   getFromLocalStorage,
@@ -35,6 +36,11 @@ interface SubjectStore {
   }
 }
 
+const setStateSubject = (subject: Subject): State =>
+  subject.correlatives.length > 0 ? 'Deshabilitada' : 'Habilitada'
+
+const isStatePassed = (s: State): boolean => s === 'Aprobada' || s === 'Regular'
+
 export const useSubjectStore = create<SubjectStore>()((set, get) => ({
   allSubjectsState: [],
   setAllSubjectsState: (subjectsState): void => {
@@ -48,16 +54,31 @@ export const useSubjectStore = create<SubjectStore>()((set, get) => ({
         getFromLocalStorage(careerSelectedID)
 
       if (allSubjectsStateInStorage === null) {
-        // LS: Local Storage
-        const subjectsStateLS: SubjectState[] = career.subjectsByYear.flatMap(
-          (subjectsByYear) =>
-            subjectsByYear.subjects.map((subject) => ({
-              code: subject.code,
-              name: subject.name,
-              state:
-                subject.correlatives.length > 0 ? 'Deshabilitada' : 'Habilitada'
-            }))
+        const allSubjects = career.subjectsByYear.flatMap(
+          (year) => year.subjects
         )
+
+        const subjectsStateLS: SubjectState[] = allSubjects.map((subject) => {
+          return {
+            code: subject.code,
+            name: subject.name,
+            state: setStateSubject(subject),
+            correlativeAndState: subject.correlatives.map((correlative) => {
+              const subjectFind = allSubjects.find(
+                (findSubject) => findSubject.code === correlative
+              )
+
+              if (subjectFind) {
+                return {
+                  correlative,
+                  corrState: setStateSubject(subjectFind)
+                }
+              }
+
+              return { correlative, corrState: 'Deshabilitada' }
+            })
+          }
+        })
 
         get().setAllSubjectsState(subjectsStateLS)
         saveToLocalStorage(careerSelectedID, subjectsStateLS)
@@ -82,11 +103,30 @@ export const useSubjectStore = create<SubjectStore>()((set, get) => ({
 
     set((prev) => {
       const updatedSubjects = prev.allSubjectsState.map((subject) => {
-        if (subject.code === code) {
-          return { ...subject, state }
-        }
+        // If it's the subject whose state is changing directly
+        if (subject.code === code) return { ...subject, state }
 
-        return subject
+        // If the subject has the one that changed as a correlative
+        const isCorrelative = subject.correlativeAndState.some(
+          (el) => el.correlative === code
+        )
+
+        if (!isCorrelative) return subject
+
+        // Update the state of the correlative
+        const updatedCorrelatives = subject.correlativeAndState.map((el) =>
+          el.correlative === code ? { ...el, corrState: state } : el
+        )
+
+        const allCorrPassed = updatedCorrelatives.every((el) =>
+          isStatePassed(el.corrState)
+        )
+
+        return {
+          ...subject,
+          state: (allCorrPassed ? 'Habilitada' : 'Deshabilitada') as State,
+          correlativeAndState: updatedCorrelatives
+        }
       })
 
       saveToLocalStorage(careerSelectedID, updatedSubjects)

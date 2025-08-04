@@ -1,10 +1,10 @@
 import { useRef, useState, type JSX } from 'react'
-import DeviceDesktop from './svg-components/DeviceDesktopSvg'
-import BulbSvg from './svg-components/BulbSvg'
-import MoonSvg from './svg-components/MoonSvg'
-import useCloseOnScrollOrClickOutside from '../hooks/useCloseOnScrollOrClickOutside'
-import { useThemeContext } from '../hooks/useThemeContext'
-import { type ThemeType } from '../types/types'
+import BulbSvg from '../svg-components/BulbSvg'
+import MoonSvg from '../svg-components/MoonSvg'
+import DeviceDesktop from '../svg-components/DeviceDesktopSvg'
+import { type ThemeType } from '../../types/types'
+import { useThemeContext } from '../../hooks/useThemeContext'
+import useCloseOnScrollOrClickOutside from '../../hooks/useCloseOnScrollOrClickOutside'
 
 const themeIconMap = {
   light: <BulbSvg />,
