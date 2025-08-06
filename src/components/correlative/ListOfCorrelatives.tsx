@@ -30,7 +30,7 @@ const ListOfCorrelatives: React.FC<ListOfCorrelativesProps> = ({
             <Correlative
               correlative={correlative}
               tooltip={true}
-              cssClasess="font-thin sm:font-normal"
+              cssClasess="font-thin sm:font-normal cursor-pointer"
               key={correlative}
             />
           ))}

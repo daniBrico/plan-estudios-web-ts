@@ -1,5 +1,11 @@
 import { create } from 'zustand'
-import { type Career, type ID } from '../types/types'
+import {
+  type Name,
+  type Career,
+  type ID,
+  type SubjectCode,
+  type SubjectNameAndYear
+} from '../types/types'
 import {
   getFromLocalStorage,
   removeStoredValue,
@@ -19,6 +25,8 @@ interface CareerStore {
   removeCareerLocalStorage: () => void
   cleanCareerStore: () => void
   fetchCareer: (id: ID) => Promise<void>
+  getSubjectNameFromCode: (code: SubjectCode) => Name | undefined
+  getSubjectNameAndYearFromCode: (codes: SubjectCode[]) => SubjectNameAndYear[]
 }
 
 const useCareerStore = create<CareerStore>()((set, get) => ({
@@ -74,6 +82,34 @@ const useCareerStore = create<CareerStore>()((set, get) => ({
         careerIsLoading: false
       })
     }
+  },
+  getSubjectNameFromCode: (code: SubjectCode): Name | undefined => {
+    const allSubjects = get().career?.subjectsByYear.flatMap(
+      (year) => year.subjects
+    )
+
+    return allSubjects?.find((subject) => subject.code === code)?.name
+  },
+  getSubjectNameAndYearFromCode: (
+    codes: SubjectCode[]
+  ): SubjectNameAndYear[] => {
+    const result: SubjectNameAndYear[] = []
+    const career = get().career
+
+    if (career === null) return []
+
+    for (const yearGroup of career.subjectsByYear) {
+      for (const subject of yearGroup.subjects) {
+        if (codes.includes(subject.code)) {
+          result.push({
+            subjectNameAndCode: { name: subject.name, code: subject.code },
+            year: yearGroup.year
+          })
+        }
+      }
+    }
+
+    return result
   }
 }))
 

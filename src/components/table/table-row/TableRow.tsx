@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { type Subject } from '../../../types/types'
 import ListOfCorrelatives from '../../correlative/ListOfCorrelatives'
 import DropdownButton from './DropdownButton'
 import TableDataCode from './TableDataCode'
 import TableDataName from './TableDataName'
+import { CorrelativeModal } from '../../CorrelativeModal'
+import classNames from 'classnames'
+import useCloseOnScrollOrClickOutside from '../../../hooks/useCloseOnScrollOrClickOutside'
 
 interface ListOfRowsProps extends Omit<Subject, 'state'> {
   index: number
@@ -18,46 +21,45 @@ const TableRow: React.FC<ListOfRowsProps> = ({
   index,
   subjectsLength
 }) => {
-  // useState
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [isCorrModalOpen, setIsCorrModalOpen] = useState(false)
 
-  // useRef
-  // const modalRef = useRef<HTMLDivElement>(null)
-  // const correlativesContainerRef = useRef<HTMLDivElement>(null)
+  const corrModalRef = useRef(null)
+  const listOfCorrelativesTDRef = useRef<HTMLTableCellElement | null>(null)
 
-  // const changeShowModal = (newValue: boolean): void => {
-  //   setShowModal(newValue)
-  //   if (!newValue && correlativesContainerRef.current)
-  //     correlativesContainerRef.current.scrollTop = 0
-  // }
+  const handleOnClose = (currentTarget: Node): void => {
+    const isClickInsideTDCorrelatives =
+      currentTarget && listOfCorrelativesTDRef.current?.contains(currentTarget)
 
-  // useEffect(() => {
-  //   const handleOutsideClick = (e: MouseEvent): void => {
-  //     if (modalRef.current && !modalRef.current.contains(e.target as Node))
-  //       if (showModal) changeShowModal(false)
-  //   }
+    if (isClickInsideTDCorrelatives) return
 
-  //   if (showModal) document.addEventListener('mousedown', handleOutsideClick)
+    setIsCorrModalOpen(false)
+  }
 
-  //   return (): void =>
-  //     document.removeEventListener('mousedown', handleOutsideClick)
-  // }, [showModal])
-
-  const backgroundColor =
-    index % 2 === 0
-      ? 'md:bg-third md:dark:bg-stone-800/85'
-      : 'md:bg-secondary md:dark:bg-stone-800'
+  useCloseOnScrollOrClickOutside({
+    isOpen: isCorrModalOpen,
+    onClose: (currentTarget) => handleOnClose(currentTarget as Node),
+    ref: corrModalRef
+  })
 
   return (
     <>
       <tr
-        className={`bg-third grid grid-cols-2 rounded-md p-1 text-gray-800 md:table-row dark:bg-stone-800 dark:text-stone-400 ${backgroundColor} relative`}
+        className={classNames(
+          'bg-third relative grid grid-cols-2 p-1 text-gray-800 md:table-row dark:bg-stone-800 dark:text-stone-400',
+          {
+            'md:bg-third md:dark:bg-stone-750': index % 2 === 0,
+            'md:bg-secondary md:dark:bg-stone-800': index % 2 !== 0,
+            'rounded-lg': isCorrModalOpen
+          }
+        )}
       >
         <TableDataCode
           code={code}
           isDropdownOpen={isDropdownOpen}
           index={index}
           subjectsLength={subjectsLength}
+          isCorrModalOpen={isCorrModalOpen}
         />
         <TableDataName
           code={code}
@@ -67,21 +69,21 @@ const TableRow: React.FC<ListOfRowsProps> = ({
         <td className="text-right text-sm md:p-2 md:text-center md:text-base">
           {offering}
         </td>
-        <td className="flex items-end justify-center text-center text-sm font-light md:table-cell md:py-2 md:text-base md:font-normal">
-          <ListOfCorrelatives
-            correlatives={correlatives}
-            // changeShowModal={changeShowModal}
-          />
-          {/* <CorrelativeModal
-                name={name}
-                correlatives={correlatives}
-                changeShowModal={changeShowModal}
-                showModal={showModal}
-                correlativesContainerRef={correlativesContainerRef}
-              /> */}
+        <td
+          className="flex items-end justify-center text-center text-sm font-light md:table-cell md:py-2 md:text-base md:font-normal"
+          onClick={() => setIsCorrModalOpen(!isCorrModalOpen)}
+          ref={listOfCorrelativesTDRef}
+        >
+          <ListOfCorrelatives correlatives={correlatives} />
         </td>
         <td
-          className={`flex items-end justify-end md:table-cell md:px-1 md:py-2 ${index === subjectsLength - 1 ? 'rounded-br-lg' : ''}`}
+          className={classNames(
+            'flex items-end justify-end md:table-cell md:px-1 md:py-2',
+            {
+              'rounded-br-lg': index === subjectsLength - 1,
+              'rounded-br-none': isCorrModalOpen
+            }
+          )}
         >
           <DropdownButton
             code={code}
@@ -90,6 +92,18 @@ const TableRow: React.FC<ListOfRowsProps> = ({
             setIsDropdownOpen={setIsDropdownOpen}
           />
         </td>
+        {correlatives.length > 0 ? (
+          <td ref={corrModalRef}>
+            <CorrelativeModal
+              correlatives={correlatives}
+              cssClasses={classNames('', {
+                'md:bg-third md:dark:from-stone-750': index % 2 === 0,
+                'md:bg-secondary md:dark:from-stone-800': index % 2 !== 0
+              })}
+              isOpen={isCorrModalOpen}
+            />
+          </td>
+        ) : null}
       </tr>
     </>
   )

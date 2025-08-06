@@ -14,6 +14,8 @@
   --color-inactive-navbar: #a43d3e;
   --color-hover-navbar: #dc2628;
 
+  --color-stone-750: #272322;
+
   --animate-loading-spinner: loading-spinner 0.9s linear infinite;
 
   @keyframes loading-spinner {
@@ -83,6 +85,39 @@
     U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+@layer utilities {
+  .scrollbar-styles::-webkit-scrollbar {
+    width: 10px;
+    height: 100%;
+  }
+
+  .scrollbar-styles::-webkit-scrollbar-track {
+    background: #e0e0e0; /* color claro por defecto */
+  }
+
+  .scrollbar-styles::-webkit-scrollbar-thumb {
+    /* background: #c0c0c0; */
+    border-radius: 5px;
+  }
+
+  .scrollbar-styles::-webkit-scrollbar-thumb:hover {
+    background: #a0a0a0;
+  }
+
+  /* Modo oscuro con selector CSS */
+  .dark .scrollbar-styles::-webkit-scrollbar-track {
+    background: transparent;
+    /* background: #2f2f2f; */
+  }
+
+  .dark .scrollbar-styles::-webkit-scrollbar-thumb {
+    background: #555;
+  }
+
+  .dark .scrollbar-styles::-webkit-scrollbar-thumb:hover {
+    background: #333;
+  }
+}
 body,
 html {
   margin: 0;

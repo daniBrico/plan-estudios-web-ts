@@ -18,6 +18,17 @@ export interface SubjectsByYear {
   subjects: Subject[]
 }
 
+export interface SubjectNameAndYear {
+  subjectNameAndCode: SubjectNameAndCode
+  year: string
+}
+
+export type Year = string
+export interface SubjectNameAndCode {
+  name: Name
+  code: SubjectCode
+}
+
 export type SubjectCode = string
 export type Correlatives = string[]
 export type Name = {

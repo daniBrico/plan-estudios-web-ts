@@ -1,79 +1,92 @@
-import React, { useRef } from 'react'
-import { type Correlatives, type Name } from '../types/types'
-import { useSubjectStore } from '../store/subjectStore'
-import CancelIcon from './svg-components/CancelIcon'
+import {
+  type Year,
+  type Correlatives,
+  type SubjectNameAndCode
+} from '../types/types'
+import useCareerStore from '../store/careerStore'
+import classNames from 'classnames'
+import { useMemo } from 'react'
+import Correlative from './correlative/Correlative'
 
 interface CorrelativeModalProps {
-  name: Name
   correlatives: Correlatives
-  changeShowModal: (newValue: boolean) => void
-  showModal: boolean
-  correlativesContainerRef: React.RefObject<HTMLDivElement | null>
+  cssClasses: string
+  isOpen: boolean
 }
 
-export const CorrelativeModal: React.FC<CorrelativeModalProps> = React.memo(
-  ({
-    name,
-    correlatives,
-    changeShowModal,
-    showModal,
-    correlativesContainerRef
-  }) => {
-    const modalRef = useRef<HTMLDivElement>(null)
+export const CorrelativeModal: React.FC<CorrelativeModalProps> = ({
+  correlatives,
+  cssClasses,
+  isOpen
+}) => {
+  const getSubjectNameAndYearFromCode = useCareerStore(
+    (state) => state.getSubjectNameAndYearFromCode
+  )
+  const memoizedSubjectsNameAndYear = useMemo(() => {
+    return getSubjectNameAndYearFromCode(correlatives)
+  }, [correlatives, getSubjectNameAndYearFromCode])
 
-    const { getSubjectNameFromCode } = useSubjectStore()
+  const groupedSubjectsByYear = useMemo(() => {
+    const grouped: { year: Year; subjectNameAndCode: SubjectNameAndCode[] }[] =
+      []
 
-    return (
-      <div
-        className={`bg-secondary/40 fixed top-0 left-0 z-[1000] flex h-dvh w-dvw items-center justify-center transition-opacity duration-300 ease-in-out ${showModal ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}
-      >
-        <div className="absolute h-full w-full" />
-        <div
-          ref={modalRef}
-          className={`bg-primary z-200 flex w-[75%] flex-col gap-2.5 rounded-lg border-2 border-white p-2 text-white shadow-lg shadow-black/40 duration-300 ease-in-out sm:w-[60%] md:w-[50%] lg:w-[40%] ${showModal ? 'animate-expand-element opacity-100' : 'animate-shrink-element opacity-0'}`}
-        >
-          <div className="relative flex items-center justify-center">
-            <p className="text-md py-0.5 font-bold sm:text-lg">
-              {name.longName}
-            </p>
-            <div
-              className="transition-rotate absolute top-0 right-0 w-6 cursor-pointer rounded-full bg-white p-1 transition-transform duration-300 hover:scale-110 hover:rotate-180 sm:w-7"
-              onClick={() => changeShowModal(false)}
-            >
-              <CancelIcon />
-            </div>
-          </div>
-          {/* correlativas */}
-          {
-            <div
-              ref={correlativesContainerRef}
-              className="bg-third flex max-h-64 flex-col gap-1 overflow-y-auto rounded-sm border-2 border-white px-1.5 py-1 lg:max-h-90"
-            >
-              {correlatives.map((correlative) => {
-                const subjectNameFromCode =
-                  getSubjectNameFromCode(correlative) || ''
+    memoizedSubjectsNameAndYear.forEach((el) => {
+      const subjectNameAndYearFoundIx = grouped.findIndex(
+        (indexEl) => indexEl.year === el.year
+      )
 
-                const subjectName =
-                  (subjectNameFromCode as Name).shortName ||
-                  (subjectNameFromCode as Name).longName
+      if (subjectNameAndYearFoundIx === -1) {
+        grouped.push({
+          year: el.year,
+          subjectNameAndCode: [el.subjectNameAndCode]
+        })
+      } else {
+        grouped[subjectNameAndYearFoundIx].subjectNameAndCode.push(
+          el.subjectNameAndCode
+        )
+      }
+    })
 
+    return grouped
+  }, [memoizedSubjectsNameAndYear])
+
+  return (
+    <div
+      className={classNames(
+        'absolute top-full left-0 z-400 flex w-full items-center rounded-br-md rounded-bl-md bg-linear-to-b py-1 opacity-0 shadow-[0_4px_4px_rgba(12,10,9,0.3)] transition-all duration-300 ease-in-out dark:bg-linear-to-b dark:to-stone-900 dark:shadow-[0_2px_4px_rgba(12,10,9,0.3)]',
+        cssClasses,
+        {
+          'translate-y-0 opacity-100': isOpen,
+          'pointer-events-none -translate-y-2': !isOpen
+        }
+      )}
+    >
+      <div className="scrollbar-styles flex max-h-52 w-full flex-col gap-8 overflow-x-hidden overflow-y-auto pt-6 pb-1">
+        {groupedSubjectsByYear.map((el) => {
+          return (
+            <div key={el.year} className="relative flex flex-col gap-2">
+              <p className="absolute -top-6 left-0 ml-2 text-sm font-light">
+                {el.year}
+              </p>
+              {el.subjectNameAndCode.map((subject, index) => {
                 return (
-                  <div key={correlative}>
-                    <div className="flex items-center gap-2">
-                      {/* <Correlative
-                        correlative={correlative}
-                        tooltip={false}
-                        cssClasess="font-light min-w-12"
-                      /> */}
-                      <p className="grow-2 text-left text-black">{`${subjectName}`}</p>
-                    </div>
+                  <div
+                    key={el.subjectNameAndCode[index].code}
+                    className="flex pl-4"
+                  >
+                    <Correlative
+                      correlative={subject.code}
+                      tooltip={false}
+                      cssClasess="w-14"
+                    />
+                    <span className="ml-2">{subject.name.longName}</span>
                   </div>
                 )
               })}
             </div>
-          }
-        </div>
+          )
+        })}
       </div>
-    )
-  }
-)
+    </div>
+  )
+}

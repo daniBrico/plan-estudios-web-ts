@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import useSubjectState from '../../../hooks/useSubjectState'
 import { type SubjectCode } from '../../../types/types'
 
@@ -6,38 +7,30 @@ interface TableDataCodeProps {
   isDropdownOpen: boolean
   index: number
   subjectsLength: number
+  isCorrModalOpen: boolean
 }
 
 const TableDataCode: React.FC<TableDataCodeProps> = ({
   code,
   isDropdownOpen,
   index,
-  subjectsLength
+  subjectsLength,
+  isCorrModalOpen
 }) => {
-  // customHooks
   const { getStyleForState } = useSubjectState(code)
 
-  // const subjectState = useSubjectStore((state) => {
-  //   const currentSubjectState = state.allSubjectsState.find(
-  //     (subject) => subject.code === code
-  //   )
-
-  //   if (currentSubjectState)
-  //     return currentSubjectState.correlativeAndState.every(
-  //       (el) => el.corrState === 'Aprobada' || el.corrState === 'Regular'
-  //     )
-  // })
-
-  // useEffect(() => {
-  //   if (!subjectState) return
-
-  //   if (code === '07031')
-  //     console.log('🚀 ~ TableDataCode ~ subjectState: ', subjectState)
-  // }, [subjectState])
-
+  // Podría utilizar el componente Correlative
   return (
     <td
-      className={`text-sm transition md:p-2 md:text-center md:text-base ${getStyleForState()} ${isDropdownOpen ? `underline` : ''} ${index === subjectsLength - 1 ? 'rounded-bl-lg' : ''}`}
+      className={classNames(
+        'border-stone-900 text-sm transition md:p-2 md:text-center md:text-base',
+        [getStyleForState()],
+        {
+          underline: isDropdownOpen,
+          'rounded-bl-lg': index === subjectsLength - 1 && !isCorrModalOpen,
+          'rounded-bl-none': isCorrModalOpen
+        }
+      )}
     >
       {code}
     </td>
