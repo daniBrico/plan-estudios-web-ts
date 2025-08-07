@@ -18,7 +18,8 @@ const navItems: NavItem[] = [
   { path: NAV_PATHS.STATS, label: 'Info. Académica' }
 ]
 
-const BASE_STYLES = 'text-white hover:underline'
+const BASE_STYLES =
+  'text-white hover:underline transition-all duration-300 ease-in-out'
 const ACTIVE_STYLES =
   'bg-primary dark:bg-stone-900 dark:text-stone-300 shadow shadow-md dark:shadow-stone-950/30 py-1 underline rounded-b-md'
 const INACTIVE_STYLES =
