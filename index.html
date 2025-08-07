@@ -30,6 +30,23 @@
     <link rel="stylesheet" href="./src/index.css" />
     <link rel="icon" href="src/assets/favicon.svg" />
     <title>Plan de estudios</title>
+    <script>
+      ;(function () {
+        const savedTheme = localStorage.getItem('theme')
+        const systemDark = window.matchMedia(
+          '(prefers-color-scheme: dark)'
+        ).matches
+
+        if (savedTheme === 'dark' || (savedTheme === 'system' && systemDark)) {
+          document.documentElement.classList.add('dark')
+        } else if (
+          savedTheme === 'light' ||
+          (savedTheme === 'system' && !systemDark)
+        ) {
+          document.documentElement.classList.add('light')
+        }
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>
