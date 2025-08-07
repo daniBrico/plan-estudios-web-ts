@@ -23,7 +23,7 @@ const TableDataCode: React.FC<TableDataCodeProps> = ({
   return (
     <td
       className={classNames(
-        'border-stone-900 text-sm transition md:p-2 md:text-center md:text-base',
+        'border-stone-900 text-sm md:p-2 md:text-center md:text-base',
         [getStyleForState()],
         {
           underline: isDropdownOpen,

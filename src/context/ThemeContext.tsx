@@ -10,7 +10,6 @@ const HTMLElement = document.documentElement
 const darkQuery = window.matchMedia('(prefers-color-scheme: dark)')
 
 const ThemeProvider = ({ children }: ThemeProviderProps): JSX.Element => {
-  // useState
   const [theme, setTheme] = useState<ThemeType>(
     (localStorage.getItem('theme') ?? 'system') as ThemeType
   )
@@ -19,7 +18,6 @@ const ThemeProvider = ({ children }: ThemeProviderProps): JSX.Element => {
     HTMLElement.classList.remove('dark', 'light', 'system')
   }
 
-  // useEffects
   useEffect(() => {
     const changeHandler = (): void => {
       if (theme !== 'system') return
@@ -36,25 +34,19 @@ const ThemeProvider = ({ children }: ThemeProviderProps): JSX.Element => {
 
   useEffect(() => {
     if (theme === 'system') {
-      if (darkQuery.matches) {
-        HTMLElement.classList.add('dark')
-      } else {
-        HTMLElement.classList.add('light')
-      }
+      HTMLElement.classList.add(darkQuery.matches ? 'dark' : 'light')
 
       localStorage.setItem('theme', 'system')
 
       return
     }
 
-    cleanHTMLElClasses()
+    if (HTMLElement.classList.length > 0) cleanHTMLElClasses()
 
     localStorage.setItem('theme', theme)
-
     HTMLElement.classList.add(theme)
   }, [theme])
 
-  // Functions
   const changeTheme = (newThemeValue: ThemeType): void => {
     if (newThemeValue === theme) return
 

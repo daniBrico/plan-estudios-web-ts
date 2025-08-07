@@ -18,7 +18,7 @@ const TableDataName: React.FC<TableDataNameProps> = ({
   return (
     <td
       className={classNames(
-        'order-first col-span-2 border-stone-900 text-sm font-medium text-wrap transition md:p-2 md:text-base md:font-normal',
+        'order-first col-span-2 border-stone-900 text-sm font-medium text-wrap md:p-2 md:text-base md:font-normal',
         {
           [getStyleForState() + ' underline']: isDropdownOpen
         }

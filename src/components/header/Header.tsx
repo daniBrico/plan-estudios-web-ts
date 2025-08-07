@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import CareerHeader from './CareerHeader'
 import Navbar from './Navbar'
 import useCareerStore from '../../store/careerStore'
@@ -8,31 +8,10 @@ import LogoUNOSvg from '../svg-components/LogoUNOSvg'
 import ThemeToggle from './ThemeToggle'
 
 const Header: React.FC = () => {
-  // useState
-  const [careerHeaderInfo, setCareerHeaderInfo] =
-    useState<null | CareerHeaderInfo>(null)
-
-  // cotext
-  // careerStore
   const career = useCareerStore((state) => state.career)
   const setCareerSelectedID = useCareerStore(
     (state) => state.setCareerSelectedID
   )
-
-  useEffect(() => {
-    if (career === null) {
-      setCareerHeaderInfo(null)
-
-      return
-    }
-
-    setCareerHeaderInfo({
-      name: career.name,
-      duration: career.duration,
-      intermediateDegree: career.intermediateDegree,
-      intermediateDegreeDuration: career.intermediateDegreeDuration
-    })
-  }, [career])
 
   useEffect(() => {
     const careerIDFromLS: ID | null = getFromLocalStorage('career-selected-id')
@@ -41,6 +20,15 @@ const Header: React.FC = () => {
 
     setCareerSelectedID(careerIDFromLS)
   }, [])
+
+  const careerHeaderInfo: CareerHeaderInfo | null = career
+    ? {
+        name: career.name,
+        duration: career.duration,
+        intermediateDegree: career.intermediateDegree,
+        intermediateDegreeDuration: career.intermediateDegreeDuration
+      }
+    : null
 
   return (
     <>

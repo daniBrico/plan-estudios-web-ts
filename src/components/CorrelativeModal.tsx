@@ -53,7 +53,7 @@ export const CorrelativeModal: React.FC<CorrelativeModalProps> = ({
   return (
     <div
       className={classNames(
-        'absolute top-full left-0 z-400 flex w-full items-center rounded-br-md rounded-bl-md bg-linear-to-b py-1 opacity-0 shadow-[0_4px_4px_rgba(12,10,9,0.3)] transition-all duration-300 ease-in-out dark:bg-linear-to-b dark:to-stone-900 dark:shadow-[0_2px_4px_rgba(12,10,9,0.3)]',
+        'absolute top-full left-0 z-400 flex w-full items-center rounded-br-md rounded-bl-md bg-linear-to-b py-1 opacity-0 shadow-xl transition-all duration-300 ease-in-out dark:to-stone-900 dark:shadow-xl',
         cssClasses,
         {
           'translate-y-0 opacity-100': isOpen,
@@ -65,21 +65,23 @@ export const CorrelativeModal: React.FC<CorrelativeModalProps> = ({
         {groupedSubjectsByYear.map((el) => {
           return (
             <div key={el.year} className="relative flex flex-col gap-2">
-              <p className="absolute -top-6 left-0 ml-2 text-sm font-light">
+              <p className="absolute -top-6 left-0 ml-2 text-xs font-light md:text-sm">
                 {el.year}
               </p>
               {el.subjectNameAndCode.map((subject, index) => {
                 return (
                   <div
                     key={el.subjectNameAndCode[index].code}
-                    className="flex pl-4"
+                    className="flex items-center pl-4"
                   >
                     <Correlative
                       correlative={subject.code}
                       tooltip={false}
-                      cssClasess="w-14"
+                      cssClasess="w-12 lg:text-base text-sm md:text-md md:w-14"
                     />
-                    <span className="ml-2">{subject.name.longName}</span>
+                    <span className="md:text-md ml-0.5 text-sm md:ml-2 lg:text-base">
+                      {subject.name.longName}
+                    </span>
                   </div>
                 )
               })}
