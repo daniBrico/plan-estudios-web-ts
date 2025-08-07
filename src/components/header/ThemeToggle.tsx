@@ -14,6 +14,12 @@ const themeIconMap = {
 
 const themeOptions: ThemeType[] = ['light', 'dark', 'system']
 
+const spanishRenderOption = (option: ThemeType): string => {
+  return option === 'dark' ? 'Oscuro' : option === 'light' ? 'Claro' : 'Sistema'
+
+  // return spanishOption.charAt(0).toUpperCase() + spanishOption.slice(1)
+}
+
 const ThemeToggle = (): JSX.Element => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
@@ -44,7 +50,7 @@ const ThemeToggle = (): JSX.Element => {
           onClick={() => handleSelectOp(option)}
         >
           <span className="hidden text-white sm:inline dark:text-stone-200">
-            {option.charAt(0).toUpperCase() + option.slice(1)}
+            {spanishRenderOption(option)}
           </span>
           <div className="w-7 transition-transform duration-300 ease-in-out group-hover:scale-110">
             {themeIconMap[option]}
