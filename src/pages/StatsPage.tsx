@@ -99,13 +99,13 @@ export const StatsPage = (): JSX.Element => {
         <h2 className="text-primary mt-2 text-center text-2xl font-semibold sm:mt-8 md:mt-0 md:text-3xl dark:text-stone-200">
           Información adicional
         </h2>
-        <table className="bg-third text-text-secondary mx-auto mt-2 mb-8 w-full border-separate border-spacing-0 overflow-hidden rounded-md shadow-md sm:mt-4 md:mt-8 dark:bg-stone-800 dark:text-stone-300 dark:shadow-stone-950/30">
+        <table className="bg-third text-text-secondary mx-auto mt-2 mb-8 w-full border-separate border-spacing-0 overflow-hidden rounded-lg shadow-md sm:mt-4 md:mt-8 dark:bg-stone-800 dark:text-stone-300 dark:shadow-stone-950/30">
           <tbody>
             <tr>
-              <td className="rounded-tl-lg px-2 py-1 text-sm font-medium tracking-[0.01em] md:text-base">
+              <td className="px-2 py-1 text-sm font-medium tracking-[0.01em] md:text-base">
                 Total de Materias
               </td>
-              <td className="rounded-tr-lg pr-1 text-center text-sm md:text-base">
+              <td className="pr-1 text-center text-sm md:text-base">
                 {totalNumOfSubjects}
               </td>
             </tr>
@@ -126,10 +126,10 @@ export const StatsPage = (): JSX.Element => {
               </td>
             </tr>
             <tr>
-              <td className="rounded-bl-lg px-2 py-1 text-sm font-medium tracking-[0.01em] md:text-base">
+              <td className="px-2 py-1 text-sm font-medium tracking-[0.01em] md:text-base">
                 Materias Regularizadas
               </td>
-              <td className="rounded-br-lg pr-1 text-center text-sm md:text-base">
+              <td className="pr-1 text-center text-sm md:text-base">
                 {numSubjectsRegular}
               </td>
             </tr>

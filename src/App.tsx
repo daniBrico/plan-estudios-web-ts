@@ -10,7 +10,14 @@ import Footer from './components/Footer'
 import ScrollToTopButton from './components/scroll-to-top-button/ScrollToTopButton'
 import ThemeProvider from './context/ThemeContext'
 
+const APP_VERSION = '1.0.2'
+
 function App(): JSX.Element {
+  if (localStorage.getItem('app-version') !== APP_VERSION) {
+    localStorage.clear()
+    localStorage.setItem('app-version', APP_VERSION)
+  }
+
   return (
     <>
       <ThemeProvider>
