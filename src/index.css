@@ -154,33 +154,6 @@ footer {
   flex-shrink: 0;
 }
 
-/* Career year banner */
-.custom-content::before {
-  content: var(--dynamic-content);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-5deg);
-  z-index: 100;
-  font-size: 4rem;
-  font-weight: 700;
-  opacity: 0.3;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.thead {
-  border-top-right-radius: 50%;
-}
-
-@media (max-width: 48rem) {
-  .custom-content::before {
-    visibility: hidden;
-    display: none;
-  }
-}
-
 .container {
   max-width: 56rem;
   margin: 1rem auto;

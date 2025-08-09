@@ -66,12 +66,12 @@ const TableRow: React.FC<ListOfRowsProps> = ({
           name={name}
           isDropdownOpen={isDropdownOpen}
         />
-        <td className="text-right text-sm md:p-2 md:text-center md:text-base">
+        <td className="relative z-[110] text-right text-sm md:p-2 md:text-center md:text-base">
           {offering}
         </td>
         <td
           className={classNames(
-            'flex items-end justify-center text-center text-sm font-light md:table-cell md:py-2 md:text-base md:font-normal'
+            'relative z-[110] flex items-end justify-center text-center text-sm font-light md:table-cell md:py-2 md:text-base md:font-normal'
             // {
             //   'group/td hover:bg-gray-400/20 dark:hover:bg-stone-700/20':
             //     correlatives.length > 0
