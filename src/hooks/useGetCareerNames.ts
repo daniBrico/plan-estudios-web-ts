@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import careerApi from '../api/careerApiInstance'
 import { type CareerNamesAndID } from '../types/types'
+import { getFromSessionStorage, saveToSessionStorage } from '../utils/storage'
 
 interface useGetCareerNamesReturn {
   careerNamesAndIDFromAPI: CareerNamesAndID[]
@@ -8,8 +9,10 @@ interface useGetCareerNamesReturn {
   careerNamesIsLoading: boolean
 }
 
+const cachedKey = 'career-names-id'
+
 const useGetCareerNames = (): useGetCareerNamesReturn => {
-  const [careerNamesAndIDFromAPI, setCareerNames] = useState<
+  const [careerNamesAndIDFromAPI, setCareerNamesAndIDFromAPI] = useState<
     CareerNamesAndID[]
   >([])
   const [error, setError] = useState<Error | null>(null)
@@ -22,9 +25,19 @@ const useGetCareerNames = (): useGetCareerNamesReturn => {
       try {
         setIsLoading(true)
 
-        const apiNames = await careerApi.getCareerNames()
+        const cachedCareerNamesAndID = getFromSessionStorage(
+          cachedKey
+        ) as CareerNamesAndID[]
 
-        if (isMounted) setCareerNames(apiNames)
+        if (cachedCareerNamesAndID !== null)
+          setCareerNamesAndIDFromAPI(cachedCareerNamesAndID)
+
+        const apiNamesAndID = await careerApi.getCareerNames()
+
+        if (isMounted) {
+          setCareerNamesAndIDFromAPI(apiNamesAndID)
+          saveToSessionStorage(cachedKey, apiNamesAndID)
+        }
       } catch (err) {
         if (isMounted) setError(err as Error)
       } finally {
