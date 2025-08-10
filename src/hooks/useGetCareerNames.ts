@@ -16,25 +16,27 @@ const useGetCareerNames = (): useGetCareerNamesReturn => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
+    let isMounted = true
+
     const fetchCareerNames = async (): Promise<void> => {
       try {
         setIsLoading(true)
 
         const apiNames = await careerApi.getCareerNames()
 
-        setCareerNames(apiNames)
+        if (isMounted) setCareerNames(apiNames)
       } catch (err) {
-        setError(err as Error)
+        if (isMounted) setError(err as Error)
       } finally {
-        setIsLoading(false)
+        if (isMounted) setIsLoading(false)
       }
     }
 
-    const timeOutRef = setTimeout(() => {
-      fetchCareerNames()
-    }, 3000)
+    fetchCareerNames()
 
-    return (): void => clearTimeout(timeOutRef)
+    return (): void => {
+      isMounted = false
+    }
   }, [])
 
   return {

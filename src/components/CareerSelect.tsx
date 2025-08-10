@@ -24,7 +24,8 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
   const selectorRef = useRef<HTMLDivElement>(null)
   const cancelCareerRef = useRef<HTMLDivElement>(null)
 
-  const { careerNamesAndIDFromAPI, careerNamesIsLoading } = useGetCareerNames()
+  const { careerNamesAndIDFromAPI, careerNamesError, careerNamesIsLoading } =
+    useGetCareerNames()
 
   useCloseOnScrollOrClickOutside({
     isOpen: isSelectorOpened,
@@ -85,6 +86,12 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
     setSelectedCareerAndID(selectedOption)
     handleOptionSelected(selectedOption)
   }, [careerNamesAndIDFromAPI])
+
+  useEffect(() => {
+    if (careerNamesError === null) return
+
+    console.error(careerNamesError)
+  }, [careerNamesError])
 
   return (
     <div className="relative w-full font-medium select-none" ref={selectorRef}>
