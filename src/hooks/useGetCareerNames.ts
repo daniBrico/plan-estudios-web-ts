@@ -25,12 +25,15 @@ const useGetCareerNames = (): useGetCareerNamesReturn => {
       try {
         setIsLoading(true)
 
-        const cachedCareerNamesAndID = getFromSessionStorage(
+        // SS: Session Storage
+        const cachedSSCareerNamesAndID = getFromSessionStorage(
           cachedKey
         ) as CareerNamesAndID[]
 
-        if (cachedCareerNamesAndID !== null)
-          setCareerNamesAndIDFromAPI(cachedCareerNamesAndID)
+        if (cachedSSCareerNamesAndID !== null) {
+          setCareerNamesAndIDFromAPI(cachedSSCareerNamesAndID)
+          return
+        }
 
         const apiNamesAndID = await careerApi.getCareerNames()
 
