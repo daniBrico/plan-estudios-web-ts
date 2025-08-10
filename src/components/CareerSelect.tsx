@@ -24,7 +24,7 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
   const selectorRef = useRef<HTMLDivElement>(null)
   const cancelCareerRef = useRef<HTMLDivElement>(null)
 
-  const { careerNamesAndIDFromAPI } = useGetCareerNames()
+  const { careerNamesAndIDFromAPI, careerNamesIsLoading } = useGetCareerNames()
 
   useCloseOnScrollOrClickOutside({
     isOpen: isSelectorOpened,
@@ -97,24 +97,39 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
           setIsSelectorOpened(!isSelectorOpened)
         }}
       >
-        <span
-          className={classNames(
-            'w-full rounded-tl-sm rounded-bl-sm bg-gray-300/20 px-1.5 py-0.5 font-normal text-gray-800 dark:bg-stone-800/80 dark:text-gray-300',
-            {
-              'text-gray-800/70 dark:text-gray-500/80': !selectedCareerAndID
-            }
-          )}
-        >
-          {selectedCareerAndID?.name ?? 'Seleccione la Carrera'}
-        </span>
-        <div className="flex items-center justify-center gap-1 rounded-tr-sm rounded-br-sm bg-gray-300/20 stroke-gray-800/40 stroke-2 px-1.5 py-0.5 dark:bg-stone-800/90 dark:stroke-gray-500/80">
-          <div
-            className="w-6 cursor-pointer transition-transform duration-300 ease-in-out hover:scale-115"
-            onClick={(e) => handleCancelClick(e)}
-            ref={cancelCareerRef}
-          >
-            <XmarkSvg />
+        {careerNamesIsLoading ? (
+          <div className="flex w-full rounded-tl-sm rounded-bl-sm bg-gray-300/20 dark:bg-stone-800/80">
+            <p className="py-1 pr-1 pl-1.5 text-sm text-gray-800/70 md:py-0.5 md:text-base dark:text-stone-500">
+              Cargando Carreras
+            </p>
+            <div className="flex items-end gap-1 pb-2.5">
+              <div className="h-[0.2rem] w-[0.2rem] animate-pulse rounded-full bg-gray-800/70 dark:bg-stone-500"></div>
+              <div className="h-[0.2rem] w-[0.2rem] animate-pulse rounded-full bg-gray-800/70 [animation-delay:300ms] dark:bg-stone-500"></div>
+              <div className="h-[0.2rem] w-[0.2rem] animate-pulse rounded-full bg-gray-800/70 [animation-delay:600ms] dark:bg-stone-500"></div>
+            </div>
           </div>
+        ) : (
+          <p
+            className={classNames(
+              'w-full rounded-tl-sm rounded-bl-sm bg-gray-300/20 px-1.5 py-1 text-sm text-gray-800 md:py-0.5 md:text-base dark:bg-stone-800/80 dark:text-stone-300',
+              {
+                'text-gray-800/70 dark:text-stone-500': !selectedCareerAndID
+              }
+            )}
+          >
+            {selectedCareerAndID?.name ?? 'Seleccione la Carrera'}
+          </p>
+        )}
+        <div className="flex items-center justify-center gap-1 rounded-tr-sm rounded-br-sm bg-gray-300/20 stroke-gray-800/40 stroke-2 px-1.5 py-0.5 dark:bg-stone-800/80 dark:stroke-gray-500/80">
+          {selectedCareerAndID !== null ? (
+            <div
+              className="w-6 cursor-pointer transition-transform duration-300 ease-in-out hover:scale-115"
+              onClick={(e) => handleCancelClick(e)}
+              ref={cancelCareerRef}
+            >
+              <XmarkSvg />
+            </div>
+          ) : null}
           <span className="font-thin text-gray-800/40 dark:text-gray-500/80">
             |
           </span>

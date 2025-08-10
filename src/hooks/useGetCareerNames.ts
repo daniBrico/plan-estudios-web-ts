@@ -30,7 +30,11 @@ const useGetCareerNames = (): useGetCareerNamesReturn => {
       }
     }
 
-    fetchCareerNames()
+    const timeOutRef = setTimeout(() => {
+      fetchCareerNames()
+    }, 3000)
+
+    return (): void => clearTimeout(timeOutRef)
   }, [])
 
   return {
