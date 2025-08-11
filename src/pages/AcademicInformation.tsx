@@ -11,7 +11,7 @@ interface allSubjectsStateInfoType {
   totalNumOfSubjects: number
 }
 
-export const StatsPage = (): JSX.Element => {
+const AcademicInformation = (): JSX.Element => {
   // context
   // subjectStore
   const allSubjectsState = useSubjectStore((state) => state.allSubjectsState)
@@ -72,7 +72,7 @@ export const StatsPage = (): JSX.Element => {
   return (
     <section className="container p-4 lg:p-1">
       <h2 className="text-primary mb-4 text-lg font-semibold tracking-wide md:text-2xl lg:text-3xl dark:text-stone-200">
-        Cursando
+        Actualmente Cursando
       </h2>
       <div className="flex flex-col gap-2 rounded-md">
         {enrolledSubjects.length ? (
@@ -139,3 +139,5 @@ export const StatsPage = (): JSX.Element => {
     </section>
   )
 }
+
+export default AcademicInformation

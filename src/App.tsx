@@ -4,7 +4,7 @@ import HomePage from './pages/HomePage'
 import { PlanEstudiosPage } from './pages/PlanEstudiosPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 // import WorkingOnIt from './components/WorkingOnIt'
-import { StatsPage } from './pages/StatsPage'
+import AcademicInformation from './pages/AcademicInformation'
 import Header from './components/header/Header'
 import Footer from './components/Footer'
 import ScrollToTopButton from './components/scroll-to-top-button/ScrollToTopButton'
@@ -36,7 +36,7 @@ function App(): JSX.Element {
               <Route index element={<Navigate to="/inicio" replace />} />
               <Route path="inicio" element={<HomePage />} />
               <Route path="plan-de-estudios" element={<PlanEstudiosPage />} />
-              <Route path="info-academica" element={<StatsPage />} />
+              <Route path="info-academica" element={<AcademicInformation />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>
