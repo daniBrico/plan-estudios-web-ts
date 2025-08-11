@@ -72,7 +72,7 @@ const AcademicInformation = (): JSX.Element => {
   return (
     <section className="container p-4 lg:p-1">
       <h2 className="text-primary mb-4 text-lg font-semibold tracking-wide md:text-2xl lg:text-3xl dark:text-stone-200">
-        Actualmente Cursando
+        Cursando
       </h2>
       <div className="flex flex-col gap-2 rounded-md">
         {enrolledSubjects.length ? (
