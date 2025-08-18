@@ -43,7 +43,7 @@ const Table: React.FC<TableProps> = ({ tableTitle, subjects }) => {
           </h2>
         </div>
         <table
-          className="text-primary relative mx-auto w-full border-separate border-spacing-0 before:invisible before:absolute before:top-1/2 before:left-1/2 before:z-[100] before:hidden before:w-full before:-translate-x-1/2 before:-translate-y-1/2 before:-rotate-6 before:justify-center before:text-8xl before:font-bold before:opacity-30 before:content-[attr(data-before)] md:before:visible md:before:flex dark:text-stone-600"
+          className="text-primary relative mx-auto w-full border-separate border-spacing-0 before:invisible before:absolute before:top-1/2 before:left-1/2 before:z-50 before:hidden before:w-full before:-translate-x-1/2 before:-translate-y-1/2 before:-rotate-6 before:justify-center before:text-8xl before:font-bold before:opacity-30 before:content-[attr(data-before)] md:before:visible md:before:flex dark:text-stone-600"
           data-before={tableTitle}
         >
           <thead className="bg-primary thead hidden w-full rounded-t-lg md:table-header-group dark:bg-stone-900">

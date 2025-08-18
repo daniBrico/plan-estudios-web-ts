@@ -100,6 +100,7 @@ const TableRow: React.FC<ListOfRowsProps> = ({
             correlatives={correlatives}
             isDropdownOpen={isDropdownOpen}
             setIsDropdownOpen={setIsDropdownOpen}
+            index={index}
           />
         </td>
         {correlatives.length > 0 ? (

@@ -15,6 +15,7 @@ interface DropdownButtonProps {
   correlatives: Correlatives
   isDropdownOpen: boolean
   setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>
+  index: number
 }
 
 const options: { label: string; value: DropdownOp }[] = [
@@ -28,7 +29,8 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
   code,
   correlatives,
   isDropdownOpen,
-  setIsDropdownOpen
+  setIsDropdownOpen,
+  index
 }) => {
   // useState
   const [dropdownOp, setDropdownOp] = useState<DropdownOp>('')
@@ -122,13 +124,23 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
   return (
     <div className="relative w-28 sm:w-3/4 md:w-full" ref={dropdownRef}>
       <div
-        className={`border-primary group absolute right-full z-[110] mr-1 h-8 w-8 cursor-pointer rounded-full border-2 border-solid p-1 transition-all duration-300 dark:border-stone-500 dark:hover:border-stone-300 ${dropdownOp !== '' && isDropdownOpen ? 'pointer-events-auto z-[140] translate-x-0 opacity-100' : 'pointer-events-none translate-x-8 opacity-0'} hover:bg-primary dark:hover:bg-stone-900`}
+        className={classNames(
+          'border-primary group hover:bg-primary absolute right-full mr-1 h-8 w-8 cursor-pointer rounded-full border-2 border-solid p-1 transition-all duration-300 dark:border-stone-500 dark:hover:border-stone-300 dark:hover:bg-stone-900',
+          {
+            'pointer-events-auto z-[500] translate-x-0 opacity-100':
+              dropdownOp !== '' && isDropdownOpen,
+            'pointer-events-none translate-x-8 opacity-0':
+              dropdownOp === '' || !isDropdownOpen,
+            'md:bg-third md:dark:bg-stone-750': index % 2 === 0,
+            'md:bg-secondary md:dark:bg-stone-800': index % 2 !== 0
+          }
+        )}
         onClick={() => setOption('')}
       >
         <CancelIcon />
       </div>
       {/* Dropdown button */}
-      <div className={`bg-third relative z-[120] rounded-sm dark:bg-stone-800`}>
+      <div className={`bg-third relative z-[90] rounded-sm dark:bg-stone-800`}>
         <div
           onClick={() => corrPassed && setIsDropdownOpen((prev) => !prev)}
           className={`select group border-primary flex min-h-8 items-center justify-between rounded-sm border-2 border-solid px-2 text-white transition-shadow duration-300 dark:border-stone-500 ${isDropdownOpen ? 'border-[#f15a5c]' : ''} ${corrPassed ? 'hover:bg-primary cursor-pointer hover:border-white dark:hover:border-stone-300 dark:hover:bg-stone-700' : 'cursor-default opacity-50'}`}
@@ -152,7 +164,7 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
       </div>
       {/* Dropdown list elements */}
       <ul
-        className={`text-primary bg-third absolute mt-1 flex w-28 flex-col gap-0.5 rounded-md border-2 border-solid border-white px-2 py-2 text-center shadow-sm transition-opacity duration-300 ease-in-out sm:w-30 dark:border-stone-500 dark:bg-stone-800 dark:text-stone-400 ${isDropdownOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'} z-[160]`}
+        className={`text-primary bg-third absolute z-[100] mt-1 flex w-28 flex-col gap-0.5 rounded-md border-2 border-solid border-white px-2 py-2 text-center shadow-sm transition-opacity duration-300 ease-in-out sm:w-30 dark:border-stone-500 dark:bg-stone-800 dark:text-stone-400 ${isDropdownOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}
       >
         {options.map((option) => renderOption(option.label, option.value))}
       </ul>
