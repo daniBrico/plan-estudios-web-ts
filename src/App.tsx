@@ -33,7 +33,7 @@ function App(): JSX.Element {
           <Header />
           <main className="grow-1">
             <Routes>
-              <Route index element={<Navigate to="/inicio" replace />} />
+              <Route index element={<Navigate to="inicio" replace />} />
               <Route path="inicio" element={<HomePage />} />
               <Route path="plan-de-estudios" element={<PlanEstudiosPage />} />
               <Route path="info-academica" element={<AcademicInformation />} />

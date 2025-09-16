@@ -66,7 +66,7 @@ const TableRow: React.FC<ListOfRowsProps> = ({
           name={name}
           isDropdownOpen={isDropdownOpen}
         />
-        <td className="relative z-[110] text-right text-sm md:p-2 md:text-center md:text-base">
+        <td className="text-right text-sm md:p-2 md:text-center md:text-base">
           {offering}
         </td>
         <td
