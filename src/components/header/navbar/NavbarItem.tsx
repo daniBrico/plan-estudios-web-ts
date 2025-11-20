@@ -3,8 +3,8 @@ import classNames from 'classnames'
 interface NavbarItemProps {
   label: string
   isActive: boolean
-  isFirst: boolean
-  isLast: boolean
+  isFirst?: boolean
+  isLast?: boolean
   onClick: () => void
 }
 
