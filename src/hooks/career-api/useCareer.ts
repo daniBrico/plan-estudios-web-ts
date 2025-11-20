@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import { type Career } from '../types/types'
-import careerApi from '../api/careerApiInstance'
 import {
   getFromLocalStorage,
   removeStoredValue,
   saveToLocalStorage
-} from '../utils/storage'
+} from '../../utils/storage'
+import { type Career } from '../../types/types'
+import careerApi from '../../api/careerApiInstance'
 
 interface useCareerProps {
   careerSelectedID: string | null

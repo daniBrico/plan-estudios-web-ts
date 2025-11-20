@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
-import careerApi from '../api/careerApiInstance'
-import { type CareerNamesAndID } from '../types/types'
-import { getFromSessionStorage, saveToSessionStorage } from '../utils/storage'
+import careerApi from '../../api/careerApiInstance'
+import { type CareerNamesAndID } from '../../types/types'
+import {
+  getFromSessionStorage,
+  saveToSessionStorage
+} from '../../utils/storage'
 
 interface useGetCareerNamesReturn {
   careerNamesAndIDFromAPI: CareerNamesAndID[]

@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { useEffect, useRef, useState } from 'react'
 import SearchIconSvg from './svg-components/SearchIconSvg'
-import useGetCareerNames from '../hooks/useGetCareerNames'
+import useGetCareerNames from '../hooks/career-api/useGetCareerNames'
 import XmarkSvg from './svg-components/XmarkSvg'
 import ArrowDownSvg from './svg-components/ArrowDownSvg'
 import { type ID, type CareerNamesAndID } from '../types/types'
