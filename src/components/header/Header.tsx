@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import CareerHeader from './CareerHeader'
-import Navbar from './Navbar'
+import Navbar from './navbar/Navbar'
 import useCareerStore from '../../store/careerStore'
 import { type ID, type CareerHeaderInfo } from '../../types/types'
 import { getFromLocalStorage } from '../../utils/storage'
