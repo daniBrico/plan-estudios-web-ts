@@ -18,6 +18,22 @@
 
   --animate-loading-spinner: loading-spinner 0.9s linear infinite;
 
+  /* Carnation color */
+
+  --color-carnation-50: #fdeded;
+  --color-carnation-100: #fad4d4;
+  --color-carnation-200: #f6acad;
+  --color-carnation-300: #f38687;
+  --color-carnation-400: #f15a5c;
+  --color-carnation-500: #ec3337;
+  --color-carnation-600: #c5292c;
+  --color-carnation-700: #991d20;
+  --color-carnation-800: #6d1214;
+  --color-carnation-900: #400708;
+  --color-carnation-950: #2a0303;
+
+  /* *************** */
+
   @keyframes loading-spinner {
     from {
       transform: rotate(0deg);
