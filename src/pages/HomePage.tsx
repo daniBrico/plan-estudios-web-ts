@@ -3,9 +3,9 @@ import { type JSX } from 'react'
 function HomePage(): JSX.Element {
   return (
     <>
-      <div className="text-text-primary w-full dark:text-stone-200">
+      <div className="text-text-carnation-400 w-full dark:text-stone-200">
         <div className="mx-auto max-w-4xl p-4 text-sm sm:p-6 md:text-base lg:px-0">
-          <h1 className="text-primary mb-2 text-center text-lg font-semibold tracking-wide md:text-2xl lg:text-3xl dark:text-stone-200">
+          <h1 className="text-carnation-400 mb-2 text-center text-lg font-semibold tracking-wide md:text-2xl lg:text-3xl dark:text-stone-200">
             ¡Bienvenidos al Plan de Estudios Web!
           </h1>
           <p className="mt-2">
@@ -33,7 +33,7 @@ function HomePage(): JSX.Element {
             información utilizada es pública y podrá encontrarla en los sitios
             oficiales linkeados.
           </p>
-          <h2 className="text-primary mt-2 text-lg font-semibold tracking-wide md:text-xl lg:mt-6 lg:mb-2 lg:text-2xl dark:text-stone-200">
+          <h2 className="text-carnation-400 mt-2 text-lg font-semibold tracking-wide md:text-xl lg:mt-6 lg:mb-2 lg:text-2xl dark:text-stone-200">
             Características
           </h2>
           <p>

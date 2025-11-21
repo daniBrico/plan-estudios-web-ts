@@ -6,7 +6,7 @@ export const NotFoundPage = (): JSX.Element => {
   return (
     <article className="container flex flex-1 flex-col items-center justify-center px-4 pt-8">
       <div className="flex flex-col">
-        <h1 className="text-primary text-8xl font-extrabold tracking-wide sm:text-9xl md:text-9xl dark:text-stone-700">
+        <h1 className="text-carnation-400 text-8xl font-extrabold tracking-wide sm:text-9xl md:text-9xl dark:text-stone-700">
           404
         </h1>
         <div className="mt-4 flex h-48 flex-col gap-4 text-sm text-gray-800 md:text-lg dark:text-stone-500">

@@ -71,7 +71,7 @@ const AcademicInformation = (): JSX.Element => {
 
   return (
     <section className="container p-4 lg:p-1">
-      <h2 className="text-primary mb-4 text-lg font-semibold tracking-wide md:text-2xl lg:text-3xl dark:text-stone-200">
+      <h2 className="text-carnation-400 mb-4 text-lg font-semibold tracking-wide md:text-2xl lg:text-3xl dark:text-stone-200">
         Cursando
       </h2>
       <div className="flex flex-col gap-2 rounded-md">
@@ -96,7 +96,7 @@ const AcademicInformation = (): JSX.Element => {
       {/* {enrolledSubjects.length ? <p>Al aprobar</p> : ''} */}
 
       <article className="m-auto mt-4 max-w-md px-6">
-        <h2 className="text-primary mt-2 text-center text-2xl font-semibold sm:mt-8 md:mt-0 md:text-3xl dark:text-stone-200">
+        <h2 className="text-carnation-400 mt-2 text-center text-2xl font-semibold sm:mt-8 md:mt-0 md:text-3xl dark:text-stone-200">
           Información adicional
         </h2>
         <table className="bg-third text-text-secondary mx-auto mt-2 mb-8 w-full border-separate border-spacing-0 overflow-hidden rounded-lg shadow-md sm:mt-4 md:mt-8 dark:bg-stone-800 dark:text-stone-300 dark:shadow-stone-950/30">

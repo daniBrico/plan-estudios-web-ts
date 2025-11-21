@@ -5,11 +5,11 @@
 @theme {
   --font-onest: Onest Variable, sans-serif;
 
-  --color-primary: #f15a5c;
+  --color-carnation-400: #f15a5c;
   --color-secondary: #dddde0;
   --color-third: #ececee;
   --color-background: #fafafa;
-  --color-text-primary: #000;
+  --color-text-carnation-400: #000;
   --color-text-secondary: #1e2939;
   --color-inactive-navbar: #a43d3e;
   --color-hover-navbar: #dc2628;
@@ -18,7 +18,7 @@
 
   --animate-loading-spinner: loading-spinner 0.9s linear infinite;
 
-  /* Carnation color */
+  /* carnation color */
 
   --color-carnation-50: #fdeded;
   --color-carnation-100: #fad4d4;
@@ -31,6 +31,22 @@
   --color-carnation-800: #6d1214;
   --color-carnation-900: #400708;
   --color-carnation-950: #2a0303;
+
+  /* *************** */
+
+  /* stiletto color */
+
+  --color-stiletto-50: #f9eeee;
+  --color-stiletto-100: #f1d6d6;
+  --color-stiletto-200: #e6b1b1;
+  --color-stiletto-300: #df8e8e;
+  --color-stiletto-400: #d9696a;
+  --color-stiletto-500: #c64b4d;
+  --color-stiletto-600: #a43d3e;
+  --color-stiletto-700: #873132;
+  --color-stiletto-800: #612122;
+  --color-stiletto-900: #391010;
+  --color-stiletto-950: #240708;
 
   /* *************** */
 

@@ -16,7 +16,7 @@ export const RightArrowSvg = (): JSX.Element => {
       ></g>
       <g id="SVGRepo_iconCarrier">
         <line
-          id="primary"
+          id="carnation-400"
           x1="3"
           y1="12"
           x2="21"
@@ -29,8 +29,8 @@ export const RightArrowSvg = (): JSX.Element => {
           }}
         ></line>
         <polyline
-          id="primary-2"
-          data-name="primary"
+          id="carnation-400-2"
+          data-name="carnation-400"
           points="18 15 21 12 18 9"
           style={{
             fill: 'none',
