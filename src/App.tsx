@@ -32,7 +32,7 @@ function App(): JSX.Element {
             }}
           />
           <Header />
-          <main className="grow-1">
+          <main className="grow-1 py-8">
             <Routes>
               <Route index element={<Navigate to="inicio" replace />} />
               <Route path="inicio" element={<HomePage />} />
