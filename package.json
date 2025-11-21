@@ -14,6 +14,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@tailwindcss/vite": "^4.0.15",
     "classnames": "^2.5.1",
     "react": "^19.0.0",
@@ -21,6 +22,7 @@
     "react-hook-form": "^7.66.1",
     "react-router-dom": "^7.5.0",
     "tailwindcss": "^4.0.15",
+    "zod": "^4.1.12",
     "zustand": "^5.0.6"
   },
   "devDependencies": {
