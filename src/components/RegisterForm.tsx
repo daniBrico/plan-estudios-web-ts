@@ -4,6 +4,7 @@ import { useEffect, type JSX } from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import useRegisterUser from '../hooks/api/useRegisterUser'
+import { LoadingSpinner2 } from './LoadingSpinner2'
 
 const userSchema = z.object({
   name: z
@@ -119,11 +120,20 @@ const RegisterForm = (): JSX.Element => {
       </div>
       <div className="flex w-full justify-center">
         <button
-          className="mt-2 cursor-pointer rounded-md bg-gray-600 px-2 py-1 text-lg text-white transition-all duration-300 ease-in-out hover:bg-gray-500 disabled:cursor-auto disabled:opacity-50 disabled:hover:bg-gray-600 dark:bg-stone-700 dark:hover:bg-stone-800"
+          className="relative cursor-pointer rounded-md bg-gray-600 px-2 py-1 text-lg text-white transition-all duration-300 ease-in-out hover:bg-gray-500 disabled:cursor-auto disabled:bg-gray-500 dark:bg-stone-700 dark:hover:bg-stone-800"
           type="submit"
           disabled={registerUser.isPending}
         >
           Registrarse
+          {registerUser.isPending && (
+            <div className="absolute top-0 -right-12 cursor-auto">
+              <LoadingSpinner2
+                size="w-9 h-9"
+                thickness="border-4"
+                color="border-t-gray-600"
+              />
+            </div>
+          )}
         </button>
       </div>
       <p
