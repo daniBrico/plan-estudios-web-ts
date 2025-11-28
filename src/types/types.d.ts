@@ -1,4 +1,4 @@
-// Career
+/* Career */
 export interface Career {
   _id: ID
   name: string
@@ -12,7 +12,7 @@ export type CareerNamesAndID = Pick<Career, '_id' | 'name'>
 export type CareerHeaderInfo = Omit<Career, '_id' | 'subjectsByYear'>
 export type ID = string
 
-// Subject
+/* Subject */
 export interface SubjectsByYear {
   year: string
   subjects: Subject[]
@@ -63,12 +63,36 @@ export type State =
 
 export type DropdownOp = 'Aprobada' | 'Cursando' | 'Regular' | 'Recursar' | ''
 
-// Services
+/* User */
+export interface User {
+  _id?: string
+  name: string
+  lastName: string
+  email: string
+}
+
+/* Auth */
+export interface RegisterPayload {
+  name: string
+  lastName: string
+  email: string
+  password: string
+}
 
 export interface HttpClient {
   get<T>(url: string): Promise<T>
 }
 
-// Theme
-
+/* Theme */
 type ThemeType = 'light' | 'dark' | 'system'
+
+/* Responses */
+
+interface GenericResponse {
+  message: string
+}
+
+/* Auth Response */
+interface RegisterResponse extends GenericResponse {
+  user: User
+}

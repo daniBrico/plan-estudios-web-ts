@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import { useEffect, type JSX } from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
+import useRegisterUser from '../hooks/api/useRegisterUser'
 
 const userSchema = z.object({
   name: z
@@ -20,10 +21,12 @@ const userSchema = z.object({
 type FormFields = z.infer<typeof userSchema>
 
 const RegisterForm = (): JSX.Element => {
+  const registerUser = useRegisterUser()
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     clearErrors
   } = useForm<FormFields>({
     resolver: zodResolver(userSchema),
@@ -32,8 +35,7 @@ const RegisterForm = (): JSX.Element => {
   })
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    console.log(data)
+    registerUser.mutate(data)
   }
 
   useEffect(() => {
@@ -117,9 +119,9 @@ const RegisterForm = (): JSX.Element => {
       </div>
       <div className="flex w-full justify-center">
         <button
-          className="mt-2 cursor-pointer rounded-md bg-gray-600 px-2 py-1 text-lg text-white transition-all duration-300 ease-in-out hover:bg-gray-500 dark:bg-stone-700 dark:hover:bg-stone-800"
+          className="mt-2 cursor-pointer rounded-md bg-gray-600 px-2 py-1 text-lg text-white transition-all duration-300 ease-in-out hover:bg-gray-500 disabled:cursor-auto disabled:opacity-50 disabled:hover:bg-gray-600 dark:bg-stone-700 dark:hover:bg-stone-800"
           type="submit"
-          disabled={isSubmitting}
+          disabled={registerUser.isPending}
         >
           Registrarse
         </button>
