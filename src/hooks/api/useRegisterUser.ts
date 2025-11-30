@@ -1,11 +1,11 @@
 import { useMutation, type UseMutationResult } from '@tanstack/react-query'
 import { authApi } from '../../api/authApi'
-import type { RegisterPayload, RegisterResponse } from '../../types/types'
+import type { RegisterResponse, UserRegisterInputs } from '../../types/types'
 
 const useRegisterUser = (): UseMutationResult<
   RegisterResponse,
   unknown,
-  RegisterPayload
+  UserRegisterInputs
 > => {
   return useMutation({
     mutationFn: authApi.registerUser,

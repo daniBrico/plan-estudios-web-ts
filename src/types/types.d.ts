@@ -71,8 +71,7 @@ export interface User {
   email: string
 }
 
-/* Auth */
-export interface RegisterPayload {
+export interface UserRegisterInputs {
   name: string
   lastName: string
   email: string
