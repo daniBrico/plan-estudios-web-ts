@@ -1,8 +1,12 @@
 import { createContext, useContext } from 'react'
-import type { RegisterPayload } from '../types/types'
+import type { UserRegisterInputs, User } from '../types/types'
 
 export interface AuthContextProps {
-  user: RegisterPayload | null
+  user: User | null
+  signUp: (userRegisterInputs: UserRegisterInputs) => Promise<void>
+  isAuthenticated: boolean
+  error: string
+  isRegistering: boolean
 }
 
 export const AuthContext = createContext<AuthContextProps | null>(null)

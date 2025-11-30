@@ -6,16 +6,9 @@ const useRegisterUser = (): UseMutationResult<
   RegisterResponse,
   unknown,
   UserRegisterInputs
-> => {
-  return useMutation({
-    mutationFn: authApi.registerUser,
-    onSuccess: (data) => {
-      console.log('Usuario registrado con éxtito: ', data)
-    },
-    onError: (error) => {
-      console.log('Error al registrarse: ', error)
-    }
+> =>
+  useMutation({
+    mutationFn: authApi.registerUser
   })
-}
 
 export default useRegisterUser

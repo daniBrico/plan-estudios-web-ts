@@ -10,6 +10,7 @@ import Footer from './components/Footer'
 import ScrollToTopButton from './components/scroll-to-top-button/ScrollToTopButton'
 import ThemeProvider from './context/ThemeContext'
 import RegisterPage from './pages/authPages/RegisterPage'
+import AuthProvider from './context/AuthContext'
 
 const APP_VERSION = '1.0.2'
 
@@ -20,7 +21,7 @@ function App(): JSX.Element {
   }
 
   return (
-    <>
+    <AuthProvider>
       <ThemeProvider>
         <div className="relative flex min-h-screen w-full flex-col text-gray-900">
           <div
@@ -46,7 +47,7 @@ function App(): JSX.Element {
           <Footer />
         </div>
       </ThemeProvider>
-    </>
+    </AuthProvider>
   )
 }
 

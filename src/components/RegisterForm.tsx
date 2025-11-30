@@ -3,8 +3,9 @@ import classNames from 'classnames'
 import { useEffect, type JSX } from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
-import useRegisterUser from '../hooks/api/useRegisterUser'
 import { LoadingSpinner2 } from './LoadingSpinner2'
+import { type UserRegisterInputs } from '../types/types'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const userSchema = z.object({
   name: z
@@ -22,7 +23,7 @@ const userSchema = z.object({
 type FormFields = z.infer<typeof userSchema>
 
 const RegisterForm = (): JSX.Element => {
-  const registerUser = useRegisterUser()
+  const { signUp, isRegistering } = useAuthContext()
 
   const {
     register,
@@ -35,8 +36,11 @@ const RegisterForm = (): JSX.Element => {
     reValidateMode: 'onChange' // Revalidate after modificate value
   })
 
-  const onSubmit: SubmitHandler<FormFields> = async (data) => {
-    registerUser.mutate(data)
+  const onSubmit: SubmitHandler<FormFields> = async (
+    userRegisterInputs: UserRegisterInputs
+  ) => {
+    // registerUser.mutate(userRegisterInputs)
+    signUp(userRegisterInputs)
   }
 
   useEffect(() => {
@@ -122,10 +126,10 @@ const RegisterForm = (): JSX.Element => {
         <button
           className="relative cursor-pointer rounded-md bg-gray-600 px-2 py-1 text-lg text-white transition-all duration-300 ease-in-out hover:bg-gray-500 disabled:cursor-auto disabled:bg-gray-500 dark:bg-stone-700 dark:hover:bg-stone-800"
           type="submit"
-          disabled={registerUser.isPending}
+          disabled={isRegistering}
         >
           Registrarse
-          {registerUser.isPending && (
+          {isRegistering && (
             <div className="absolute top-0 -right-12 cursor-auto">
               <LoadingSpinner2
                 size="w-9 h-9"
