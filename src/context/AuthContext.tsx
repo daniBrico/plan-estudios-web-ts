@@ -1,7 +1,9 @@
 import { type ReactNode, useState, type JSX } from 'react'
 import { AuthContext, type AuthContextProps } from '../hooks/useAuthContext'
-import type { UserRegisterInputs, User } from '../types/types'
+import type { UserRegisterInputs, User, UserLoginInputs } from '../types/types'
 import useRegisterUser from '../hooks/api/useRegisterUser'
+import useLoginUser from '../hooks/api/useLoginUser'
+import Cookies from 'js-cookie'
 
 interface AuthProviderProps {
   children: ReactNode
@@ -13,6 +15,13 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   const [error, setError] = useState('')
 
   const registerMutation = useRegisterUser()
+  const loginMutation = useLoginUser()
+
+  const resetAuthState = (): void => {
+    Cookies.remove('token')
+    setUser(null)
+    setIsAuthenticated(false)
+  }
 
   const signUp = async (
     userRegisterInputs: UserRegisterInputs
@@ -32,12 +41,36 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     })
   }
 
+  const signIn = async (loginData: UserLoginInputs): Promise<void> => {
+    setError('')
+    loginMutation.mutate(loginData, {
+      onSuccess: (res) => {
+        setUser(res.user)
+        setIsAuthenticated(true)
+      },
+      onError: (err) => {
+        if (err instanceof Error) {
+          setError(err.message)
+        } else {
+          setError('Unknow error to login user')
+          setUser(null)
+          setIsAuthenticated(false)
+        }
+      }
+    })
+  }
+
+  const logout = (): void => resetAuthState()
+
   const value: AuthContextProps = {
     user,
     signUp,
+    signIn,
+    logout,
     isAuthenticated,
     error,
-    isRegistering: registerMutation.isPending
+    isRegistering: registerMutation.isPending,
+    isLogin: loginMutation.isPending
   }
 
   return <AuthContext value={value}>{children}</AuthContext>
