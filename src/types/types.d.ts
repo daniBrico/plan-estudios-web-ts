@@ -78,11 +78,17 @@ export interface UserRegisterInputs {
   password: string
 }
 
+export interface UserLoginInputs {
+  email: string
+  password: string
+}
+
 export interface HttpClient {
   get<T>(url: string): Promise<T>
 }
 
 /* Theme */
+
 type ThemeType = 'light' | 'dark' | 'system'
 
 /* Responses */
@@ -92,6 +98,11 @@ interface GenericResponse {
 }
 
 /* Auth Response */
-interface RegisterResponse extends GenericResponse {
+
+export interface RegisterResponse extends GenericResponse {
+  user: User
+}
+
+export interface LoginResponse extends GenericResponse {
   user: User
 }
