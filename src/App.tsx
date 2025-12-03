@@ -11,6 +11,7 @@ import ScrollToTopButton from './components/scroll-to-top-button/ScrollToTopButt
 import ThemeProvider from './context/ThemeContext'
 import RegisterPage from './pages/authPages/RegisterPage'
 import AuthProvider from './context/AuthContext'
+import LoginPage from './pages/authPages/LoginPage'
 
 const APP_VERSION = '1.0.2'
 
@@ -40,6 +41,7 @@ function App(): JSX.Element {
               <Route path="plan-de-estudios" element={<PlanEstudiosPage />} />
               <Route path="info-academica" element={<AcademicInformation />} />
               <Route path="register" element={<RegisterPage />} />
+              <Route path="login" element={<LoginPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>
