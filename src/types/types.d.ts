@@ -106,3 +106,7 @@ export interface RegisterResponse extends GenericResponse {
 export interface LoginResponse extends GenericResponse {
   user: User
 }
+
+export interface VerifyTokenResponse extends GenericResponse {
+  user: User
+}

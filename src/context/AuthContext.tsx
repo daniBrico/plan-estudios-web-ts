@@ -1,9 +1,10 @@
-import { type ReactNode, useState, type JSX } from 'react'
+import { type ReactNode, useState, type JSX, useEffect } from 'react'
 import { AuthContext, type AuthContextProps } from '../hooks/useAuthContext'
 import type { UserRegisterInputs, User, UserLoginInputs } from '../types/types'
 import useRegisterUser from '../hooks/api/useRegisterUser'
 import useLoginUser from '../hooks/api/useLoginUser'
 import Cookies from 'js-cookie'
+import useVerifyToken from '../hooks/api/useVerifyToken'
 
 interface AuthProviderProps {
   children: ReactNode
@@ -16,6 +17,7 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
 
   const registerMutation = useRegisterUser()
   const loginMutation = useLoginUser()
+  const verifyToken = useVerifyToken()
 
   const resetAuthState = (): void => {
     Cookies.remove('token')
@@ -61,6 +63,15 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   }
 
   const logout = (): void => resetAuthState()
+
+  useEffect(() => {
+    if (verifyToken.isSuccess && verifyToken.data.user) {
+      setUser(verifyToken.data.user)
+      setIsAuthenticated(true)
+    }
+
+    if (verifyToken.isError) resetAuthState()
+  }, [verifyToken.status])
 
   const value: AuthContextProps = {
     user,
