@@ -27,7 +27,8 @@ export default tseslint.config(
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/no-unused-expressions': 'error',
-      'react-hooks/exhaustive-deps': 'off'
+      'react-hooks/exhaustive-deps': 'off',
+      'react-hooks/set-state-in-effect': 'off'
       // '@typescript-eslint/no-explicit-any': 'off'
       // '@typescript-eslint/strict-boolean-expressions': 'error'
     },
