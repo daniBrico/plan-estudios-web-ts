@@ -12,6 +12,7 @@ import ThemeProvider from './context/ThemeContext'
 import RegisterPage from './pages/authPages/RegisterPage'
 import AuthProvider from './context/AuthContext'
 import LoginPage from './pages/authPages/LoginPage'
+import VerifyEmailPage from './pages/authPages/VerifyEmailPage'
 
 const APP_VERSION = '1.0.2'
 
@@ -34,7 +35,7 @@ function App(): JSX.Element {
             }}
           />
           <Header />
-          <main className="grow-1 py-8">
+          <main className="grow py-8">
             <Routes>
               <Route index element={<Navigate to="inicio" replace />} />
               <Route path="inicio" element={<HomePage />} />
@@ -42,6 +43,7 @@ function App(): JSX.Element {
               <Route path="info-academica" element={<AcademicInformation />} />
               <Route path="register" element={<RegisterPage />} />
               <Route path="login" element={<LoginPage />} />
+              <Route path="verify-email" element={<VerifyEmailPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>
