@@ -1,6 +1,11 @@
 import { type ReactNode, useState, type JSX, useEffect } from 'react'
 import { AuthContext, type AuthContextProps } from '../hooks/useAuthContext'
-import type { UserRegisterInputs, User, UserLoginInputs } from '../types/types'
+import type {
+  UserRegisterInputs,
+  User,
+  UserLoginInputs,
+  RegisterResponse
+} from '../types/types'
 import useRegisterUser from '../hooks/api/useRegisterUser'
 import useLoginUser from '../hooks/api/useLoginUser'
 import Cookies from 'js-cookie'
@@ -26,12 +31,12 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   }
 
   const signUp = async (
-    userRegisterInputs: UserRegisterInputs
+    userRegisterInputs: UserRegisterInputs,
+    onFinished?: (res: RegisterResponse) => void
   ): Promise<void> => {
     registerMutation.mutate(userRegisterInputs, {
       onSuccess: (res) => {
-        setUser(res.user)
-        setIsAuthenticated(true)
+        onFinished?.(res)
       },
       onError: (err) => {
         if (err instanceof Error) {

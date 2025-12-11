@@ -101,6 +101,7 @@ interface GenericResponse {
 
 export interface RegisterResponse extends GenericResponse {
   user: User
+  emailSent: boolean
 }
 
 export interface LoginResponse extends GenericResponse {

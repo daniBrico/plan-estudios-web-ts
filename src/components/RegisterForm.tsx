@@ -4,7 +4,7 @@ import { useEffect, type JSX } from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { LoadingSpinner2 } from './LoadingSpinner2'
-import { type UserRegisterInputs } from '../types/types'
+import type { RegisterResponse, UserRegisterInputs } from '../types/types'
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useNavigate } from 'react-router-dom'
 
@@ -24,8 +24,8 @@ const userSchema = z.object({
 type FormFields = z.infer<typeof userSchema>
 
 const RegisterForm = (): JSX.Element => {
-  const { signUp, isRegistering, isAuthenticated } = useAuthContext()
-  const navigate = useNavigate()
+  const { signUp, isRegistering } = useAuthContext()
+  const location = useNavigate()
 
   const {
     register,
@@ -40,7 +40,16 @@ const RegisterForm = (): JSX.Element => {
 
   const onSubmit: SubmitHandler<FormFields> = async (
     userRegisterInputs: UserRegisterInputs
-  ) => signUp(userRegisterInputs)
+  ) => {
+    signUp(userRegisterInputs, (res: RegisterResponse) => {
+      if (res.emailSent)
+        location('/verify-email', {
+          state: { userEmail: res.user.email, emailSent: res.emailSent }
+        })
+
+      return
+    })
+  }
 
   useEffect(() => {
     if (Object.keys(errors).length === 0) return
@@ -51,12 +60,6 @@ const RegisterForm = (): JSX.Element => {
 
     return (): void => clearTimeout(showErrorTimer)
   }, [errors.name, errors.email, errors.lastName, errors.password])
-
-  useEffect(() => {
-    if (!isAuthenticated) return
-
-    navigate('/inicio')
-  }, [isAuthenticated])
 
   return (
     <form

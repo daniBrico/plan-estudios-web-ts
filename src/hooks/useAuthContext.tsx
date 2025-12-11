@@ -1,9 +1,17 @@
 import { createContext, useContext } from 'react'
-import type { UserRegisterInputs, User, UserLoginInputs } from '../types/types'
+import type {
+  UserRegisterInputs,
+  User,
+  UserLoginInputs,
+  RegisterResponse
+} from '../types/types'
 
 export interface AuthContextProps {
   user: User | null
-  signUp: (userRegisterInputs: UserRegisterInputs) => Promise<void>
+  signUp: (
+    userRegisterInputs: UserRegisterInputs,
+    onFinished?: (res: RegisterResponse) => void
+  ) => Promise<void>
   signIn: (loginData: UserLoginInputs) => Promise<void>
   logout: () => void
   isAuthenticated: boolean
