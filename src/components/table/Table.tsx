@@ -38,7 +38,7 @@ const Table: React.FC<TableProps> = ({ tableTitle, subjects }) => {
     <div className="mb-4 w-full rounded-lg md:mb-0 md:shadow-xl md:dark:shadow-stone-950/30">
       <div className="relative h-full pt-8 md:pt-0">
         <div className="pointer-events-none absolute top-0 right-0 h-full w-full pb-21 md:invisible md:hidden">
-          <h2 className="bg-carnation-400 md:text-carnation-400 sticky top-2 z-[150] rounded-tl-md rounded-tr-md py-0.5 text-center text-xl text-white md:invisible md:static md:mb-3 md:hidden md:w-full md:rounded-none md:bg-inherit md:text-2xl dark:bg-stone-900 dark:text-stone-300">
+          <h2 className="bg-carnation-400 md:text-carnation-400 sticky top-2 z-150 rounded-tl-md rounded-tr-md py-0.5 text-center text-xl text-white md:invisible md:static md:mb-3 md:hidden md:w-full md:rounded-none md:bg-inherit md:text-2xl dark:bg-stone-900 dark:text-stone-300">
             {`(${countOfSubjectsByYear}) ${tableTitle}`}
           </h2>
         </div>
