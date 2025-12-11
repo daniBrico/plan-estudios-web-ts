@@ -127,7 +127,7 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
         className={classNames(
           'border-carnation-400 group hover:bg-carnation-400 absolute right-full mr-1 h-8 w-8 cursor-pointer rounded-full border-2 border-solid p-1 transition-all duration-300 dark:border-stone-500 dark:hover:border-stone-300 dark:hover:bg-stone-900',
           {
-            'pointer-events-auto z-[500] translate-x-0 opacity-100':
+            'pointer-events-auto z-500 translate-x-0 opacity-100':
               dropdownOp !== '' && isDropdownOpen,
             'pointer-events-none translate-x-8 opacity-0':
               dropdownOp === '' || !isDropdownOpen,
@@ -140,10 +140,10 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
         <CancelIcon />
       </div>
       {/* Dropdown button */}
-      <div className={`bg-third relative z-[90] rounded-sm dark:bg-stone-800`}>
+      <div className={`bg-third relative z-90 rounded-sm dark:bg-stone-800`}>
         <div
           onClick={() => corrPassed && setIsDropdownOpen((prev) => !prev)}
-          className={`select group border-carnation-400 flex min-h-8 items-center justify-between rounded-sm border-2 border-solid px-2 text-white transition-shadow duration-300 dark:border-stone-500 ${isDropdownOpen ? 'border-[#f15a5c]' : ''} ${corrPassed ? 'hover:bg-carnation-400 cursor-pointer hover:border-white dark:hover:border-stone-300 dark:hover:bg-stone-700' : 'cursor-default opacity-50'}`}
+          className={`select group border-carnation-400 flex min-h-8 items-center justify-between rounded-sm border-2 border-solid px-2 text-white transition-shadow duration-300 dark:border-stone-500 ${isDropdownOpen ? 'border-carnation-400' : ''} ${corrPassed ? 'hover:bg-carnation-400 cursor-pointer hover:border-white dark:hover:border-stone-300 dark:hover:bg-stone-700' : 'cursor-default opacity-50'}`}
         >
           {/* Current selected option */}
           <span className="selected text-carnation-400 select-none group-hover:text-white dark:text-stone-400 dark:group-hover:text-stone-300">
@@ -164,7 +164,7 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
       </div>
       {/* Dropdown list elements */}
       <ul
-        className={`text-carnation-400 bg-third absolute z-[200] mt-1 flex w-28 flex-col gap-0.5 rounded-md border-2 border-solid border-white px-2 py-2 text-center shadow-sm transition-opacity duration-300 ease-in-out sm:w-30 dark:border-stone-500 dark:bg-stone-800 dark:text-stone-400 ${isDropdownOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}
+        className={`text-carnation-400 bg-third absolute z-200 mt-1 flex w-28 flex-col gap-0.5 rounded-md border-2 border-solid border-white px-2 py-2 text-center shadow-sm transition-opacity duration-300 ease-in-out sm:w-30 dark:border-stone-500 dark:bg-stone-800 dark:text-stone-400 ${isDropdownOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}
       >
         {options.map((option) => renderOption(option.label, option.value))}
       </ul>
