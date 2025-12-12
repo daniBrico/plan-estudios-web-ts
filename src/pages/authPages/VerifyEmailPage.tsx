@@ -12,16 +12,18 @@ const VerifyEmailPage = (): JSX.Element => {
         <h1 className="text-carnation-400 mb-2 text-3xl font-medium">
           Verifique su correo electronico
         </h1>
-        {location.state?.userEmail ? (
+        {location.state?.emailSent ? (
           <p>
             Se ha enviado un correo de verificación a
             <b> {location.state.userEmail}</b>. <br /> Revise su bandeja de
-            entrada o spam.
+            entrada o spam. Si no lo recibes en unos minutos, podrás solicitar
+            un reenvío al intentar iniciar sesión.
           </p>
         ) : (
           <p>
             Se ha enviado un correo de verificación. <br /> Revise su bandeja de
-            entrada o spam.
+            entrada o spam. Si no lo recibes en unos minutos, podrías solicitar
+            un reenvío al intentar iniciar sesión.
           </p>
         )}
       </section>
