@@ -1,12 +1,15 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import classNames from 'classnames'
-import { useEffect, type JSX } from 'react'
+import { useEffect, useState, type JSX } from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { LoadingSpinner2 } from './LoadingSpinner2'
 import type { RegisterResponse, UserRegisterInputs } from '../types/types'
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useNavigate } from 'react-router-dom'
+import NotificationMessage from './NotificationMessage'
+import type { ApiError } from '../types/errors'
+import { useErrorMessages } from '../hooks/useErrorMessages'
 
 const userSchema = z.object({
   name: z
@@ -24,8 +27,12 @@ const userSchema = z.object({
 type FormFields = z.infer<typeof userSchema>
 
 const RegisterForm = (): JSX.Element => {
+  const [showMessage, setShowMessage] = useState(false)
+  const [message, setMessage] = useState('')
+
   const { signUp, isRegistering } = useAuthContext()
   const location = useNavigate()
+  const { translate } = useErrorMessages()
 
   const {
     register,
@@ -41,14 +48,19 @@ const RegisterForm = (): JSX.Element => {
   const onSubmit: SubmitHandler<FormFields> = async (
     userRegisterInputs: UserRegisterInputs
   ) => {
-    signUp(userRegisterInputs, (res: RegisterResponse) => {
-      if (res.emailSent)
+    signUp(
+      userRegisterInputs,
+      (res: RegisterResponse) => {
         location('/verify-email', {
-          state: { userEmail: res.user.email, emailSent: res.emailSent }
+          state: { userEmail: res.user?.email, emailSent: res.emailSent }
         })
-
-      return
-    })
+      },
+      (error: ApiError) => {
+        const userMessage = translate(error.errorCode)
+        setMessage(userMessage)
+        setShowMessage(true)
+      }
+    )
   }
 
   useEffect(() => {
@@ -61,105 +73,125 @@ const RegisterForm = (): JSX.Element => {
     return (): void => clearTimeout(showErrorTimer)
   }, [errors.name, errors.email, errors.lastName, errors.password])
 
+  useEffect(() => {
+    if (!showMessage) return
+
+    const hideTimer = setTimeout(() => {
+      setShowMessage(false)
+    }, 3000)
+
+    const clearMessageTimer = setTimeout(() => {
+      setMessage('')
+    }, 3300)
+
+    return (): void => {
+      clearTimeout(hideTimer)
+      clearTimeout(clearMessageTimer)
+    }
+  }, [showMessage])
+
   return (
-    <form
-      className="flex h-full min-w-md flex-col gap-6 rounded-md bg-gray-50 px-8 py-4 shadow-md [&_input]:w-full [&_input]:rounded-md [&_input]:border [&_input]:border-gray-300 [&_input]:bg-gray-100 [&_input]:px-4 [&_input]:py-1 [&_input]:text-lg [&_input]:placeholder:text-gray-400 [&_input]:focus:outline-gray-400"
-      action="submit"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <h1 className="text-lg font-semibold text-gray-700 md:text-2xl lg:text-3xl dark:text-stone-200">
-        Ingrese sus datos
-      </h1>
-      <div className="relative">
-        <input {...register('name')} type="text" placeholder="Nombre" />
-        <p
-          className={classNames(
-            'absolute pl-0.5 text-sm text-red-500 transition-all duration-300 ease-in-out',
-            {
-              'translate-y-0.5 opacity-100': errors.name,
-              'pointer-events-none -translate-y-1 opacity-0': !errors.name
-            }
-          )}
-        >
-          {errors.name?.message}
-        </p>
-      </div>
-      <div className="relative">
-        <input {...register('lastName')} type="text" placeholder="Apellido" />
-        <p
-          className={classNames(
-            'absolute pl-0.5 text-sm text-red-500 transition-all duration-300 ease-in-out',
-            {
-              'translate-y-0.5 opacity-100': errors.lastName,
-              'pointer-events-none -translate-y-1 opacity-0': !errors.lastName
-            }
-          )}
-        >
-          {errors.lastName?.message}
-        </p>
-      </div>
-      <div className="relative">
-        <input {...register('email')} type="text" placeholder="Mail" />
-        <p
-          className={classNames(
-            'absolute pl-0.5 text-sm text-red-500 transition-all duration-300 ease-in-out',
-            {
-              'translate-y-0.5 opacity-100': errors.email,
-              'pointer-events-none -translate-y-1 opacity-0': !errors.email
-            }
-          )}
-        >
-          {errors.email?.message}
-        </p>
-      </div>
-      <div className="relative">
-        <input
-          {...register('password')}
-          type="password"
-          placeholder="Contraseña"
-        />
-        <p
-          className={classNames(
-            'absolute pl-0.5 text-sm text-red-500 transition-all duration-300 ease-in-out',
-            {
-              'translate-y-0.5 opacity-100': errors.password,
-              'pointer-events-none -translate-y-1 opacity-0': !errors.password
-            }
-          )}
-        >
-          {errors.password?.message}
-        </p>
-      </div>
-      <div className="flex w-full justify-center">
-        <button
-          className="relative cursor-pointer rounded-md bg-gray-600 px-2 py-1 text-lg text-white transition-all duration-300 ease-in-out hover:bg-gray-500 disabled:cursor-auto disabled:bg-gray-500 dark:bg-stone-700 dark:hover:bg-stone-800"
-          type="submit"
-          disabled={isRegistering}
-        >
-          Registrarse
-          {isRegistering && (
-            <div className="absolute top-0 -right-12 cursor-auto">
-              <LoadingSpinner2
-                size="w-9 h-9"
-                thickness="border-4"
-                color="border-t-gray-600"
-              />
-            </div>
-          )}
-        </button>
-      </div>
-      <p
-        className={classNames(
-          'absolute pl-0.5 text-sm text-red-500 transition-all duration-300 ease-in-out',
-          {
-            'translate-y-0.5 opacity-100': errors.root,
-            'pointer-events-none -translate-y-1 opacity-0': !errors.root
-          }
-        )}
+    <div className="relative">
+      <form
+        className="relative z-100 flex h-full min-w-md flex-col gap-6 rounded-md bg-gray-50 px-8 py-4 shadow-md [&_input]:w-full [&_input]:rounded-md [&_input]:border [&_input]:border-gray-300 [&_input]:bg-gray-100 [&_input]:px-4 [&_input]:py-1 [&_input]:text-lg [&_input]:placeholder:text-gray-400 [&_input]:focus:outline-gray-400"
+        action="submit"
+        onSubmit={handleSubmit(onSubmit)}
       >
-        {errors.root?.message}
-      </p>
-    </form>
+        <h1 className="text-lg font-semibold text-gray-700 md:text-2xl lg:text-3xl dark:text-stone-200">
+          Ingrese sus datos
+        </h1>
+        <div className="relative">
+          <input {...register('name')} type="text" placeholder="Nombre" />
+          <p
+            className={classNames(
+              'absolute pl-0.5 text-sm text-red-500 transition-all duration-300 ease-in-out',
+              {
+                'translate-y-0.5 opacity-100': errors.name,
+                'pointer-events-none -translate-y-1 opacity-0': !errors.name
+              }
+            )}
+          >
+            {errors.name?.message}
+          </p>
+        </div>
+        <div className="relative">
+          <input {...register('lastName')} type="text" placeholder="Apellido" />
+          <p
+            className={classNames(
+              'absolute pl-0.5 text-sm text-red-500 transition-all duration-300 ease-in-out',
+              {
+                'translate-y-0.5 opacity-100': errors.lastName,
+                'pointer-events-none -translate-y-1 opacity-0': !errors.lastName
+              }
+            )}
+          >
+            {errors.lastName?.message}
+          </p>
+        </div>
+        <div className="relative">
+          <input {...register('email')} type="text" placeholder="Mail" />
+          <p
+            className={classNames(
+              'absolute pl-0.5 text-sm text-red-500 transition-all duration-300 ease-in-out',
+              {
+                'translate-y-0.5 opacity-100': errors.email,
+                'pointer-events-none -translate-y-1 opacity-0': !errors.email
+              }
+            )}
+          >
+            {errors.email?.message}
+          </p>
+        </div>
+        <div className="relative">
+          <input
+            {...register('password')}
+            type="password"
+            placeholder="Contraseña"
+          />
+          <p
+            className={classNames(
+              'absolute pl-0.5 text-sm text-red-500 transition-all duration-300 ease-in-out',
+              {
+                'translate-y-0.5 opacity-100': errors.password,
+                'pointer-events-none -translate-y-1 opacity-0': !errors.password
+              }
+            )}
+          >
+            {errors.password?.message}
+          </p>
+        </div>
+        <div className="flex w-full justify-center">
+          <button
+            className="relative cursor-pointer rounded-md bg-gray-600 px-2 py-1 text-lg text-white transition-all duration-300 ease-in-out hover:bg-gray-500 disabled:cursor-auto disabled:bg-gray-500 dark:bg-stone-700 dark:hover:bg-stone-800"
+            type="submit"
+            disabled={isRegistering}
+          >
+            Registrarse
+            {isRegistering && (
+              <div className="absolute top-0 -right-12 cursor-auto">
+                <LoadingSpinner2
+                  size="w-9 h-9"
+                  thickness="border-4"
+                  color="border-t-gray-600"
+                />
+              </div>
+            )}
+          </button>
+        </div>
+        <p
+          className={classNames(
+            'absolute pl-0.5 text-sm text-red-500 transition-all duration-300 ease-in-out',
+            {
+              'translate-y-0.5 opacity-100': errors.root,
+              'pointer-events-none -translate-y-1 opacity-0': !errors.root
+            }
+          )}
+        >
+          {errors.root?.message}
+        </p>
+      </form>
+      <NotificationMessage show={showMessage} message={message} />
+    </div>
   )
 }
 
