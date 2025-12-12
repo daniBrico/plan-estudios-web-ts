@@ -95,19 +95,25 @@ type ThemeType = 'light' | 'dark' | 'system'
 
 interface GenericResponse {
   message: string
+  status: number
 }
 
 /* Auth Response */
 
 export interface RegisterResponse extends GenericResponse {
-  user: User
-  emailSent: boolean
+  user?: User
+  emailSent?: boolean
 }
 
 export interface LoginResponse extends GenericResponse {
-  user: User
+  user?: User
+  emailSent?: boolean
 }
 
 export interface VerifyTokenResponse extends GenericResponse {
-  user: User
+  user?: User
+}
+
+export interface VerifyEmailResponse extends GenericResponse {
+  success: boolean
 }
