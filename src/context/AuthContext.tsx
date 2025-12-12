@@ -10,6 +10,7 @@ import useRegisterUser from '../hooks/api/useRegisterUser'
 import useLoginUser from '../hooks/api/useLoginUser'
 import Cookies from 'js-cookie'
 import useVerifyToken from '../hooks/api/useVerifyToken'
+import type { ApiError } from '../types/errors'
 
 interface AuthProviderProps {
   children: ReactNode
@@ -32,19 +33,12 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
 
   const signUp = async (
     userRegisterInputs: UserRegisterInputs,
-    onFinished?: (res: RegisterResponse) => void
+    onSuccess?: (res: RegisterResponse) => void,
+    onError?: (error: ApiError) => void
   ): Promise<void> => {
     registerMutation.mutate(userRegisterInputs, {
-      onSuccess: (res) => {
-        onFinished?.(res)
-      },
-      onError: (err) => {
-        if (err instanceof Error) {
-          setError(err.message)
-        } else {
-          setError('Unknown error')
-        }
-      }
+      onSuccess: (res) => onSuccess?.(res),
+      onError: (err) => onError?.(err)
     })
   }
 
