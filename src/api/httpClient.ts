@@ -5,4 +5,24 @@ const httpClient = axios.create({
   withCredentials: true
 })
 
+httpClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (axios.isAxiosError(error)) {
+      const status = error.response?.status
+      const data = error.response?.data
+
+      const cleanError = {
+        status,
+        errorCode: data?.errorCode,
+        message: data?.message || 'Server error'
+      }
+
+      return Promise.reject(cleanError)
+    }
+
+    return Promise.reject(error)
+  }
+)
+
 export default httpClient
