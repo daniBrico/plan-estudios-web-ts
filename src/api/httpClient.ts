@@ -15,7 +15,8 @@ httpClient.interceptors.response.use(
       const cleanError = {
         status,
         errorCode: data?.errorCode,
-        message: data?.message || 'Server error'
+        message: data?.message || 'Server error',
+        emailSent: data?.emailSent
       }
 
       return Promise.reject(cleanError)
