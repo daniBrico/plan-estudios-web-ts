@@ -3,7 +3,8 @@ import type {
   UserRegisterInputs,
   User,
   UserLoginInputs,
-  RegisterResponse
+  RegisterResponse,
+  LoginResponse
 } from '../types/types'
 import type { ApiError } from '../types/errors'
 
@@ -14,7 +15,11 @@ export interface AuthContextProps {
     onSuccess?: (res: RegisterResponse) => void,
     onError?: (error: ApiError) => void
   ) => Promise<void>
-  signIn: (loginData: UserLoginInputs) => Promise<void>
+  signIn: (
+    loginData: UserLoginInputs,
+    onSuccess?: (res: LoginResponse) => void,
+    onError?: (error: ApiError) => void
+  ) => Promise<void>
   logout: () => void
   isAuthenticated: boolean
   error: string

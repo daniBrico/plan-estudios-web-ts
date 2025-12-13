@@ -4,7 +4,9 @@ import type {
   UserRegisterInputs,
   User,
   UserLoginInputs,
-  RegisterResponse
+  RegisterResponse,
+  LoginResponse
+  // LoginResponse
 } from '../types/types'
 import useRegisterUser from '../hooks/api/useRegisterUser'
 import useLoginUser from '../hooks/api/useLoginUser'
@@ -42,22 +44,23 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     })
   }
 
-  const signIn = async (loginData: UserLoginInputs): Promise<void> => {
+  const signIn = async (
+    loginData: UserLoginInputs,
+    onSuccess?: (res: LoginResponse) => void,
+    onError?: (error: ApiError) => void
+  ): Promise<void> => {
     setError('')
     loginMutation.mutate(loginData, {
       onSuccess: (res) => {
-        setUser(res.user)
-        setIsAuthenticated(true)
-      },
-      onError: (err) => {
-        if (err instanceof Error) {
-          setError(err.message)
-        } else {
-          setError('Unknow error to login user')
-          setUser(null)
-          setIsAuthenticated(false)
+        if (res.user) {
+          setUser(res.user)
+          setIsAuthenticated(true)
+          return
         }
-      }
+
+        onSuccess?.(res)
+      },
+      onError: (err) => onError?.(err)
     })
   }
 
