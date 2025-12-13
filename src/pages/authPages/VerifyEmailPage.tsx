@@ -4,7 +4,7 @@ import { Navigate, useLocation } from 'react-router-dom'
 const VerifyEmailPage = (): JSX.Element => {
   const location = useLocation()
 
-  if (!location.state?.emailSent) return <Navigate to="/inicio" replace />
+  if (!location.state?.fromRegister) return <Navigate to="/inicio" replace />
 
   return (
     <article className="mx-auto max-w-4xl">
@@ -14,16 +14,20 @@ const VerifyEmailPage = (): JSX.Element => {
         </h1>
         {location.state?.emailSent ? (
           <p>
-            Se ha enviado un correo de verificación a
-            <b> {location.state.userEmail}</b>. <br /> Revise su bandeja de
-            entrada o spam. Si no lo recibes en unos minutos, podrás solicitar
-            un reenvío al intentar iniciar sesión.
+            Si la dirección es válida, te hemos enviado un correo de
+            verificación a<b> {location.state.userEmail}</b>.
+            <br />
+            Revisa tu bandeja de entrada o la carpeta de spam.
+            <br />
+            Si no lo recibes en unos minutos, podrás solicitar un reenvío al
+            intentar iniciar sesión.
           </p>
         ) : (
           <p>
-            Se ha enviado un correo de verificación. <br /> Revise su bandeja de
-            entrada o spam. Si no lo recibes en unos minutos, podrías solicitar
-            un reenvío al intentar iniciar sesión.
+            Estamos teniendo inconvenientes para enviar el correo de
+            verificación en este momento.
+            <br />
+            Intenta iniciar sesión más tarde para solicitar un nuevo envío.
           </p>
         )}
       </section>

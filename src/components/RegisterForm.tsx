@@ -52,7 +52,11 @@ const RegisterForm = (): JSX.Element => {
       userRegisterInputs,
       (res: RegisterResponse) => {
         location('/verify-email', {
-          state: { userEmail: res.user?.email, emailSent: res.emailSent }
+          state: {
+            fromRegister: true,
+            userEmail: res.user?.email,
+            emailSent: res.emailSent
+          }
         })
       },
       (error: ApiError) => {
