@@ -17,22 +17,23 @@ const VerofyEmailInfoPage = (): JSX.Element => {
   const verificationMessage = (): JSX.Element => {
     if (!state.emailSent)
       return (
-        <>
+        <p>
           Estamos teniendo inconvenientes para enviar el correo de verificación
           en este momento. Intentelo más tarde.
-        </>
+        </p>
       )
 
     return (
       <>
-        Si la dirección es válida, enviaremos un correo de verificación
-        {state.userEmail && (
-          <p>
-            a<b> {state.userEmail}</b>
-          </p>
-        )}
-        . Asegurate de revisar la bandeja de entrada o la carpeta de spam.
-        <br />
+        <p>
+          Si la dirección es válida, enviaremos un correo de verificación a{' '}
+          {state.userEmail && (
+            <span>
+              <b>{state.userEmail}</b>
+            </span>
+          )}
+          . Asegúrate de revisar la bandeja de entrada o la carpeta de spam.
+        </p>
         {state.fromRegister && (
           <p>
             Si no lo recibes en unos minutos, podrás solicitar un reenvío al
@@ -49,7 +50,7 @@ const VerofyEmailInfoPage = (): JSX.Element => {
         <h1 className="text-carnation-400 mb-2 text-3xl font-medium">
           Verifique su correo electronico
         </h1>
-        <p>{verificationMessage()}</p>
+        {verificationMessage()}
       </section>
     </article>
   )
