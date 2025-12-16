@@ -42,7 +42,7 @@ const LoginForm = (): JSX.Element => {
         console.log(res)
       },
       (error: ApiError) => {
-        location('/verify-email', {
+        location('/verify-email-info', {
           state: {
             fromLogin: true,
             emailSent: error.emailSent

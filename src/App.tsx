@@ -12,7 +12,8 @@ import ThemeProvider from './context/ThemeContext'
 import RegisterPage from './pages/authPages/RegisterPage'
 import AuthProvider from './context/AuthContext'
 import LoginPage from './pages/authPages/LoginPage'
-import VerifyEmailPage from './pages/authPages/VerifyEmailPage'
+import VerifyEmailInfoPage from './pages/authPages/VerifyEmailInfoPage'
+import EmailVerificationPage from './pages/authPages/EmailVerificationPage'
 
 const APP_VERSION = '1.0.2'
 
@@ -43,7 +44,11 @@ function App(): JSX.Element {
               <Route path="info-academica" element={<AcademicInformation />} />
               <Route path="register" element={<RegisterPage />} />
               <Route path="login" element={<LoginPage />} />
-              <Route path="verify-email" element={<VerifyEmailPage />} />
+              <Route
+                path="verify-email-info"
+                element={<VerifyEmailInfoPage />}
+              />
+              <Route path="verify/email" element={<EmailVerificationPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>
