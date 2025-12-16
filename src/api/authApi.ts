@@ -3,7 +3,8 @@ import type {
   RegisterResponse,
   UserLoginInputs,
   LoginResponse,
-  VerifyTokenResponse
+  VerifyTokenResponse,
+  VerifyEmailResponse
 } from '../types/types'
 import httpClient from './httpClient'
 
@@ -25,7 +26,15 @@ export const authApi = {
   },
   verifyToken: async (): Promise<VerifyTokenResponse> => {
     const res = await httpClient.get<VerifyTokenResponse>(
-      `${AUTH_API_PREFIX}/verify`
+      `${AUTH_API_PREFIX}/verify/token`
+    )
+
+    return res.data
+  },
+  verifyEmail: async (token: string): Promise<VerifyEmailResponse> => {
+    const res = await httpClient.post<VerifyEmailResponse>(
+      `${AUTH_API_PREFIX}/verify/email`,
+      { token }
     )
 
     return res.data
