@@ -54,8 +54,7 @@ const RegisterForm = (): JSX.Element => {
         location('/verify-email-info', {
           state: {
             fromRegister: true,
-            userEmail: res.user?.email,
-            emailSent: res.emailSent
+            errorCode: res.code
           }
         })
       },

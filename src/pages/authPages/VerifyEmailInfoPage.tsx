@@ -1,48 +1,26 @@
 import { type JSX } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
+import { type ErrorCode } from '../../types/errors'
+import { useErrorMessages } from '../../hooks/useErrorMessages'
 
 interface VerifyEmailState {
   fromRegister?: boolean
   fromLogin?: boolean
   emailSent?: boolean
-  userEmail?: string
+  email?: string
+  errorCode?: ErrorCode
 }
 
 const VerofyEmailInfoPage = (): JSX.Element => {
   const { state } = useLocation() as { state: VerifyEmailState | null }
+  const { translate } = useErrorMessages()
 
   if (!state?.fromRegister && !state?.fromLogin)
     return <Navigate to="/inicio" replace />
 
-  const verificationMessage = (): JSX.Element => {
-    if (!state.emailSent)
-      return (
-        <p>
-          Estamos teniendo inconvenientes para enviar el correo de verificación
-          en este momento. Intentelo más tarde.
-        </p>
-      )
-
-    return (
-      <>
-        <p>
-          Si la dirección es válida, enviaremos un correo de verificación a{' '}
-          {state.userEmail && (
-            <span>
-              <b>{state.userEmail}</b>
-            </span>
-          )}
-          . Asegúrate de revisar la bandeja de entrada o la carpeta de spam.
-        </p>
-        {state.fromRegister && (
-          <p>
-            Si no lo recibes en unos minutos, podrás solicitar un reenvío al
-            intentar iniciar sesión.
-          </p>
-        )}
-      </>
-    )
-  }
+  const message = state.errorCode
+    ? translate(state.errorCode)
+    : translate('GENERIC_ERROR')
 
   return (
     <article className="mx-auto max-w-4xl">
@@ -50,7 +28,8 @@ const VerofyEmailInfoPage = (): JSX.Element => {
         <h1 className="text-carnation-400 mb-2 text-3xl font-medium">
           Verifique su correo electronico
         </h1>
-        {verificationMessage()}
+        {/* {verificationMessage()} */}
+        <p>{message}</p>
       </section>
     </article>
   )

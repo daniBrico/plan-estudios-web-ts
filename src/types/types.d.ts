@@ -101,13 +101,15 @@ interface GenericResponse {
 /* Auth Response */
 
 export interface RegisterResponse extends GenericResponse {
-  user?: User
+  email: string
+  code: string
   emailSent?: boolean
 }
 
 export interface LoginResponse extends GenericResponse {
   user?: User
   emailSent?: boolean
+  code: string
 }
 
 export interface VerifyTokenResponse extends GenericResponse {

@@ -45,7 +45,9 @@ const LoginForm = (): JSX.Element => {
         location('/verify-email-info', {
           state: {
             fromLogin: true,
-            emailSent: error.emailSent
+            emailSent: error.emailSent,
+            email: error.email,
+            errorCode: error.errorCode
           }
         })
         const userMessage = translate(error.errorCode)
