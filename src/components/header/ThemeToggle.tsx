@@ -69,7 +69,7 @@ const ThemeToggle = (): JSX.Element => {
         {themeIconMap[theme]}
       </button>
       <ul
-        className={`bg-carnation-400 absolute z-50 mt-2 flex h-28 w-10 transform flex-col justify-around rounded-sm border border-solid border-white shadow-lg transition-all duration-300 ease-in-out sm:right-0 sm:h-34 sm:w-30 sm:p-1.5 dark:border-stone-200 dark:bg-stone-900 ${isDropdownOpen ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'}`}
+        className={`bg-carnation-400 absolute z-400 mt-2 flex h-28 w-10 transform flex-col justify-around rounded-sm border border-solid border-white shadow-lg transition-all duration-300 ease-in-out sm:right-0 sm:h-34 sm:w-30 sm:p-1.5 dark:border-stone-200 dark:bg-stone-900 ${isDropdownOpen ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'}`}
       >
         {renderThemeOptions()}
       </ul>

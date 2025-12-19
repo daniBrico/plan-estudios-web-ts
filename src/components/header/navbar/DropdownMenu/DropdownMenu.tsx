@@ -14,7 +14,7 @@ const DropdownMenu = forwardRef<
     <ul
       ref={ref}
       className={classNames(
-        'bg-carnation-400 absolute z-200 mt-1 flex flex-col gap-2 rounded-md p-2 shadow-md transition-all duration-300 ease-in-out sm:mt-2',
+        'bg-carnation-400 absolute z-200 mt-1 flex flex-col gap-2 rounded-md p-2 shadow-md transition-all duration-300 ease-in-out sm:mt-2 dark:bg-stone-900 dark:shadow-stone-800',
         cssClassess,
         {
           'translate-y-0 opacity-100': isOpen,
