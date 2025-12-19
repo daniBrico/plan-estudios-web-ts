@@ -19,7 +19,7 @@ const NotificationMessage: React.FC<NotificationMessageProps> = ({
         }
       )}
     >
-      <p className="text-center text-pretty">{message}</p>
+      <p className="text-center text-sm text-pretty md:text-base">{message}</p>
     </div>
   )
 }
