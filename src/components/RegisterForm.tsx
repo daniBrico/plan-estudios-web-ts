@@ -96,11 +96,11 @@ const RegisterForm = (): JSX.Element => {
   return (
     <div className="relative w-full">
       <form
-        className="relative z-100 flex w-full flex-col gap-3 rounded-md bg-gray-50 px-4 py-3 shadow-md sm:px-6 sm:py-4 [&_input]:w-full [&_input]:rounded-md [&_input]:border [&_input]:border-gray-300 [&_input]:bg-gray-100 [&_input]:px-2 [&_input]:py-1 [&_input]:text-base [&_input]:placeholder:text-gray-400 [&_input]:focus:outline-gray-400 md:[&_input]:text-lg"
+        className="relative z-100 flex w-full flex-col gap-3 rounded-md border border-gray-200 bg-gray-50 px-4 py-3 text-gray-800 shadow-md sm:px-6 sm:py-4 dark:border dark:border-stone-800 dark:bg-stone-900 [&_input]:w-full [&_input]:rounded-md [&_input]:border [&_input]:border-gray-300 [&_input]:bg-gray-100 [&_input]:px-2 [&_input]:py-1 [&_input]:text-base [&_input]:placeholder:text-gray-400 [&_input]:focus:outline-gray-400 md:[&_input]:text-lg [&_input]:dark:border-stone-700 [&_input]:dark:bg-stone-800 [&_input]:dark:text-stone-200 [&_input]:dark:placeholder:text-stone-500 [&_input]:dark:focus:outline-1 [&_input]:dark:focus:outline-stone-500"
         action="submit"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h1 className="text-lg font-semibold text-gray-700 sm:text-xl md:text-2xl dark:text-stone-200">
+        <h1 className="text-lg font-semibold text-gray-700 sm:text-xl md:text-2xl dark:text-stone-300">
           Ingrese sus datos
         </h1>
         <div className="flex flex-col gap-6">
@@ -108,7 +108,7 @@ const RegisterForm = (): JSX.Element => {
             <input {...register('name')} type="text" placeholder="Nombre" />
             <p
               className={classNames(
-                'absolute pl-0.5 text-xs text-red-500 transition-all duration-300 ease-in-out sm:text-sm',
+                'absolute pl-0.5 text-xs text-red-500 transition-all duration-300 ease-in-out sm:text-sm dark:tracking-wide',
                 {
                   'translate-y-0.5 opacity-100': errors.name,
                   'pointer-events-none -translate-y-1 opacity-0': !errors.name
@@ -126,7 +126,7 @@ const RegisterForm = (): JSX.Element => {
             />
             <p
               className={classNames(
-                'absolute pl-0.5 text-xs text-red-500 transition-all duration-300 ease-in-out md:text-sm',
+                'absolute pl-0.5 text-xs text-red-500 transition-all duration-300 ease-in-out md:text-sm dark:tracking-wide',
                 {
                   'translate-y-0.5 opacity-100': errors.lastName,
                   'pointer-events-none -translate-y-1 opacity-0':
@@ -141,7 +141,7 @@ const RegisterForm = (): JSX.Element => {
             <input {...register('email')} type="text" placeholder="Mail" />
             <p
               className={classNames(
-                'absolute pl-0.5 text-xs text-red-500 transition-all duration-300 ease-in-out md:text-sm',
+                'absolute pl-0.5 text-xs text-red-500 transition-all duration-300 ease-in-out md:text-sm dark:tracking-wide',
                 {
                   'translate-y-0.5 opacity-100': errors.email,
                   'pointer-events-none -translate-y-1 opacity-0': !errors.email
@@ -159,7 +159,7 @@ const RegisterForm = (): JSX.Element => {
             />
             <p
               className={classNames(
-                'absolute pl-0.5 text-xs text-red-500 transition-all duration-300 ease-in-out md:text-sm',
+                'absolute pl-0.5 text-xs text-red-500 transition-all duration-300 ease-in-out md:text-sm dark:tracking-wide',
                 {
                   'translate-y-0.5 opacity-100': errors.password,
                   'pointer-events-none -translate-y-1 opacity-0':
@@ -172,8 +172,9 @@ const RegisterForm = (): JSX.Element => {
           </div>
           <div className="flex w-full justify-center">
             <button
-              className="relative cursor-pointer rounded-md bg-gray-600 px-2 py-1 text-lg text-white transition-all duration-300 ease-in-out hover:bg-gray-500 disabled:cursor-auto disabled:bg-gray-500 dark:bg-stone-700 dark:hover:bg-stone-800"
+              className="relative cursor-pointer rounded-md border border-gray-500 bg-gray-600 px-2 py-1 text-lg text-gray-100 transition-all duration-300 ease-in-out hover:bg-gray-500 disabled:cursor-auto disabled:bg-gray-500 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300 dark:hover:bg-stone-700 dark:disabled:bg-stone-700 dark:disabled:text-stone-500"
               type="submit"
+              // disabled={true}
               disabled={isRegistering}
             >
               Registrarse
