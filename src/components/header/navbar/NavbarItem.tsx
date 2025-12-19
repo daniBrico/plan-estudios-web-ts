@@ -20,7 +20,7 @@ const NavbarItem = forwardRef<HTMLLIElement, NavbarItemProps>(
       <li
         ref={ref}
         className={classNames(
-          `text-white transition-all duration-300 ease-in-out hover:underline`,
+          `whitespace-nowrap text-white transition-all duration-300 ease-in-out hover:underline`,
           isActive ? ACTIVE_STYLES : INACTIVE_STYLES,
           {
             'rounded-bl-md': isFirst,
