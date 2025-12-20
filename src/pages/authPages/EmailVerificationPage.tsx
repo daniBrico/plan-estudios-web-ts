@@ -39,17 +39,17 @@ const EmailVerificationPage = (): JSX.Element => {
 
   return (
     <article className="mx-auto max-w-4xl">
-      <section className="h-full w-full flex-col pt-8">
+      <section className="h-full w-full flex-col px-4 pt-6 text-gray-800 md:pt-10 lg:px-0 dark:text-stone-300">
         {isLoading ? (
           <>
-            <h1 className="text-carnation-400 mb-2 text-3xl font-medium">
+            <h1 className="text-2xl font-medium md:text-3xl">
               Verificando su correo
             </h1>
             <p>Por favor espere un momento.</p>
           </>
         ) : (
           <>
-            <h1 className="text-carnation-400 mb-2 text-3xl font-medium">
+            <h1 className="text-2xl font-medium md:text-3xl">
               Verificación de cuenta
             </h1>
             {message && <p>{message}</p>}

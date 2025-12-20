@@ -23,12 +23,11 @@ const VerofyEmailInfoPage = (): JSX.Element => {
     : translate('GENERIC_ERROR')
 
   return (
-    <article className="mx-auto max-w-4xl">
-      <section className="h-full w-full flex-col pt-8">
-        <h1 className="text-carnation-400 mb-2 text-3xl font-medium">
+    <article className="mx-auto max-w-4xl text-gray-800 dark:text-stone-300">
+      <section className="h-full w-full flex-col px-4 pt-6 md:pt-10 lg:px-0">
+        <h1 className="text-2xl font-medium md:text-3xl">
           Verifique su correo electronico
         </h1>
-        {/* {verificationMessage()} */}
         <p>{message}</p>
       </section>
     </article>
