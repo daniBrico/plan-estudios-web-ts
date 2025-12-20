@@ -4,8 +4,8 @@ function HomePage(): JSX.Element {
   return (
     <>
       <article className="w-full py-6">
-        <div className="mx-auto max-w-4xl space-y-2 p-4 text-sm sm:p-6 md:text-base lg:px-0 [&_h1]:dark:text-stone-200 [&_h2]:dark:text-stone-300 [&_p]:dark:text-stone-300">
-          <h1 className="mb-2 text-center text-lg font-semibold tracking-wide text-gray-800 md:text-2xl lg:text-3xl">
+        <div className="mx-auto max-w-4xl space-y-2 p-4 text-sm sm:p-6 md:text-base lg:px-0 [&_b]:text-gray-700 [&_b]:dark:text-stone-200 [&_h1]:text-gray-700 [&_h1]:dark:text-stone-200 [&_h2]:text-gray-700 [&_h2]:dark:text-stone-200 [&_p]:dark:text-stone-300">
+          <h1 className="mb-2 text-center text-lg font-semibold tracking-wide md:text-2xl lg:text-3xl">
             ¡Bienvenidos al Plan de Estudios Web!
           </h1>
           <p className="">

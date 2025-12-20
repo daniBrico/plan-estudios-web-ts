@@ -82,7 +82,7 @@ const RegisterForm = (): JSX.Element => {
         action="submit"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h1 className="text-lg font-semibold text-gray-700 sm:text-xl md:text-2xl dark:text-stone-300">
+        <h1 className="text-lg font-semibold text-gray-700 sm:text-xl md:text-2xl dark:text-stone-200">
           Ingrese sus datos
         </h1>
         <div className="flex flex-col gap-6">
