@@ -1,5 +1,5 @@
 import { type JSX } from 'react'
-import RegisterForm from '../../components/RegisterForm'
+import RegisterForm from '../../components/form/RegisterForm'
 
 // max-w-4xl
 

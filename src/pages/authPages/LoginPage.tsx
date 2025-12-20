@@ -1,5 +1,5 @@
 import { type JSX } from 'react'
-import LoginForm from '../../components/auth/LoginForm'
+import LoginForm from '../../components/form/LoginForm'
 
 const LoginPage = (): JSX.Element => {
   return (

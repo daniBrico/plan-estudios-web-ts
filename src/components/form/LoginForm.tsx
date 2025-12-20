@@ -1,16 +1,16 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import classNames from 'classnames'
 import { useEffect, type JSX } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
 import { useAuthContext } from '../../hooks/useAuthContext'
-import { LoadingSpinner2 } from '../LoadingSpinner2'
 import type { LoginResponse, UserLoginInputs } from '../../types/types'
 import { useNavigate } from 'react-router-dom'
 import NotificationMessage from '../NotificationMessage'
 import { useNotificationMessage } from '../../hooks/useNotificationMessage'
 import { useErrorMessages } from '../../hooks/useErrorMessages'
 import type { ApiError } from '../../types/errors'
+import FormInput from './FormInput'
+import SubmitButton from './SubmitButton'
 
 const userLoginSchema = z.object({
   email: z.email('Debe ser un mail valido'),
@@ -86,57 +86,19 @@ const LoginForm = (): JSX.Element => {
           Ingrese sus datos
         </h1>
         <div className="flex flex-col gap-6">
-          <div className="relative">
-            <input {...register('email')} type="text" placeholder="Mail" />
-            <p
-              className={classNames(
-                'absolute pl-0.5 text-xs text-red-500 transition-all duration-300 ease-in-out sm:text-sm dark:tracking-wide',
-                {
-                  'translate-y-0.5 opacity-100': errors.email,
-                  'pointer-events-none -translate-y-1 opacity-0': !errors.email
-                }
-              )}
-            >
-              {errors.email?.message}
-            </p>
-          </div>
-          <div className="relative">
-            <input
-              {...register('password')}
-              type="password"
-              placeholder="Contraseña"
-            />
-            <p
-              className={classNames(
-                'absolute pl-0.5 text-xs text-red-500 transition-all duration-300 ease-in-out sm:text-sm dark:tracking-wide',
-                {
-                  'translate-y-0.5 opacity-100': errors.password,
-                  'pointer-events-none -translate-y-1 opacity-0':
-                    !errors.password
-                }
-              )}
-            >
-              {errors.password?.message}
-            </p>
-          </div>
-          <div className="flex w-full justify-center">
-            <button
-              className="relative cursor-pointer rounded-md border border-gray-500 bg-gray-600 px-2 py-1 text-lg text-gray-100 transition-all duration-300 ease-in-out hover:bg-gray-500 disabled:cursor-auto disabled:bg-gray-500 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300 dark:hover:bg-stone-700 dark:disabled:bg-stone-700 dark:disabled:text-stone-500"
-              type="submit"
-              disabled={isLogin}
-            >
-              Ingresar
-              {isLogin && (
-                <div className="absolute top-0 -right-12 cursor-auto">
-                  <LoadingSpinner2
-                    size="w-9 h-9"
-                    thickness="border-4"
-                    color="border-t-gray-600"
-                  />
-                </div>
-              )}
-            </button>
-          </div>
+          <FormInput
+            placeholder="Mail"
+            type="email"
+            register={register('email')}
+            error={errors.email}
+          />
+          <FormInput
+            placeholder="Contraseña"
+            type="password"
+            register={register('password')}
+            error={errors.password}
+          />
+          <SubmitButton loading={isLogin} label="Ingresar" />
         </div>
       </form>
       <NotificationMessage show={showMessage} message={message} />
