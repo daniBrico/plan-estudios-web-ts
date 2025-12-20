@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import classNames from 'classnames'
-import { useEffect, useState, type JSX } from 'react'
+import { useEffect, type JSX } from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { LoadingSpinner2 } from './LoadingSpinner2'
@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import NotificationMessage from './NotificationMessage'
 import type { ApiError } from '../types/errors'
 import { useErrorMessages } from '../hooks/useErrorMessages'
+import { useNotificationMessage } from '../hooks/useNotificationMessage'
 
 const userSchema = z.object({
   name: z
@@ -27,12 +28,11 @@ const userSchema = z.object({
 type FormFields = z.infer<typeof userSchema>
 
 const RegisterForm = (): JSX.Element => {
-  const [showMessage, setShowMessage] = useState(false)
-  const [message, setMessage] = useState('')
-
   const { signUp, isRegistering } = useAuthContext()
   const location = useNavigate()
   const { translate } = useErrorMessages()
+  const { message, showMessage, showNotificationMessage } =
+    useNotificationMessage()
 
   const {
     register,
@@ -60,8 +60,7 @@ const RegisterForm = (): JSX.Element => {
       },
       (error: ApiError) => {
         const userMessage = translate(error.errorCode)
-        setMessage(userMessage)
-        setShowMessage(true)
+        showNotificationMessage(userMessage)
       }
     )
   }
@@ -75,23 +74,6 @@ const RegisterForm = (): JSX.Element => {
 
     return (): void => clearTimeout(showErrorTimer)
   }, [errors.name, errors.email, errors.lastName, errors.password])
-
-  useEffect(() => {
-    if (!showMessage) return
-
-    const hideTimer = setTimeout(() => {
-      setShowMessage(false)
-    }, 3000)
-
-    const clearMessageTimer = setTimeout(() => {
-      setMessage('')
-    }, 3300)
-
-    return (): void => {
-      clearTimeout(hideTimer)
-      clearTimeout(clearMessageTimer)
-    }
-  }, [showMessage])
 
   return (
     <div className="relative w-full">
@@ -174,7 +156,6 @@ const RegisterForm = (): JSX.Element => {
             <button
               className="relative cursor-pointer rounded-md border border-gray-500 bg-gray-600 px-2 py-1 text-lg text-gray-100 transition-all duration-300 ease-in-out hover:bg-gray-500 disabled:cursor-auto disabled:bg-gray-500 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300 dark:hover:bg-stone-700 dark:disabled:bg-stone-700 dark:disabled:text-stone-500"
               type="submit"
-              // disabled={true}
               disabled={isRegistering}
             >
               Registrarse
