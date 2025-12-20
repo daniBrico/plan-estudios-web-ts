@@ -1,6 +1,7 @@
 export const errorMessages = {
   es: {
-    EMAIL_ALREADY_EXISTS: 'El correo electrónico ya está registrado',
+    EMAIL_ALREADY_EXISTS:
+      'No se pudo completar el registro. Verificá los datos ingresados.',
     INVALID_CREDENTIALS: 'Correo o contraseña incorrectos',
     TOKEN_EXPIRED: 'El token ha expirado. Realice una nueva verificación',
     TOKEN_INVALID: 'Token invalido. Realice una nueva verificación',
@@ -17,7 +18,8 @@ export const errorMessages = {
     GENERIC_ERROR: 'Ha ocurrido un error. Por favor, inténtalo de nuevo.'
   },
   en: {
-    EMAIL_ALREADY_EXISTS: 'Email already in use',
+    EMAIL_ALREADY_EXISTS:
+      'The registration could not be completed. Please check the information you entered.',
     INVALID_CREDENTIALS: 'Wrong email or password. Please try again',
     TOKEN_EXPIRED:
       'The token has expired. Please request a new verification email',
