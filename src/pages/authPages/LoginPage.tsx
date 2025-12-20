@@ -3,8 +3,8 @@ import LoginForm from '../../components/auth/LoginForm'
 
 const LoginPage = (): JSX.Element => {
   return (
-    <article className="mx-auto max-w-4xl">
-      <section className="flex h-full w-full items-center justify-center pt-8">
+    <article className="flex justify-center px-4 py-8">
+      <section className="w-full max-w-sm sm:max-w-md">
         <LoginForm />
       </section>
     </article>
