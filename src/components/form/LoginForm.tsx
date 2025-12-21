@@ -3,7 +3,7 @@ import { useEffect, type JSX } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
 import { useAuthContext } from '../../hooks/useAuthContext'
-import type { LoginResponse, UserLoginInputs } from '../../types/types'
+import type { LoginResponse } from '../../types/types'
 import { useNavigate } from 'react-router-dom'
 import NotificationMessage from '../NotificationMessage'
 import { useNotificationMessage } from '../../hooks/useNotificationMessage'
@@ -11,6 +11,7 @@ import { useErrorMessages } from '../../hooks/useErrorMessages'
 import type { ApiError } from '../../types/errors'
 import FormInput from './FormInput'
 import SubmitButton from './SubmitButton'
+import type { LoginFormFields } from '../../schemas/auth/login.schema'
 
 const userLoginSchema = z.object({
   email: z.email('Debe ser un mail valido'),
@@ -36,9 +37,9 @@ const LoginForm = (): JSX.Element => {
     reValidateMode: 'onChange'
   })
 
-  const onSubmit = (userLoginInputs: UserLoginInputs): void => {
+  const onSubmit = (LoginFormFields: LoginFormFields): void => {
     signIn(
-      userLoginInputs,
+      LoginFormFields,
       (res: LoginResponse) => {
         console.log(res)
       },

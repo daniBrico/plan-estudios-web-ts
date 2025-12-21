@@ -71,18 +71,6 @@ export interface User {
   email: string
 }
 
-export interface UserRegisterInputs {
-  name: string
-  lastName: string
-  email: string
-  password: string
-}
-
-export interface UserLoginInputs {
-  email: string
-  password: string
-}
-
 export interface HttpClient {
   get<T>(url: string): Promise<T>
 }

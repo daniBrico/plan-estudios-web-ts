@@ -1,8 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect, type JSX } from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
-import { z } from 'zod'
-import type { RegisterResponse, UserRegisterInputs } from '../../types/types'
+import type { RegisterResponse } from '../../types/types'
 import { useAuthContext } from '../../hooks/useAuthContext'
 import { useNavigate } from 'react-router-dom'
 import NotificationMessage from '../NotificationMessage'
@@ -11,21 +10,10 @@ import { useErrorMessages } from '../../hooks/useErrorMessages'
 import { useNotificationMessage } from '../../hooks/useNotificationMessage'
 import FormInput from './FormInput'
 import SubmitButton from './SubmitButton'
-
-const userSchema = z.object({
-  name: z
-    .string()
-    .min(2, 'El nombre debe tener al menos dos caracteres')
-    .max(50, 'El nombre no debe superar los 50 caracteres'),
-  lastName: z
-    .string()
-    .min(2, 'El apellido debe tener al menos dos caracteres')
-    .max(50, 'El apellido no debe superar los 50 caracteres'),
-  email: z.email('Debe ser un email valido'),
-  password: z.string().min(8, 'La contraseña debe tener al menos 8 caracteres')
-})
-
-type FormFields = z.infer<typeof userSchema>
+import {
+  registerSchema,
+  type RegisterFormFields
+} from '../../schemas/auth/register.schema'
 
 const RegisterForm = (): JSX.Element => {
   const { signUp, isRegistering } = useAuthContext()
@@ -39,17 +27,17 @@ const RegisterForm = (): JSX.Element => {
     handleSubmit,
     formState: { errors },
     clearErrors
-  } = useForm<FormFields>({
-    resolver: zodResolver(userSchema),
+  } = useForm<RegisterFormFields>({
+    resolver: zodResolver(registerSchema),
     mode: 'onBlur', // input is not focus
     reValidateMode: 'onChange' // Revalidate after modificate value
   })
 
-  const onSubmit: SubmitHandler<FormFields> = async (
-    userRegisterInputs: UserRegisterInputs
+  const onSubmit: SubmitHandler<RegisterFormFields> = async (
+    RegisterFormFields
   ) => {
     signUp(
-      userRegisterInputs,
+      RegisterFormFields,
       (res: RegisterResponse) => {
         location('/verify-email-info', {
           state: {

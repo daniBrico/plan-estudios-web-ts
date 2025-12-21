@@ -1,7 +1,7 @@
+import type { LoginFormFields } from '../schemas/auth/login.schema'
+import type { RegisterFormFields } from '../schemas/auth/register.schema'
 import type {
-  UserRegisterInputs,
   RegisterResponse,
-  UserLoginInputs,
   LoginResponse,
   VerifyTokenResponse,
   VerifyEmailResponse
@@ -11,7 +11,7 @@ import httpClient from './httpClient'
 const AUTH_API_PREFIX = '/auth'
 
 export const authApi = {
-  registerUser: async (data: UserRegisterInputs): Promise<RegisterResponse> => {
+  registerUser: async (data: RegisterFormFields): Promise<RegisterResponse> => {
     const res = await httpClient.post<RegisterResponse>(
       `${AUTH_API_PREFIX}/register`,
       data
@@ -19,7 +19,7 @@ export const authApi = {
 
     return res.data
   },
-  loginUser: async (data: UserLoginInputs): Promise<LoginResponse> => {
+  loginUser: async (data: LoginFormFields): Promise<LoginResponse> => {
     const res = await httpClient.post(`${AUTH_API_PREFIX}/login`, data)
 
     return res.data

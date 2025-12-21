@@ -1,22 +1,18 @@
 import { createContext, useContext } from 'react'
-import type {
-  UserRegisterInputs,
-  User,
-  UserLoginInputs,
-  RegisterResponse,
-  LoginResponse
-} from '../types/types'
+import type { User, RegisterResponse, LoginResponse } from '../types/types'
 import type { ApiError } from '../types/errors'
+import type { RegisterFormFields } from '../schemas/auth/register.schema'
+import type { LoginFormFields } from '../schemas/auth/login.schema'
 
 export interface AuthContextProps {
   user: User | null
   signUp: (
-    userRegisterInputs: UserRegisterInputs,
+    RegisterFormFields: RegisterFormFields,
     onSuccess?: (res: RegisterResponse) => void,
     onError?: (error: ApiError) => void
   ) => Promise<void>
   signIn: (
-    loginData: UserLoginInputs,
+    loginData: LoginFormFields,
     onSuccess?: (res: LoginResponse) => void,
     onError?: (error: ApiError) => void
   ) => Promise<void>

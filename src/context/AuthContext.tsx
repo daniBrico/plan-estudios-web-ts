@@ -1,18 +1,13 @@
 import { type ReactNode, useState, type JSX, useEffect } from 'react'
 import { AuthContext, type AuthContextProps } from '../hooks/useAuthContext'
-import type {
-  UserRegisterInputs,
-  User,
-  UserLoginInputs,
-  RegisterResponse,
-  LoginResponse
-  // LoginResponse
-} from '../types/types'
+import type { User, RegisterResponse, LoginResponse } from '../types/types'
 import useRegisterUser from '../hooks/api/useRegisterUser'
 import useLoginUser from '../hooks/api/useLoginUser'
 import Cookies from 'js-cookie'
 import useVerifyToken from '../hooks/api/useVerifyToken'
 import type { ApiError } from '../types/errors'
+import type { RegisterFormFields } from '../schemas/auth/register.schema'
+import type { LoginFormFields } from '../schemas/auth/login.schema'
 
 interface AuthProviderProps {
   children: ReactNode
@@ -34,18 +29,18 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   }
 
   const signUp = async (
-    userRegisterInputs: UserRegisterInputs,
+    RegisterFormFields: RegisterFormFields,
     onSuccess?: (res: RegisterResponse) => void,
     onError?: (error: ApiError) => void
   ): Promise<void> => {
-    registerMutation.mutate(userRegisterInputs, {
+    registerMutation.mutate(RegisterFormFields, {
       onSuccess: (res) => onSuccess?.(res),
       onError: (err) => onError?.(err)
     })
   }
 
   const signIn = async (
-    loginData: UserLoginInputs,
+    loginData: LoginFormFields,
     onSuccess?: (res: LoginResponse) => void,
     onError?: (error: ApiError) => void
   ): Promise<void> => {
