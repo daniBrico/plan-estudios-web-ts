@@ -6,12 +6,11 @@ import { useErrorMessages } from '../../hooks/useErrorMessages'
 interface VerifyEmailState {
   fromRegister?: boolean
   fromLogin?: boolean
-  emailSent?: boolean
   email?: string
   errorCode?: ErrorCode
 }
 
-const VerofyEmailInfoPage = (): JSX.Element => {
+const VerifyEmailInfoPage = (): JSX.Element => {
   const { state } = useLocation() as { state: VerifyEmailState | null }
   const { translate } = useErrorMessages()
 
@@ -34,4 +33,4 @@ const VerofyEmailInfoPage = (): JSX.Element => {
   )
 }
 
-export default VerofyEmailInfoPage
+export default VerifyEmailInfoPage
