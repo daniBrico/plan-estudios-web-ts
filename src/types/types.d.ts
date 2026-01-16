@@ -1,6 +1,6 @@
 /* Career */
 export interface Career {
-  _id: ID
+  id: ID
   name: string
   duration: number
   intermediateDegree: string
@@ -8,8 +8,8 @@ export interface Career {
   subjectsByYear: SubjectsByYear[]
 }
 
-export type CareerNamesAndID = Pick<Career, '_id' | 'name'>
-export type CareerHeaderInfo = Omit<Career, '_id' | 'subjectsByYear'>
+export type CareerNamesAndID = Pick<Career, 'id' | 'name'>
+export type CareerHeaderInfo = Omit<Career, 'id' | 'subjectsByYear'>
 export type ID = string
 
 /* Subject */
@@ -27,16 +27,22 @@ export type Year = string
 export interface SubjectNameAndCode {
   name: Name
   code: SubjectCode
+  id: ID
 }
 
 export type SubjectCode = string
-export type Correlatives = string[]
+export interface Correlative {
+  id: string
+  code: SubjectCode
+}
+export type Correlatives = Correlative[]
 export type Name = {
   longName: string
   shortName: string
 }
 
 export interface Subject {
+  id: ID
   name: Name
   code: SubjectCode
   offering: string
@@ -65,7 +71,7 @@ export type DropdownOp = 'Aprobada' | 'Cursando' | 'Regular' | 'Recursar' | ''
 
 /* User */
 export interface User {
-  _id?: string
+  id?: string
   name: string
   lastName: string
   email: string

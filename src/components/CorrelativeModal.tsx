@@ -75,7 +75,7 @@ export const CorrelativeModal: React.FC<CorrelativeModalProps> = ({
                     className="flex items-center pl-4"
                   >
                     <Correlative
-                      correlative={subject.code}
+                      correlative={el.subjectNameAndCode[index]}
                       tooltip={false}
                       cssClasess="w-12 lg:text-base text-sm md:text-md md:w-14"
                     />

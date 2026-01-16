@@ -30,8 +30,8 @@ export const PlanEstudiosPage = (): JSX.Element => {
       return
     }
 
-    setCareerSelectedID(careerNameAndID._id)
-    saveToLocalStorage('career-selected-id', careerNameAndID._id)
+    setCareerSelectedID(careerNameAndID.id)
+    saveToLocalStorage('career-selected-id', careerNameAndID.id)
   }
 
   return (

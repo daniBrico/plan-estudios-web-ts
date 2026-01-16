@@ -29,7 +29,7 @@ const ListOfCorrelatives: React.FC<ListOfCorrelativesProps> = ({
               correlative={correlative}
               tooltip={true}
               cssClasess="font-thin sm:font-normal cursor-pointer"
-              key={correlative}
+              key={correlative.code}
             />
           ))}
         {correlatives.length > maxCorrelativesToShow && (
