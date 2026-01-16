@@ -14,8 +14,9 @@ import AuthProvider from './context/AuthContext'
 import LoginPage from './pages/authPages/LoginPage'
 import VerifyEmailInfoPage from './pages/authPages/VerifyEmailInfoPage'
 import EmailVerificationPage from './pages/authPages/EmailVerificationPage'
+import { ENV } from './config/config'
 
-const APP_VERSION = '1.0.2'
+const APP_VERSION = ENV.APP_VERSION
 
 function App(): JSX.Element {
   if (localStorage.getItem('app-version') !== APP_VERSION) {
