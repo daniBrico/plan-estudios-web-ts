@@ -1,7 +1,8 @@
 import axios from 'axios'
+import { BACKEND_CONFIG } from '../config/config'
 
 const httpClient = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL,
+  baseURL: BACKEND_CONFIG.BASE_URL,
   withCredentials: true
 })
 
