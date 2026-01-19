@@ -23,8 +23,8 @@ const VerifyEmailInfoPage = (): JSX.Element => {
 
   return (
     <article className="mx-auto max-w-4xl text-gray-800 dark:text-stone-300">
-      <section className="h-full w-full flex-col px-4 pt-6 md:pt-10 lg:px-0">
-        <h1 className="text-2xl font-medium md:text-3xl">
+      <section className="h-full w-full px-4 pt-6 md:pt-10 lg:px-0">
+        <h1 className="mb-2 text-2xl font-medium md:mb-4 md:text-3xl">
           Verifique su correo electronico
         </h1>
         <p>{message}</p>
