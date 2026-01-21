@@ -63,13 +63,13 @@ const ThemeToggle = (): JSX.Element => {
   return (
     <div className="sm:relative" ref={dropdownRef}>
       <button
-        className="bg-primary hover:bg-hover-navbar/30 flex w-10 cursor-pointer rounded-sm border p-1 shadow-md transition-transform duration-300 ease-in hover:scale-110 dark:bg-stone-900 dark:shadow-stone-950/90 dark:hover:bg-stone-800/90"
+        className="bg-carnation-400 hover:bg-hover-navbar/30 flex w-10 cursor-pointer rounded-sm border p-1 shadow-md transition-transform duration-300 ease-in hover:scale-110 dark:bg-stone-900 dark:shadow-stone-950/90 dark:hover:bg-stone-800/90"
         onClick={handleOpenClose}
       >
         {themeIconMap[theme]}
       </button>
       <ul
-        className={`bg-primary absolute z-50 mt-2 flex h-28 w-10 transform flex-col justify-around rounded-sm border border-solid border-white shadow-lg transition-all duration-300 ease-in-out sm:right-0 sm:h-34 sm:w-30 sm:p-1.5 dark:border-stone-200 dark:bg-stone-900 ${isDropdownOpen ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'}`}
+        className={`bg-carnation-400 absolute z-400 mt-2 flex h-28 w-10 transform flex-col justify-around rounded-sm border border-solid border-white shadow-lg transition-all duration-300 ease-in-out sm:right-0 sm:h-34 sm:w-30 sm:p-1.5 dark:border-stone-200 dark:bg-stone-900 ${isDropdownOpen ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'}`}
       >
         {renderThemeOptions()}
       </ul>

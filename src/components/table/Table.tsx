@@ -38,15 +38,15 @@ const Table: React.FC<TableProps> = ({ tableTitle, subjects }) => {
     <div className="mb-4 w-full rounded-lg md:mb-0 md:shadow-xl md:dark:shadow-stone-950/30">
       <div className="relative h-full pt-8 md:pt-0">
         <div className="pointer-events-none absolute top-0 right-0 h-full w-full pb-21 md:invisible md:hidden">
-          <h2 className="bg-primary md:text-primary sticky top-2 z-[150] rounded-tl-md rounded-tr-md py-0.5 text-center text-xl text-white md:invisible md:static md:mb-3 md:hidden md:w-full md:rounded-none md:bg-inherit md:text-2xl dark:bg-stone-900 dark:text-stone-300">
+          <h2 className="bg-carnation-400 md:text-carnation-400 sticky top-2 z-150 rounded-tl-md rounded-tr-md py-0.5 text-center text-xl text-white md:invisible md:static md:mb-3 md:hidden md:w-full md:rounded-none md:bg-inherit md:text-2xl dark:bg-stone-900 dark:text-stone-300">
             {`(${countOfSubjectsByYear}) ${tableTitle}`}
           </h2>
         </div>
         <table
-          className="text-primary relative mx-auto w-full border-separate border-spacing-0 before:invisible before:absolute before:top-1/2 before:left-1/2 before:z-50 before:hidden before:w-full before:-translate-x-1/2 before:-translate-y-1/2 before:-rotate-6 before:justify-center before:text-8xl before:font-bold before:opacity-30 before:content-[attr(data-before)] md:before:visible md:before:flex dark:text-stone-600"
+          className="text-carnation-400 relative mx-auto w-full border-separate border-spacing-0 before:invisible before:absolute before:top-1/2 before:left-1/2 before:z-50 before:hidden before:w-full before:-translate-x-1/2 before:-translate-y-1/2 before:-rotate-6 before:justify-center before:text-8xl before:font-bold before:opacity-30 before:content-[attr(data-before)] md:before:visible md:before:flex dark:text-stone-600"
           data-before={tableTitle}
         >
-          <thead className="bg-primary thead hidden w-full rounded-t-lg md:table-header-group dark:bg-stone-900">
+          <thead className="bg-carnation-400 thead hidden w-full rounded-t-lg md:table-header-group dark:bg-stone-900">
             <tr className="rounded-t-lg text-white dark:text-stone-300/95">
               {titles.map((title) =>
                 renderTableHeads(

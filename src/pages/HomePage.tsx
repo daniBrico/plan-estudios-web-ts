@@ -3,12 +3,12 @@ import { type JSX } from 'react'
 function HomePage(): JSX.Element {
   return (
     <>
-      <div className="text-text-primary w-full dark:text-stone-200">
-        <div className="mx-auto max-w-4xl p-4 text-sm sm:p-6 md:text-base lg:px-0">
-          <h1 className="text-primary mb-2 text-center text-lg font-semibold tracking-wide md:text-2xl lg:text-3xl dark:text-stone-200">
+      <article className="w-full py-6">
+        <div className="mx-auto max-w-4xl space-y-2 p-4 text-sm sm:p-6 md:text-base lg:px-0 [&_b]:text-gray-700 [&_b]:dark:text-stone-200 [&_h1]:text-gray-700 [&_h1]:dark:text-stone-200 [&_h2]:text-gray-700 [&_h2]:dark:text-stone-200 [&_p]:dark:text-stone-300">
+          <h1 className="mb-2 text-center text-lg font-semibold tracking-wide text-pretty md:mb-4 md:text-2xl lg:text-3xl">
             ¡Bienvenidos al Plan de Estudios Web!
           </h1>
-          <p className="mt-2">
+          <p>
             Esta web representa el Plan de Estudios de la carrera de Informática
             de la Universidad Nacional del Oeste (
             <a
@@ -21,19 +21,19 @@ function HomePage(): JSX.Element {
             </a>
             ).
           </p>
-          <br />
+
           <p>
             Además de tener al alcance el contenido del documento, permite
             interactuar de cierta forma con él, modificando el estado de las
             materias y obteniendo información acádemica (en desarrollo).
           </p>
-          <br />
+
           <p>
             Este es un pequeño proyecto realizado por un estudiante. La
             información utilizada es pública y podrá encontrarla en los sitios
             oficiales linkeados.
           </p>
-          <h2 className="text-primary mt-2 text-lg font-semibold tracking-wide md:text-xl lg:mt-6 lg:mb-2 lg:text-2xl dark:text-stone-200">
+          <h2 className="text-lg font-semibold tracking-wide md:text-xl lg:text-2xl">
             Características
           </h2>
           <p>
@@ -44,17 +44,17 @@ function HomePage(): JSX.Element {
             guardada en el almacenamiento local del navegador para no perder sus
             cambios.
           </p>
-          <br />
+
           <p>
             Si presiona la casilla de correlativas, se abrirá una ventana
             emergente con el o los nombres de las mismas junto a su código de
             materia.
           </p>
-          <br />
+
           <p className="mb-1">
             <b>Importante</b>:
           </p>
-          <ul>
+          <ul className="[&_li]:dark:text-stone-300">
             <li className="ml-8 list-disc">
               Si una materia tiene correlativas y al menos una se encuentra sin
               aprobar, no se permite modificar el estado de la misma.
@@ -69,9 +69,8 @@ function HomePage(): JSX.Element {
               cambios realizados.
             </li>
           </ul>
-          <br />
         </div>
-      </div>
+      </article>
     </>
   )
 }

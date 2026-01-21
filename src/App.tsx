@@ -9,8 +9,14 @@ import Header from './components/header/Header'
 import Footer from './components/Footer'
 import ScrollToTopButton from './components/scroll-to-top-button/ScrollToTopButton'
 import ThemeProvider from './context/ThemeContext'
+import RegisterPage from './pages/authPages/RegisterPage'
+import AuthProvider from './context/AuthContext'
+import LoginPage from './pages/authPages/LoginPage'
+import VerifyEmailInfoPage from './pages/authPages/VerifyEmailInfoPage'
+import EmailVerificationPage from './pages/authPages/EmailVerificationPage'
+import { ENV } from './config/config'
 
-const APP_VERSION = '1.0.2'
+const APP_VERSION = ENV.APP_VERSION
 
 function App(): JSX.Element {
   if (localStorage.getItem('app-version') !== APP_VERSION) {
@@ -19,7 +25,7 @@ function App(): JSX.Element {
   }
 
   return (
-    <>
+    <AuthProvider>
       <ThemeProvider>
         <div className="relative flex min-h-screen w-full flex-col text-gray-900">
           <div
@@ -31,12 +37,19 @@ function App(): JSX.Element {
             }}
           />
           <Header />
-          <main className="grow-1">
+          <main className="grow py-4">
             <Routes>
               <Route index element={<Navigate to="inicio" replace />} />
               <Route path="inicio" element={<HomePage />} />
               <Route path="plan-de-estudios" element={<PlanEstudiosPage />} />
               <Route path="info-academica" element={<AcademicInformation />} />
+              <Route path="register" element={<RegisterPage />} />
+              <Route path="login" element={<LoginPage />} />
+              <Route
+                path="verify-email-info"
+                element={<VerifyEmailInfoPage />}
+              />
+              <Route path="verify/email" element={<EmailVerificationPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>
@@ -44,7 +57,7 @@ function App(): JSX.Element {
           <Footer />
         </div>
       </ThemeProvider>
-    </>
+    </AuthProvider>
   )
 }
 

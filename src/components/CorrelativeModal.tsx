@@ -53,7 +53,7 @@ export const CorrelativeModal: React.FC<CorrelativeModalProps> = ({
   return (
     <div
       className={classNames(
-        'absolute top-full left-0 z-[200] flex w-full items-center rounded-br-md rounded-bl-md bg-linear-to-b py-1 opacity-0 shadow-xl transition-all duration-300 ease-in-out dark:to-stone-900 dark:shadow-xl',
+        'absolute top-full left-0 z-200 flex w-full items-center rounded-br-md rounded-bl-md bg-linear-to-b py-1 opacity-0 shadow-xl transition-all duration-300 ease-in-out dark:to-stone-900 dark:shadow-xl',
         cssClasses,
         {
           'translate-y-0 opacity-100': isOpen,
@@ -75,7 +75,7 @@ export const CorrelativeModal: React.FC<CorrelativeModalProps> = ({
                     className="flex items-center pl-4"
                   >
                     <Correlative
-                      correlative={subject.code}
+                      correlative={el.subjectNameAndCode[index]}
                       tooltip={false}
                       cssClasess="w-12 lg:text-base text-sm md:text-md md:w-14"
                     />

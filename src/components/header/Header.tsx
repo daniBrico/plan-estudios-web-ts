@@ -32,8 +32,8 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <header className="bg-primary py-5 shadow-lg sm:px-6 lg:px-0 dark:bg-stone-900 dark:shadow-stone-950/30">
-        <div className="mx-auto flex max-w-4xl flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-around sm:gap-16 md:justify-between md:gap-2">
+      <header className="bg-carnation-400 py-5 shadow-lg sm:px-6 lg:px-0 dark:bg-stone-900 dark:shadow-stone-950/30">
+        <div className="mx-auto flex max-w-4xl flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-16 md:justify-between md:gap-2">
           <div className="relative order-0 flex w-full items-center justify-center sm:static sm:mx-0 sm:w-auto md:w-auto">
             <a
               href="https://www.uno.edu.ar/"

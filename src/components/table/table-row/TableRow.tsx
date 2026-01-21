@@ -71,7 +71,7 @@ const TableRow: React.FC<ListOfRowsProps> = ({
         </td>
         <td
           className={classNames(
-            'relative z-[110] flex items-end justify-center text-center text-sm font-light md:table-cell md:py-2 md:text-base md:font-normal'
+            'relative z-110 flex items-end justify-center text-center text-sm font-light md:table-cell md:py-2 md:text-base md:font-normal'
             // {
             //   'group/td hover:bg-gray-400/20 dark:hover:bg-stone-700/20':
             //     correlatives.length > 0

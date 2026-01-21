@@ -1,8 +1,7 @@
+import { BACKEND_CONFIG } from '../config/config'
 import { type HttpClient } from '../types/types'
 
-const { VITE_BACKEND_URL } = import.meta.env
-
-const BACKEND_URL = VITE_BACKEND_URL
+const BACKEND_URL = BACKEND_CONFIG.BASE_URL
 
 const apiFetch: HttpClient = {
   get: async <T>(url: string): Promise<T> => {

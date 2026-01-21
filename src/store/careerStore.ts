@@ -4,7 +4,8 @@ import {
   type Career,
   type ID,
   type SubjectCode,
-  type SubjectNameAndYear
+  type SubjectNameAndYear,
+  type Correlatives
 } from '../types/types'
 import {
   getFromLocalStorage,
@@ -26,7 +27,7 @@ interface CareerStore {
   cleanCareerStore: () => void
   fetchCareer: (id: ID) => Promise<void>
   getSubjectNameFromCode: (code: SubjectCode) => Name | undefined
-  getSubjectNameAndYearFromCode: (codes: SubjectCode[]) => SubjectNameAndYear[]
+  getSubjectNameAndYearFromCode: (codes: Correlatives) => SubjectNameAndYear[]
 }
 
 const useCareerStore = create<CareerStore>()((set, get) => ({
@@ -63,7 +64,7 @@ const useCareerStore = create<CareerStore>()((set, get) => ({
 
     const careerFromLS = getFromLocalStorage<Career>('career')
 
-    if (careerFromLS?._id === id) {
+    if (careerFromLS?.id === id) {
       set({
         career: careerFromLS,
         careerIsLoading: false
@@ -91,18 +92,24 @@ const useCareerStore = create<CareerStore>()((set, get) => ({
     return allSubjects?.find((subject) => subject.code === code)?.name
   },
   getSubjectNameAndYearFromCode: (
-    codes: SubjectCode[]
+    codes: Correlatives
   ): SubjectNameAndYear[] => {
     const result: SubjectNameAndYear[] = []
     const career = get().career
 
     if (career === null) return []
 
+    const codeSet = new Set(codes.map((c) => c.code))
+
     for (const yearGroup of career.subjectsByYear) {
       for (const subject of yearGroup.subjects) {
-        if (codes.includes(subject.code)) {
+        if (codeSet.has(subject.code)) {
           result.push({
-            subjectNameAndCode: { name: subject.name, code: subject.code },
+            subjectNameAndCode: {
+              name: subject.name,
+              code: subject.code,
+              id: subject.id
+            },
             year: yearGroup.year
           })
         }

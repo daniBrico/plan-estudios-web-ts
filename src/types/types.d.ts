@@ -1,6 +1,6 @@
-// Career
+/* Career */
 export interface Career {
-  _id: ID
+  id: ID
   name: string
   duration: number
   intermediateDegree: string
@@ -8,11 +8,11 @@ export interface Career {
   subjectsByYear: SubjectsByYear[]
 }
 
-export type CareerNamesAndID = Pick<Career, '_id' | 'name'>
-export type CareerHeaderInfo = Omit<Career, '_id' | 'subjectsByYear'>
+export type CareerNamesAndID = Pick<Career, 'id' | 'name'>
+export type CareerHeaderInfo = Omit<Career, 'id' | 'subjectsByYear'>
 export type ID = string
 
-// Subject
+/* Subject */
 export interface SubjectsByYear {
   year: string
   subjects: Subject[]
@@ -27,16 +27,22 @@ export type Year = string
 export interface SubjectNameAndCode {
   name: Name
   code: SubjectCode
+  id: ID
 }
 
 export type SubjectCode = string
-export type Correlatives = string[]
+export interface Correlative {
+  id: string
+  code: SubjectCode
+}
+export type Correlatives = Correlative[]
 export type Name = {
   longName: string
   shortName: string
 }
 
 export interface Subject {
+  id: ID
   name: Name
   code: SubjectCode
   offering: string
@@ -63,12 +69,47 @@ export type State =
 
 export type DropdownOp = 'Aprobada' | 'Cursando' | 'Regular' | 'Recursar' | ''
 
-// Services
+/* User */
+export interface User {
+  id?: string
+  name: string
+  lastName: string
+  email: string
+}
 
 export interface HttpClient {
   get<T>(url: string): Promise<T>
 }
 
-// Theme
+/* Theme */
 
 type ThemeType = 'light' | 'dark' | 'system'
+
+/* Responses */
+
+interface GenericResponse {
+  message: string
+  status: number
+}
+
+/* Auth Response */
+
+export interface RegisterResponse extends GenericResponse {
+  email: string
+  code: string
+  emailSent?: boolean
+}
+
+export interface LoginResponse extends GenericResponse {
+  user?: User
+  emailSent?: boolean
+  code: string
+}
+
+export interface VerifyTokenResponse extends GenericResponse {
+  user?: User
+}
+
+export interface VerifyEmailResponse extends GenericResponse {
+  success: boolean
+}

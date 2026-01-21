@@ -5,11 +5,11 @@
 @theme {
   --font-onest: Onest Variable, sans-serif;
 
-  --color-primary: #f15a5c;
+  --color-carnation-400: #f15a5c;
   --color-secondary: #dddde0;
   --color-third: #ececee;
   --color-background: #fafafa;
-  --color-text-primary: #000;
+  --color-text-carnation-400: #000;
   --color-text-secondary: #1e2939;
   --color-inactive-navbar: #a43d3e;
   --color-hover-navbar: #dc2628;
@@ -17,6 +17,38 @@
   --color-stone-750: #272322;
 
   --animate-loading-spinner: loading-spinner 0.9s linear infinite;
+
+  /* carnation color */
+
+  --color-carnation-50: #fdeded;
+  --color-carnation-100: #fad4d4;
+  --color-carnation-200: #f6acad;
+  --color-carnation-300: #f38687;
+  --color-carnation-400: #f15a5c;
+  --color-carnation-500: #ec3337;
+  --color-carnation-600: #c5292c;
+  --color-carnation-700: #991d20;
+  --color-carnation-800: #6d1214;
+  --color-carnation-900: #400708;
+  --color-carnation-950: #2a0303;
+
+  /* *************** */
+
+  /* stiletto color */
+
+  --color-stiletto-50: #f9eeee;
+  --color-stiletto-100: #f1d6d6;
+  --color-stiletto-200: #e6b1b1;
+  --color-stiletto-300: #df8e8e;
+  --color-stiletto-400: #d9696a;
+  --color-stiletto-500: #c64b4d;
+  --color-stiletto-600: #a43d3e;
+  --color-stiletto-700: #873132;
+  --color-stiletto-800: #612122;
+  --color-stiletto-900: #391010;
+  --color-stiletto-950: #240708;
+
+  /* *************** */
 
   @keyframes loading-spinner {
     from {
@@ -44,6 +76,25 @@
   ::backdrop,
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 50px #f3f4f6 inset;
+    -webkit-text-fill-color: #1f2937;
+    caret-color: #1f2937;
+    /* transition: background-color 9999s ease-in-out 0s; */
+  }
+
+  .dark input:-webkit-autofill,
+  .dark input:-webkit-autofill:hover,
+  .dark input:-webkit-autofill:focus,
+  .dark input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 50px #292524 inset;
+    -webkit-text-fill-color: #e7e5e4;
+    caret-color: #e7e5e4;
   }
 }
 

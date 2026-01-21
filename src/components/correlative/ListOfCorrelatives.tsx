@@ -16,7 +16,7 @@ const ListOfCorrelatives: React.FC<ListOfCorrelativesProps> = ({
     <>
       <div
         className={classNames(
-          'relative z-[130] flex gap-0.5 md:flex-wrap md:items-center md:justify-center',
+          'relative z-130 flex gap-0.5 md:flex-wrap md:items-center md:justify-center',
           { pointer: correlatives.length > 0 }
         )}
       >
@@ -29,7 +29,7 @@ const ListOfCorrelatives: React.FC<ListOfCorrelativesProps> = ({
               correlative={correlative}
               tooltip={true}
               cssClasess="font-thin sm:font-normal cursor-pointer"
-              key={correlative}
+              key={correlative.code}
             />
           ))}
         {correlatives.length > maxCorrelativesToShow && (

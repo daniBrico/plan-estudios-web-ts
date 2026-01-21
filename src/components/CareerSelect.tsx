@@ -36,7 +36,7 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
   const handleOptionSelected = (careerNameAndID: CareerNamesAndID): void => {
     setIsSelectorOpened(false)
 
-    if (careerNameAndID._id === selectedCareerAndID?._id) return
+    if (careerNameAndID.id === selectedCareerAndID?.id) return
 
     setSelectedCareerAndID(careerNameAndID)
     setInputValue('')
@@ -78,7 +78,7 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
     if (careerNamesAndIDFromAPI.length === 0) return
 
     const selectedOption = careerNamesAndIDFromAPI.find(
-      (option) => option._id === opFromLocalStorage
+      (option) => option.id === opFromLocalStorage
     )
 
     if (selectedOption === undefined) return
@@ -183,7 +183,7 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
         </div>
         {careerNamesAndIDFromAPI.map((careerNameAndID) => (
           <li
-            key={careerNameAndID._id}
+            key={careerNameAndID.id}
             className={classNames(
               'cursor-pointer p-2 text-sm text-gray-800 hover:bg-sky-600 hover:text-white dark:text-gray-300 dark:hover:bg-stone-800/40',
               {

@@ -24,7 +24,7 @@ const CancelIcon: React.FC = () => {
           <g
             id="work-case"
             transform="translate(91.520000, 91.520000)"
-            className="fill-primary group-hover:fill-white dark:fill-stone-500 dark:group-hover:fill-stone-300"
+            className="fill-carnation-400 group-hover:fill-white dark:fill-stone-500 dark:group-hover:fill-stone-300"
           >
             <polygon
               id="Close"
