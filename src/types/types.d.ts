@@ -54,7 +54,7 @@ export interface SubjectState {
   code: SubjectCode
   name: Name
   state: State
-  correlativeAndState: { correlative: SubjectCode; corrState: State }[]
+  correlativeAndState: { correlative: Correlative; corrState: State }[]
 }
 
 export type Correlatives = Subject['correlatives']

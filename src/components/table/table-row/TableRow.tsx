@@ -8,7 +8,7 @@ import { CorrelativeModal } from '../../CorrelativeModal'
 import classNames from 'classnames'
 import useCloseOnScrollOrClickOutside from '../../../hooks/useCloseOnScrollOrClickOutside'
 
-interface ListOfRowsProps extends Omit<Subject, 'state'> {
+interface ListOfRowsProps extends Omit<Subject, 'state' | 'id'> {
   index: number
   subjectsLength: number
 }

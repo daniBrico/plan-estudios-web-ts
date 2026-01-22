@@ -1,12 +1,13 @@
 import { create } from 'zustand'
-import {
-  type State,
-  type Career,
-  type ID,
-  type SubjectState,
-  type SubjectCode,
-  type Name,
-  type Subject
+import type {
+  State,
+  Career,
+  ID,
+  SubjectState,
+  SubjectCode,
+  Name,
+  Subject,
+  Correlative
 } from '../types/types'
 import {
   getFromLocalStorage,
@@ -25,7 +26,7 @@ interface SubjectStore {
   cleanSubjectStore: (careerSelectedID: ID | null) => void
   getSubjectState: (code: SubjectCode) => State | undefined
   changeSubjectState: (code: SubjectCode, state: State) => void
-  areAllCorrelativesPassed: (correlatives: SubjectCode[]) => boolean
+  areAllCorrelativesPassed: (correlatives: Correlative[]) => boolean
   getSubjectNameFromCode: (code: string) => Name | undefined
   getTotalNumOfSubjects: () => number
   getAllSubjectsStateInfo: () => {
@@ -65,7 +66,7 @@ export const useSubjectStore = create<SubjectStore>()((set, get) => ({
             state: setStateSubject(subject),
             correlativeAndState: subject.correlatives.map((correlative) => {
               const subjectFind = allSubjects.find(
-                (findSubject) => findSubject.code === correlative
+                (findSubject) => findSubject.code === correlative.code
               )
 
               if (subjectFind) {
@@ -108,14 +109,14 @@ export const useSubjectStore = create<SubjectStore>()((set, get) => ({
 
         // If the subject has the one that changed as a correlative
         const isCorrelative = subject.correlativeAndState.some(
-          (el) => el.correlative === code
+          (el) => el.correlative.code === code
         )
 
         if (!isCorrelative) return subject
 
         // Update the state of the correlative
         const updatedCorrelatives = subject.correlativeAndState.map((el) =>
-          el.correlative === code ? { ...el, corrState: state } : el
+          el.correlative.code === code ? { ...el, corrState: state } : el
         )
 
         const allCorrPassed = updatedCorrelatives.every((el) =>
@@ -140,7 +141,7 @@ export const useSubjectStore = create<SubjectStore>()((set, get) => ({
     return correlatives.every((correlative) =>
       get().allSubjectsState.some(
         (subject) =>
-          subject.code === correlative &&
+          subject.code === correlative.code &&
           (subject.state === 'Aprobada' || subject.state === 'Regular')
       )
     )
