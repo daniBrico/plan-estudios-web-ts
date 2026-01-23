@@ -10,7 +10,7 @@ interface LoadingSpinnerProps {
 export const LoadingSpinner2: React.FC<LoadingSpinnerProps> = ({
   size,
   thickness = 'border-[3px]',
-  color = 'border-t-carnation-400 dark:border-t-stone-800',
+  color = 'border-t-carnation-400 dark:border-t-stone-700',
   className
 }) => {
   return (
