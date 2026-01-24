@@ -3,7 +3,6 @@ import { useEffect, type JSX } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
 import { useAuthContext } from '../../hooks/useAuthContext'
-import type { LoginResponse } from '../../types/types'
 import { useNavigate } from 'react-router-dom'
 import NotificationMessage from '../NotificationMessage'
 import { useNotificationMessage } from '../../hooks/useNotificationMessage'
@@ -37,26 +36,22 @@ const LoginForm = (): JSX.Element => {
     reValidateMode: 'onChange'
   })
 
-  const onSubmit = (LoginFormFields: LoginFormFields): void => {
-    signIn(
-      LoginFormFields,
-      (res: LoginResponse) => {
-        console.log(res)
-      },
-      (error: ApiError) => {
-        if (error.errorCode !== 'INVALID_CREDENTIALS')
-          location('/verify-email-info', {
-            state: {
-              fromLogin: true,
-              email: error.email,
-              errorCode: error.errorCode
-            }
-          })
+  const handleLoginError = (error: ApiError): void => {
+    if (error.errorCode !== 'INVALID_CREDENTIALS')
+      location('/verify-email-info', {
+        state: {
+          fromLogin: true,
+          email: error.email,
+          errorCode: error.errorCode
+        }
+      })
 
-        const userMessage = translate(error.errorCode)
-        showNotificationMessage(userMessage)
-      }
-    )
+    const userMessage = translate(error.errorCode)
+    showNotificationMessage(userMessage)
+  }
+
+  const onSubmit = (LoginFormFields: LoginFormFields): void => {
+    signIn(LoginFormFields, handleLoginError)
   }
 
   useEffect(() => {

@@ -1,13 +1,13 @@
 import { type ReactNode, useState, type JSX, useEffect } from 'react'
 import { AuthContext, type AuthContextProps } from '../hooks/useAuthContext'
-import type { User, RegisterResponse, LoginResponse } from '../types/types'
+import type { User, RegisterResponse } from '../types/types'
 import useRegisterUser from '../hooks/api/useRegisterUser'
 import useLoginUser from '../hooks/api/useLoginUser'
-import Cookies from 'js-cookie'
 import useVerifyToken from '../hooks/api/useVerifyToken'
 import type { ApiError } from '../types/errors'
 import type { RegisterFormFields } from '../schemas/auth/register.schema'
 import type { LoginFormFields } from '../schemas/auth/login.schema'
+import useLogout from '../hooks/api/useLogout'
 
 interface AuthProviderProps {
   children: ReactNode
@@ -15,17 +15,18 @@ interface AuthProviderProps {
 
 const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   const [user, setUser] = useState<User | null>(null)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [error, setError] = useState('')
+
+  const hasSession = localStorage.getItem('hasSession') === 'true'
 
   const registerMutation = useRegisterUser()
   const loginMutation = useLoginUser()
-  const verifyToken = useVerifyToken()
+  const logoutMutation = useLogout()
+  const verifyToken = useVerifyToken(hasSession)
 
-  const resetAuthState = (): void => {
-    Cookies.remove('token')
+  const clearAuthState = (): void => {
+    localStorage.removeItem('hasSession')
     setUser(null)
-    setIsAuthenticated(false)
   }
 
   const signUp = async (
@@ -41,34 +42,33 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
 
   const signIn = async (
     loginData: LoginFormFields,
-    onSuccess?: (res: LoginResponse) => void,
     onError?: (error: ApiError) => void
   ): Promise<void> => {
     setError('')
     loginMutation.mutate(loginData, {
       onSuccess: (res) => {
         if (res.user) {
+          localStorage.setItem('hasSession', 'true')
           setUser(res.user)
-          setIsAuthenticated(true)
-          return
         }
-
-        onSuccess?.(res)
       },
       onError: (err) => onError?.(err)
     })
   }
 
-  const logout = (): void => resetAuthState()
+  const logout = async (): Promise<void> => {
+    await logoutMutation.mutateAsync()
+    clearAuthState()
+  }
 
   useEffect(() => {
-    if (verifyToken.isSuccess && verifyToken.data.user) {
+    if (verifyToken.isSuccess && verifyToken.data.user)
       setUser(verifyToken.data.user)
-      setIsAuthenticated(true)
-    }
 
-    if (verifyToken.isError) resetAuthState()
+    if (verifyToken.isError) clearAuthState()
   }, [verifyToken.status])
+
+  const isAuthenticated = Boolean(user)
 
   const value: AuthContextProps = {
     user,
