@@ -3,11 +3,11 @@ import { AuthContext, type AuthContextProps } from '../hooks/useAuthContext'
 import type { User, RegisterResponse, LoginResponse } from '../types/types'
 import useRegisterUser from '../hooks/api/useRegisterUser'
 import useLoginUser from '../hooks/api/useLoginUser'
-import Cookies from 'js-cookie'
 import useVerifyToken from '../hooks/api/useVerifyToken'
 import type { ApiError } from '../types/errors'
 import type { RegisterFormFields } from '../schemas/auth/register.schema'
 import type { LoginFormFields } from '../schemas/auth/login.schema'
+import useLogout from '../hooks/api/useLogout'
 
 interface AuthProviderProps {
   children: ReactNode
@@ -15,18 +15,14 @@ interface AuthProviderProps {
 
 const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   const [user, setUser] = useState<User | null>(null)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [error, setError] = useState('')
 
   const registerMutation = useRegisterUser()
   const loginMutation = useLoginUser()
+  const logoutMutation = useLogout()
   const verifyToken = useVerifyToken()
 
-  const resetAuthState = (): void => {
-    Cookies.remove('token')
-    setUser(null)
-    setIsAuthenticated(false)
-  }
+  const clearAuthState = (): void => setUser(null)
 
   const signUp = async (
     RegisterFormFields: RegisterFormFields,
@@ -49,7 +45,6 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
       onSuccess: (res) => {
         if (res.user) {
           setUser(res.user)
-          setIsAuthenticated(true)
           return
         }
 
@@ -59,16 +54,20 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     })
   }
 
-  const logout = (): void => resetAuthState()
+  const logout = async (): Promise<void> => {
+    await logoutMutation.mutateAsync()
+    clearAuthState()
+  }
 
   useEffect(() => {
     if (verifyToken.isSuccess && verifyToken.data.user) {
       setUser(verifyToken.data.user)
-      setIsAuthenticated(true)
     }
 
-    if (verifyToken.isError) resetAuthState()
+    if (verifyToken.isError) clearAuthState()
   }, [verifyToken.status])
+
+  const isAuthenticated = Boolean(user)
 
   const value: AuthContextProps = {
     user,
