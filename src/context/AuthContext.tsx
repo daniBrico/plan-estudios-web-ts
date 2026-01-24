@@ -1,6 +1,6 @@
 import { type ReactNode, useState, type JSX, useEffect } from 'react'
 import { AuthContext, type AuthContextProps } from '../hooks/useAuthContext'
-import type { User, RegisterResponse, LoginResponse } from '../types/types'
+import type { User, RegisterResponse } from '../types/types'
 import useRegisterUser from '../hooks/api/useRegisterUser'
 import useLoginUser from '../hooks/api/useLoginUser'
 import useVerifyToken from '../hooks/api/useVerifyToken'
@@ -17,12 +17,17 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   const [user, setUser] = useState<User | null>(null)
   const [error, setError] = useState('')
 
+  const hasSession = localStorage.getItem('hasSession') === 'true'
+
   const registerMutation = useRegisterUser()
   const loginMutation = useLoginUser()
   const logoutMutation = useLogout()
-  const verifyToken = useVerifyToken()
+  const verifyToken = useVerifyToken(hasSession)
 
-  const clearAuthState = (): void => setUser(null)
+  const clearAuthState = (): void => {
+    localStorage.removeItem('hasSession')
+    setUser(null)
+  }
 
   const signUp = async (
     RegisterFormFields: RegisterFormFields,
@@ -37,18 +42,15 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
 
   const signIn = async (
     loginData: LoginFormFields,
-    onSuccess?: (res: LoginResponse) => void,
     onError?: (error: ApiError) => void
   ): Promise<void> => {
     setError('')
     loginMutation.mutate(loginData, {
       onSuccess: (res) => {
         if (res.user) {
+          localStorage.setItem('hasSession', 'true')
           setUser(res.user)
-          return
         }
-
-        onSuccess?.(res)
       },
       onError: (err) => onError?.(err)
     })
@@ -60,9 +62,8 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   }
 
   useEffect(() => {
-    if (verifyToken.isSuccess && verifyToken.data.user) {
+    if (verifyToken.isSuccess && verifyToken.data.user)
       setUser(verifyToken.data.user)
-    }
 
     if (verifyToken.isError) clearAuthState()
   }, [verifyToken.status])
