@@ -24,6 +24,9 @@ export const authApi = {
 
     return res.data
   },
+  logoutUser: async (): Promise<void> => {
+    await httpClient.post(`${AUTH_API_PREFIX}/logout`)
+  },
   verifyToken: async (): Promise<VerifyTokenResponse> => {
     const res = await httpClient.get<VerifyTokenResponse>(
       `${AUTH_API_PREFIX}/verify/token`
