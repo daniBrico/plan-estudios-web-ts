@@ -1,8 +1,9 @@
 import classNames from 'classnames'
 import CheckSvg from './svg-components/CheckSvg'
 import XmarkSvg from './svg-components/XmarkSvg'
-import useCloseOnScrollOrClickOutside from '../hooks/useCloseOnScrollOrClickOutside'
 import { useRef } from 'react'
+import useCloseOnClickOutside from '../hooks/useCloseOnClickOutside'
+import useCloseOnScroll from '../hooks/useCloseOnScroll'
 
 interface ConfirmModalProps {
   isModalConfirmOpened: boolean
@@ -28,10 +29,15 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
     setIsModalConfirmOpened(false)
   }
 
-  useCloseOnScrollOrClickOutside({
+  useCloseOnClickOutside({
     isOpen: isModalConfirmOpened,
     onClose: (currentTarget) => handleOnClose(currentTarget as Node),
     ref: modalConfirmRef
+  })
+
+  useCloseOnScroll({
+    isOpen: isModalConfirmOpened,
+    onClose: () => setIsModalConfirmOpened(false)
   })
 
   return (

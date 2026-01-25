@@ -6,7 +6,8 @@ import TableDataCode from './TableDataCode'
 import TableDataName from './TableDataName'
 import { CorrelativeModal } from '../../CorrelativeModal'
 import classNames from 'classnames'
-import useCloseOnScrollOrClickOutside from '../../../hooks/useCloseOnScrollOrClickOutside'
+import useCloseOnScroll from '../../../hooks/useCloseOnScroll'
+import useCloseOnClickOutside from '../../../hooks/useCloseOnClickOutside'
 
 interface ListOfRowsProps extends Omit<Subject, 'state' | 'id'> {
   index: number
@@ -36,7 +37,12 @@ const TableRow: React.FC<ListOfRowsProps> = ({
     setIsCorrModalOpen(false)
   }
 
-  useCloseOnScrollOrClickOutside({
+  useCloseOnScroll({
+    isOpen: isCorrModalOpen,
+    onClose: (currentTarget) => handleOnClose(currentTarget as Node)
+  })
+
+  useCloseOnClickOutside({
     isOpen: isCorrModalOpen,
     onClose: (currentTarget) => handleOnClose(currentTarget as Node),
     ref: corrModalRef

@@ -6,8 +6,9 @@ import XmarkSvg from './svg-components/XmarkSvg'
 import ArrowDownSvg from './svg-components/ArrowDownSvg'
 import { type ID, type CareerNamesAndID } from '../types/types'
 import { getFromLocalStorage } from '../utils/storage'
-import useCloseOnScrollOrClickOutside from '../hooks/useCloseOnScrollOrClickOutside'
 import ConfirmModal from './ConfirmModal'
+import useCloseOnClickOutside from '../hooks/useCloseOnClickOutside'
+import useCloseOnScroll from '../hooks/useCloseOnScroll'
 
 interface SelectCareersProps {
   onCareerChange: (careerAndID: CareerNamesAndID | null) => void
@@ -27,10 +28,15 @@ const SelectCareers: React.FC<SelectCareersProps> = ({ onCareerChange }) => {
   const { careerNamesAndIDFromAPI, careerNamesError, careerNamesIsLoading } =
     useGetCareerNames()
 
-  useCloseOnScrollOrClickOutside({
+  useCloseOnClickOutside({
     isOpen: isSelectorOpened,
     onClose: () => setIsSelectorOpened(false),
     ref: selectorRef
+  })
+
+  useCloseOnScroll({
+    isOpen: isSelectorOpened,
+    onClose: () => setIsSelectorOpened(false)
   })
 
   const handleOptionSelected = (careerNameAndID: CareerNamesAndID): void => {

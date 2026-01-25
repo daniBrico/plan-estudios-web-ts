@@ -4,7 +4,8 @@ import MoonSvg from '../svg-components/MoonSvg'
 import DeviceDesktop from '../svg-components/DeviceDesktopSvg'
 import { type ThemeType } from '../../types/types'
 import { useThemeContext } from '../../hooks/useThemeContext'
-import useCloseOnScrollOrClickOutside from '../../hooks/useCloseOnScrollOrClickOutside'
+import useCloseOnScroll from '../../hooks/useCloseOnScroll'
+import useCloseOnClickOutside from '../../hooks/useCloseOnClickOutside'
 
 const themeIconMap = {
   light: <BulbSvg />,
@@ -27,7 +28,12 @@ const ThemeToggle = (): JSX.Element => {
 
   const dropdownRef = useRef<HTMLDivElement>(null)
 
-  useCloseOnScrollOrClickOutside({
+  useCloseOnScroll({
+    isOpen: isDropdownOpen,
+    onClose: () => setIsDropdownOpen(false)
+  })
+
+  useCloseOnClickOutside({
     isOpen: isDropdownOpen,
     onClose: () => setIsDropdownOpen(false),
     ref: dropdownRef

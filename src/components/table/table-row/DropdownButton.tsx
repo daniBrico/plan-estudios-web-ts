@@ -7,8 +7,9 @@ import {
 } from '../../../types/types'
 import CancelIcon from '../../svg-components/CancelIcon'
 import { useSubjectStore } from '../../../store/subjectStore'
-import useCloseOnScrollOrClickOutside from '../../../hooks/useCloseOnScrollOrClickOutside'
 import classNames from 'classnames'
+import useCloseOnScroll from '../../../hooks/useCloseOnScroll'
+import useCloseOnClickOutside from '../../../hooks/useCloseOnClickOutside'
 
 interface DropdownButtonProps {
   code: SubjectCode
@@ -60,7 +61,12 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
   )
 
   // Hooks
-  useCloseOnScrollOrClickOutside({
+  useCloseOnScroll({
+    isOpen: isDropdownOpen,
+    onClose: () => setIsDropdownOpen(false)
+  })
+
+  useCloseOnClickOutside({
     isOpen: isDropdownOpen,
     onClose: () => setIsDropdownOpen(false),
     ref: dropdownRef
@@ -68,11 +74,6 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
 
   // useEffect
   useEffect(() => {
-    // if (code === '07071') {
-    //   console.log('🚀 ~ DropdownButton ~ subjectState: ', subjectState)
-    //   console.log('🚀 ~ DropdownButton ~ dropdownOp: ', dropdownOp)
-    // }
-
     if (subjectState === undefined) return
 
     if (
