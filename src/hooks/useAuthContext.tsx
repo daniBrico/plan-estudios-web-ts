@@ -17,6 +17,7 @@ export interface AuthContextProps {
   ) => Promise<void>
   logout: () => void
   isAuthenticated: boolean
+  isAuthLoading: boolean
   error: string
   isRegistering: boolean
   isLogin: boolean

@@ -28,7 +28,7 @@ export const Navbar = (): JSX.Element => {
   const navBarItemRef = useRef(null)
   const ulRef = useRef(null)
 
-  const { isAuthenticated } = useAuthContext()
+  const { isAuthenticated, isAuthLoading } = useAuthContext()
 
   const handleClickNavigate = (path: string): void => {
     if (currentLocation.pathname !== path) navigate(path)
@@ -71,7 +71,7 @@ export const Navbar = (): JSX.Element => {
           </DropdownMenu>
         </ul>
         <ul className="relative flex items-start text-sm md:text-base lg:ml-0 lg:text-lg">
-          {isAuthenticated ? (
+          {isAuthLoading ? null : isAuthenticated ? (
             <ProfileMenu />
           ) : (
             navAuthItems.map((item, index) => (

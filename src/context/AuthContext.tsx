@@ -24,6 +24,8 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   const logoutMutation = useLogout()
   const verifyToken = useVerifyToken(hasSession)
 
+  const isAuthLoading = hasSession && verifyToken.isLoading
+
   const clearAuthState = (): void => {
     localStorage.removeItem('hasSession')
     setUser(null)
@@ -76,6 +78,7 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     signIn,
     logout,
     isAuthenticated,
+    isAuthLoading,
     error,
     isRegistering: registerMutation.isPending,
     isLogin: loginMutation.isPending
