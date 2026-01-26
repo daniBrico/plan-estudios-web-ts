@@ -82,16 +82,20 @@ const LoginForm = (): JSX.Element => {
         </h1>
         <div className="flex flex-col gap-6">
           <FormInput
+            name="email"
             placeholder="Mail"
             type="email"
+            autocomplete="email"
             register={register('email')}
             error={errors.email}
           />
           <FormInput
+            name="password"
             placeholder="Contraseña"
             type="password"
             register={register('password')}
             error={errors.password}
+            autocomplete="current-password"
           />
           <SubmitButton loading={isLogin} label="Ingresar" />
         </div>
