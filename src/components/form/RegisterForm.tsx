@@ -75,26 +75,34 @@ const RegisterForm = (): JSX.Element => {
         </h1>
         <div className="flex flex-col gap-6">
           <FormInput
+            name="name"
             placeholder="Nombre"
             register={register('name')}
             error={errors.name}
+            autocomplete="name"
           />
           <FormInput
+            name="lastName"
             placeholder="Apellido"
             register={register('lastName')}
             error={errors.lastName}
+            autocomplete="family-name"
           />
           <FormInput
+            name="email"
             placeholder="Mail"
             type="email"
             register={register('email')}
             error={errors.email}
+            autocomplete="email"
           />
           <FormInput
+            name="password"
             placeholder="Contraseña"
             type="password"
             register={register('password')}
             error={errors.password}
+            autocomplete="new-password"
           />
           <SubmitButton loading={isRegistering} label="Registrarse" />
         </div>
