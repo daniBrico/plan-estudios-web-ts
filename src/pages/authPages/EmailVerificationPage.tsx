@@ -1,7 +1,7 @@
 import { useEffect, useState, type JSX } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import useVerifyEmail from '../../hooks/api/useVerifyEmail'
-import { useErrorMessages } from '../../hooks/useErrorMessages'
+import { getErrorMessage } from '../../utils/getErrorMessage'
 
 const EmailVerificationPage = (): JSX.Element => {
   const [message, setMessage] = useState('')
@@ -11,7 +11,6 @@ const EmailVerificationPage = (): JSX.Element => {
   const token = searchParams.get('token')
 
   const { mutate } = useVerifyEmail()
-  const { translate } = useErrorMessages()
 
   useEffect(() => {
     if (!token) {
@@ -30,7 +29,7 @@ const EmailVerificationPage = (): JSX.Element => {
       onError: (error) => {
         setIsLoading(false)
         setMessage(
-          translate(error.errorCode) ||
+          getErrorMessage(error.errorCode) ||
             'Ocurrió un problema al verificar el mail.'
         )
       }

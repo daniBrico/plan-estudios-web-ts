@@ -6,7 +6,6 @@ import { useAuthContext } from '../../hooks/useAuthContext'
 import { useNavigate } from 'react-router-dom'
 import NotificationMessage from '../NotificationMessage'
 import type { ApiError } from '../../types/errors'
-import { useErrorMessages } from '../../hooks/useErrorMessages'
 import { useNotificationMessage } from '../../hooks/useNotificationMessage'
 import FormInput from './FormInput'
 import SubmitButton from './SubmitButton'
@@ -14,11 +13,11 @@ import {
   registerSchema,
   type RegisterFormFields
 } from '../../schemas/auth/register.schema'
+import { getErrorMessage } from '../../utils/getErrorMessage'
 
 const RegisterForm = (): JSX.Element => {
   const { signUp, isRegistering } = useAuthContext()
   const location = useNavigate()
-  const { translate } = useErrorMessages()
   const { message, showMessage, showNotificationMessage } =
     useNotificationMessage()
 
@@ -47,7 +46,7 @@ const RegisterForm = (): JSX.Element => {
         })
       },
       (error: ApiError) => {
-        const userMessage = translate(error.errorCode)
+        const userMessage = getErrorMessage(error.errorCode)
         showNotificationMessage(userMessage)
       }
     )

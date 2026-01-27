@@ -1,7 +1,7 @@
 import { type JSX } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 import { type ErrorCode } from '../../types/errors'
-import { useErrorMessages } from '../../hooks/useErrorMessages'
+import { getErrorMessage } from '../../utils/getErrorMessage'
 
 interface VerifyEmailState {
   fromRegister?: boolean
@@ -12,14 +12,13 @@ interface VerifyEmailState {
 
 const VerifyEmailInfoPage = (): JSX.Element => {
   const { state } = useLocation() as { state: VerifyEmailState | null }
-  const { translate } = useErrorMessages()
 
   if (!state?.fromRegister && !state?.fromLogin)
     return <Navigate to="/inicio" replace />
 
   const message = state.errorCode
-    ? translate(state.errorCode)
-    : translate('GENERIC_ERROR')
+    ? getErrorMessage(state.errorCode)
+    : getErrorMessage('GENERIC_ERROR')
 
   return (
     <article className="mx-auto max-w-4xl text-gray-800 dark:text-stone-300">

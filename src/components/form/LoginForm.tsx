@@ -6,11 +6,11 @@ import { useAuthContext } from '../../hooks/useAuthContext'
 import { useNavigate } from 'react-router-dom'
 import NotificationMessage from '../NotificationMessage'
 import { useNotificationMessage } from '../../hooks/useNotificationMessage'
-import { useErrorMessages } from '../../hooks/useErrorMessages'
 import type { ApiError } from '../../types/errors'
 import FormInput from './FormInput'
 import SubmitButton from './SubmitButton'
 import type { LoginFormFields } from '../../schemas/auth/login.schema'
+import { getErrorMessage } from '../../utils/getErrorMessage'
 
 const userLoginSchema = z.object({
   email: z.email('Debe ser un mail valido'),
@@ -22,7 +22,6 @@ const LoginForm = (): JSX.Element => {
   const navigate = useNavigate()
   const { message, showMessage, showNotificationMessage } =
     useNotificationMessage()
-  const { translate } = useErrorMessages()
   const location = useNavigate()
 
   const {
@@ -37,7 +36,10 @@ const LoginForm = (): JSX.Element => {
   })
 
   const handleLoginError = (error: ApiError): void => {
-    if (error.errorCode !== 'INVALID_CREDENTIALS')
+    if (
+      error.errorCode !== 'INVALID_CREDENTIALS' &&
+      error.errorCode !== undefined
+    )
       location('/verify-email-info', {
         state: {
           fromLogin: true,
@@ -46,7 +48,7 @@ const LoginForm = (): JSX.Element => {
         }
       })
 
-    const userMessage = translate(error.errorCode)
+    const userMessage = getErrorMessage(error.errorCode)
     showNotificationMessage(userMessage)
   }
 
