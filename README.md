@@ -1,13 +1,33 @@
-# Plan de estudios web
+# Plan de Estudios Web
 
-Esta aplicación representa el plan de estudios de la UNO (Universidad Nacional del Oeste) de la carrera de informática. Permite al usuario seleccionar el estado de las materias que han cursado, especificando si están aprobadas, regularizadas, en curso, o si la debe recursar. Además, en la sección de "Info. Académica", muestra un pequeño cuadro con información relacionada a las materias.
+Aplicación web desarrollada para visualizar y gestionar el plan de estudios de la carrera de Informática de la UNO (Universidad Nacional del Oeste).
 
-Los cambios realizados por el usuario se guardan en el almacenamiento local (Local Storage), a menos que se quite la carrera seleccionada del selector.
+Permite al usuario registrar el estado de las materias (aprobadas, regularizadas, en curso o a recursar) y visualizar información académica relevante en una sección dedicada. El estado del progreso se persiste en el almacenamiento local del navegador, manteniéndose entre sesiones mientras la carrera seleccionada permanezca activa.
 
-La aplicación obtiene la información de la carrera (por el momento, solo de Informática) desde una API que se conecta a una base de datos MongoDB.
+La aplicación onsume una API REST propia para obtener la información de las carreras y planes de estudio, integrándose con una base de datos MongoDB.
 
-Repositorio de la API: [link](https://github.com/daniBrico/api-plan-de-estudios-ts).
+También permite el registro de usuarios y la verificación de cuenta por correo electrónico, integrándose con la API para gestionar la autenticación de forma segura.
 
-Fue desarrollada utilizando React, TailwindCSS y Typescript.
+Esta funcionalidad sienta la base para futuras mejoras orientadas a personalización, persistencia del progreso académico y nuevas características asociadas al usuario.
 
-Puedes visitar el sitio en el siguiente [link](https://danibrico.github.io/plan-estudios-web-ts).
+## Tecnologías y herramientas
+
+- **React + TypeScript**
+- **TailwindCSS** para estilos
+- **React Router** para navegación
+- **TanStack Query** para manejo de datos asincrónicos y cacheo
+- **Zustand** para estado global
+- **React Hook Form + Zod** para manejo y validación de formularios tipados
+- **Axios** para comunicación con la API
+- **classnames** para composición dinámica de clases
+
+La aplicación cuenta con una estructura de carpetas modular y escalable, orientada a la separación de responsabilidades y al mantenimiento del proyecto.
+
+## Enlaces
+
+- API utilizada: [Repositorio](https://github.com/daniBrico/api-plan-de-estudios-ts)
+- Sitio web: [Plan de Estudios](https://danibrico.github.io/plan-estudios-web-ts)
+
+## Objetivo del proyecto
+
+El proyecto fue desarrollado con el objetivo de aplicar buenas prácticas en aplicaciones React modernas, haciendo foco en tipado estricto, manejo de estado, validación de datos y arquitectura escalable.
